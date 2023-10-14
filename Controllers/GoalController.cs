@@ -20,11 +20,23 @@ namespace GoalTracker.Controllers
         }
 
         // GET: Goal
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-              return _context.Goal != null ? 
-                          View(await _context.Goal.ToListAsync()) :
-                          Problem("Entity set 'GoalTrackerContext.Goal'  is null.");
+            if (_context.Goal == null)
+            {
+                return Problem("Entity Set 'GoalTrackerContext.Goal' is null.");
+            }
+
+            var goals = from g in _context.Goal select g;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                goals = goals.Where(s => (s.Title!.Contains(searchString) ||
+                    s.Description!.Contains(searchString) ||
+                    s.Category!.Contains(searchString)));
+            }
+
+            return View(await goals.ToListAsync());
         }
 
         // GET: Goal/Details/5
@@ -97,7 +109,7 @@ namespace GoalTracker.Controllers
                 return NotFound();
             }
 
-            if (goal.Completed) 
+            if (goal.Completed)
             {
                 goal.CompletedDate = DateTime.Today;
             }
@@ -157,14 +169,14 @@ namespace GoalTracker.Controllers
             {
                 _context.Goal.Remove(goal);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool GoalExists(int id)
         {
-          return (_context.Goal?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Goal?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

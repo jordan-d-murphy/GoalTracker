@@ -8,6 +8,16 @@
     <div class="col-6">
         <h1>Goals</h1>
     </div>
+    <div class="col-6">
+        <form asp-controller="Goal" asp-action="Index" class="row g-2 float-end">
+            <div class="col-auto">
+                <input type="text" name="SearchString" class="form-control" placeholder="Search..." />
+            </div>
+            <div class="col-auto">
+                <input type="submit" value="Filter" class="form-control btn btn-outline-primary" />
+            </div>
+        </form>
+    </div>
 </div>
 
 <div class="row">
