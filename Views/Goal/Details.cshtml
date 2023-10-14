@@ -16,6 +16,7 @@
         <nav class="nav flex-column">
             <a asp-action="Index" class="nav-link">Back to List</a>
             <a asp-action="Edit" asp-route-id="@Model?.Id" class="nav-link">Edit</a>
+            <a asp-action="Delete" asp-route-id="@Model?.Id" class="nav-link">Delete</a>
         </nav>
     </div>
 
@@ -54,7 +55,7 @@
                 @Html.DisplayFor(model => model.TargetDate)
             </dd>
 
-            @if (Model.Completed)
+            @if (@Model != null && @Model.Completed)
             {
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.CompletedDate)
