@@ -27,7 +27,7 @@ public static class SeedData
                     Description = "Buy Murmurshan from Grandma in one year",
                     CreatedDate = DateTime.Parse("2023-10-13"),
                     TargetDate = DateTime.Parse("2024-10-13"),
-                    CompletedDate = DateTime.Parse("2024-10-13"),
+                    Completed = false,
                     Category = "Personal"
                 },
                 new Goal
@@ -36,7 +36,7 @@ public static class SeedData
                     Description = "Get a remote job with a $160k minimum base salary",
                     CreatedDate = DateTime.Parse("2023-10-13"),
                     TargetDate = DateTime.Parse("2024-10-13"),
-                    CompletedDate = DateTime.Parse("2024-10-13"),
+                    Completed = false,
                     Category = "Work"
                 },
                 new Goal
@@ -45,7 +45,7 @@ public static class SeedData
                     Description = "Find a better place to live that feels like home",
                     CreatedDate = DateTime.Parse("2023-10-13"),
                     TargetDate = DateTime.Parse("2024-10-13"),
-                    CompletedDate = DateTime.Parse("2024-10-13"),
+                    Completed = false,
                     Category = "Personal"
                 },
                 new Goal
@@ -54,7 +54,7 @@ public static class SeedData
                     Description = "Dream car | Green // Cognac",
                     CreatedDate = DateTime.Parse("2023-10-13"),
                     TargetDate = DateTime.Parse("2024-10-13"),
-                    CompletedDate = DateTime.Parse("2024-10-13"),
+                    Completed = false,
                     Category = "Hobbies"
                 },
                 new Goal
@@ -63,7 +63,7 @@ public static class SeedData
                     Description = "Matching colors with my 911",
                     CreatedDate = DateTime.Parse("2023-10-13"),
                     TargetDate = DateTime.Parse("2024-10-13"),
-                    CompletedDate = DateTime.Parse("2024-10-13"),
+                    Completed = false,
                     Category = "Hobbies"
                 },
                 new Goal
@@ -72,7 +72,7 @@ public static class SeedData
                     Description = "Walks on the beach // Road Dog // Cuddle Buddy // BFF",
                     CreatedDate = DateTime.Parse("2023-10-13"),
                     TargetDate = DateTime.Parse("2024-10-13"),
-                    CompletedDate = DateTime.Parse("2024-10-13"),
+                    Completed = false,
                     Category = "Personal"
                 },
                 new Goal
@@ -81,7 +81,7 @@ public static class SeedData
                     Description = "Fix my credit",
                     CreatedDate = DateTime.Parse("2023-10-13"),
                     TargetDate = DateTime.Parse("2024-10-13"),
-                    CompletedDate = DateTime.Parse("2024-10-13"),
+                    Completed = false,
                     Category = "Finance"
                 },
                 new Goal
@@ -90,7 +90,7 @@ public static class SeedData
                     Description = "",
                     CreatedDate = DateTime.Parse("2023-10-13"),
                     TargetDate = DateTime.Parse("2024-10-13"),
-                    CompletedDate = DateTime.Parse("2024-10-13"),
+                    Completed = false,
                     Category = "Health"
                 }
             );
