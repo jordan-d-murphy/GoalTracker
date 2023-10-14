@@ -58,6 +58,8 @@ namespace GoalTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Description,CreatedDate,TargetDate,Completed,CompletedDate,Category")] Goal goal)
         {
+            goal.CreatedDate = DateTime.Today;
+
             if (ModelState.IsValid)
             {
                 _context.Add(goal);
@@ -93,6 +95,11 @@ namespace GoalTracker.Controllers
             if (id != goal.Id)
             {
                 return NotFound();
+            }
+
+            if (goal.Completed) 
+            {
+                goal.CompletedDate = DateTime.Today;
             }
 
             if (ModelState.IsValid)

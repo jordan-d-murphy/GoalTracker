@@ -4,61 +4,62 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div class="row mt-5 mb-5">
+    <div class="col-6">
+        <h1>Edit Goal</h1>
+    </div>
+</div>
 
-<h4>Goal</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
+
+   <div class="col-md-2">
+        <nav class="nav flex-column">
+            <a asp-action="Index" class="nav-link">Back to List</a>
+            <a asp-action="Details" asp-route-id="@Model.Id" class="nav-link">Back to Detail</a>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="nav-link">Delete</a>
+        </nav>
+    </div>
+
+    <div class="col-md-6">
+        <h4>Goal</h4>
+        <hr />
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CreatedDate" class="control-label"></label>
-                <input asp-for="CreatedDate" class="form-control" />
-                <span asp-validation-for="CreatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="TargetDate" class="control-label"></label>
                 <input asp-for="TargetDate" class="form-control" />
                 <span asp-validation-for="TargetDate" class="text-danger"></span>
             </div>
-             <div class="form-group">
-                <label asp-for="Completed" class="control-label"></label>
-                @Html.CheckBoxFor(model => model.Completed)
-                <span asp-validation-for="Completed" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompletedDate" class="control-label"></label>
-                <input asp-for="CompletedDate" class="form-control" />
-                <span asp-validation-for="CompletedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label asp-for="Category" class="control-label"></label>
                 <input asp-for="Category" class="form-control" />
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="form-group mb-3">
+                <label asp-for="Completed" class="control-label"></label>
+                @Html.CheckBoxFor(model => model.Completed)
+                <span asp-validation-for="Completed" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3 float-end">
+                <input type="submit" value="Save" class="btn btn-outline-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
