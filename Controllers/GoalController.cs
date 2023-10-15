@@ -38,10 +38,13 @@ namespace GoalTracker.Controllers
 
             var milestones = from m in _context.Milestone select m;
 
+            var activities = from a in _context.ActivityEntry select a;
+
             var listViewModel = new GoalListMilestonesViewModel
             {
                 Goals = await goals.ToListAsync(),
-                Milestones = await milestones.ToListAsync()
+                Milestones = await milestones.ToListAsync(),
+                ActivityEntries = await activities.ToListAsync()
             };
 
             // return View(await goals.ToListAsync());

@@ -4,69 +4,90 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
-<div>
-    <h4>ActivityEntry</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TargetDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TargetDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CompletedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CompletedDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Completed)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Completed)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Icon)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Icon)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Color)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Color)
-        </dd>
-    </dl>
+<div class="row mt-5 mb-5">
+    <div class="col-6">
+        <h1>Details</h1>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div class="row mb-5">
+
+    <div class="col-md-2">
+        <nav class="nav flex-column">
+            <a asp-action="Index" class="nav-link">Back to List</a>
+            <a asp-action="Edit" asp-route-id="@Model?.Id" class="nav-link">Edit</a>
+            <a asp-action="Delete" asp-route-id="@Model?.Id" class="nav-link">Delete</a>
+        </nav>
+    </div>
+
+    <div class="col-md-6">
+        <h4>ActivityEntry</h4>
+            <hr />
+                <p>Goal: @Model?.Milestone?.Goal</p>
+                <p>Goal Id: @Model?.Milestone?.GoalId</p>
+                <p>Goal Title: @Model?.Milestone?.Goal?.Title</p>
+                <p>Goal Desc: @Model?.Milestone?.Goal?.Description</p>
+            <hr />
+                <p>Milestone: @Model?.Milestone</p>
+                <p>Milestone Id: @Model?.MilestoneId</p>
+                <p>Milestone Title: @Model?.Milestone?.Title</p>
+                <p>Milestone Desc: @Model?.Milestone?.Description</p>
+            <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TargetDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TargetDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CompletedDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CompletedDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Completed)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Completed)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Category)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Icon)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Icon)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Color)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Color)
+            </dd>
+        </dl>
+    </div>
 </div>

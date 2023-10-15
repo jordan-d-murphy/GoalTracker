@@ -57,17 +57,37 @@
                     <tr>
                         <td>
                             <a asp-action="Details" asp-route-id="@item.Id">
-                                <h4>@Html.DisplayFor(modelItem => item.Title)</h4>
+                                <h4>Goal: @Html.DisplayFor(modelItem => item.Title)</h4>
                             </a>
                             @Html.DisplayFor(modelItem => item.Description)
 
                             <ul>
                                 @foreach (var milestone in Model.Milestones!)
                                 {
-                                    @if(milestone.GoalId == item.Id)
+                                    @if (milestone.GoalId == item.Id)
                                     {
-                                        <li>@milestone.Title | @milestone.Description</li>
-                                    }                                    
+                                        <li>
+                                            <a asp-action="Details" asp-route-id="@item.Id">
+                                                <h5>Milestone: @milestone.Title</h5>
+                                            </a>
+                                            @milestone.Description
+                                        </li>
+
+                                        <ul>
+                                            @foreach (var activity in Model.ActivityEntries!)
+                                            {
+                                                @if (milestone.Id == activity.MilestoneId)
+                                                {
+                                                    <li>
+                                                        <a asp-action="Details" asp-route-id="@item.Id">
+                                                            <h6>Activity: @activity.Title</h6>
+                                                        </a>
+                                                        @activity.Description
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    }
                                 }
                             </ul>
 

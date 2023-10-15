@@ -42,6 +42,14 @@ namespace GoalTracker.Controllers
                 return NotFound();
             }
 
+            var goal = await _context.Goal.FindAsync(milestone.GoalId);
+            if (goal == null) 
+            {
+                return NotFound();
+            }
+
+            milestone.Goal = goal;
+
             var activities = from a in _context.ActivityEntry select a;
 
             activities = activities.Where(a => a.MilestoneId == milestone.Id);

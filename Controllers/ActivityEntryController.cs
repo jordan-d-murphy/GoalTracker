@@ -42,6 +42,22 @@ namespace GoalTracker.Controllers
                 return NotFound();
             }
 
+            var milestone = await _context.Milestone.FindAsync(activityEntry.MilestoneId);
+            if (milestone == null) 
+            {
+                return NotFound();
+            }
+
+            var goal = await _context.Goal.FindAsync(milestone.GoalId);
+
+            if (goal == null) 
+            {
+                return NotFound();
+            }
+
+            milestone.Goal = goal;
+            activityEntry.Milestone = milestone;            
+
             return View(activityEntry);
         }
 
@@ -58,6 +74,15 @@ namespace GoalTracker.Controllers
             {
                 return NotFound();
             }
+
+            var goal = await _context.Goal.FindAsync(milestone.GoalId);
+
+            if (goal == null) 
+            {
+                return NotFound();
+            }
+
+            milestone.Goal = goal;
 
             var activityEntry = new ActivityEntry
             {

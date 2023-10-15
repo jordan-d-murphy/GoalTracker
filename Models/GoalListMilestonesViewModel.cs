@@ -9,4 +9,6 @@ public class GoalListMilestonesViewModel
 
     public List<Milestone>? Milestones { get; set; }
 
+    public List<ActivityEntry>? ActivityEntries { get; set; }
+
 }
