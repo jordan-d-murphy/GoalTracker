@@ -15,8 +15,9 @@
     <div class="col-md-2">
         <nav class="nav flex-column">
             <a asp-action="Index" class="nav-link">Back to List</a>
-            <a asp-action="Create" asp-controller="Milestone" asp-route-id="@Model?.Goal!.Id" class="nav-link">Add
-                Milestone</a>
+            <a asp-action="Create" asp-controller="Milestone" asp-route-id="@Model?.Goal!.Id" class="nav-link">
+                Add Milestone
+            </a>
             <a asp-action="Edit" asp-route-id="@Model?.Goal!.Id" class="nav-link">Edit</a>
             <a asp-action="Delete" asp-route-id="@Model?.Goal!.Id" class="nav-link">Delete</a>
         </nav>
@@ -82,16 +83,18 @@
             @foreach (var milestone in Model?.Milestones!)
             {
                 <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Milestones![0].Title)                    
+                    @Html.DisplayNameFor(model => model.Milestones![0].Title)
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => milestone.Title)
+                    <a asp-action="Details" asp-controller="Milestone" asp-route-id="@milestone?.Id" class="nav-link">
+                        @Html.DisplayFor(model => milestone.Title)
+                    </a>
                 </dd>
                 <dt class="col-sm-2">
                     @Html.DisplayNameFor(model => model.Milestones![0].Description)
                 </dt>
                 <dd class="col-sm-10">
-                    @Html.DisplayFor(model => milestone.Description)
+                    @Html.DisplayFor(model => milestone!.Description)
                 </dd>
                 <hr />
             }

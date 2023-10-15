@@ -4,9 +4,27 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="row mt-5 mb-5">
+    <div class="col-6">
+        <h1>Details</h1>
+    </div>
+</div>
 
-<div>
+
+<div class="row mb-5">
+
+    <div class="col-md-2">
+        <nav class="nav flex-column">
+            <a asp-action="Index" class="nav-link">Back to List</a>
+            <a asp-action="Create" asp-controller="ActivityEntry" asp-route-id="@Model!.Id" class="nav-link">
+                Add Activity
+            </a>
+            <a asp-action="Edit" asp-route-id="@Model!.Id" class="nav-link">Edit</a>
+            <a asp-action="Delete" asp-route-id="@Model!.Id" class="nav-link">Delete</a>
+        </nav>
+    </div>
+
+<div class="col-md-6">
     <h4>Milestone</h4>
     <hr />
     <dl class="row">
@@ -66,7 +84,34 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+
+        <h4>Activities</h4>
+        <hr />
+
+        <dl class="row">
+            @foreach (var activity in Model?.Activities!)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Activities![0].Title)
+                </dt>
+                <dd class="col-sm-10">
+                    <a asp-action="Details" asp-controller="ActivityEntry" asp-route-id="@activity?.Id" class="nav-link">
+                        @Html.DisplayFor(model => activity.Title)
+                    </a>
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Activities![0].Description)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => activity!.Description)
+                </dd>
+                <hr />
+            }
+        </dl>
+    </div>
 </div>
