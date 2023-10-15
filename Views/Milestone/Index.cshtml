@@ -1,15 +1,15 @@
-@model IEnumerable<GoalTracker.Models.Goal>
+@model IEnumerable<GoalTracker.Models.Milestone>
 
 @{
-    ViewData["Title"] = "Goals";
+    ViewData["Title"] = "Milestones";
 }
 
 <div class="row mt-5 mb-5">
     <div class="col-6">
-        <h1>Goals</h1>
+        <h1>Milestones</h1>
     </div>
     <div class="col-6">
-        <form asp-controller="Goal" asp-action="Index" method="get" class="row g-2 float-end">
+        <form asp-controller="Milestone" asp-action="Index" method="get" class="row g-2 float-end">
             <div class="col-auto">
                 <input type="text" name="SearchString" class="form-control" placeholder="Search..." />
             </div>
@@ -24,7 +24,7 @@
 
     <div class="col-md-2">
         <nav class="nav flex-column">
-            <a asp-action="Create" class="nav-link">Create New Goal</a>
+            <a asp-action="Create" class="nav-link">Add New Milestone</a>
         </nav>
     </div>
 

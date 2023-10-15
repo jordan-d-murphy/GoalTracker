@@ -10,120 +10,101 @@ using GoalTracker.Models;
 
 namespace GoalTracker.Controllers
 {
-    public class GoalController : Controller
+    public class ActivityEntryController : Controller
     {
         private readonly GoalTrackerContext _context;
 
-        public GoalController(GoalTrackerContext context)
+        public ActivityEntryController(GoalTrackerContext context)
         {
             _context = context;
         }
 
-        // GET: Goal
-        public async Task<IActionResult> Index(string searchString)
+        // GET: ActivityEntry
+        public async Task<IActionResult> Index()
         {
-            if (_context.Goal == null)
-            {
-                return Problem("Entity Set 'GoalTrackerContext.Goal' is null.");
-            }
-
-            var goals = from g in _context.Goal select g;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                goals = goals.Where(s => s.Title!.Contains(searchString) ||
-                    s.Description!.Contains(searchString) ||
-                    s.Category!.Contains(searchString));
-            }
-
-            return View(await goals.ToListAsync());
+              return _context.ActivityEntry != null ? 
+                          View(await _context.ActivityEntry.ToListAsync()) :
+                          Problem("Entity set 'GoalTrackerContext.ActivityEntry'  is null.");
         }
 
-        // GET: Goal/Details/5
+        // GET: ActivityEntry/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Goal == null)
+            if (id == null || _context.ActivityEntry == null)
             {
                 return NotFound();
             }
 
-            var goal = await _context.Goal
+            var activityEntry = await _context.ActivityEntry
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (goal == null)
+            if (activityEntry == null)
             {
                 return NotFound();
             }
 
-            return View(goal);
+            return View(activityEntry);
         }
 
-        // GET: Goal/Create
+        // GET: ActivityEntry/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Goal/Create
+        // POST: ActivityEntry/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,CreatedDate,TargetDate,Completed,CompletedDate,Category")] Goal goal)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,CreatedDate,TargetDate,CompletedDate,Completed,Category,Icon,Color")] ActivityEntry activityEntry)
         {
-            goal.CreatedDate = DateTime.Today;
-
             if (ModelState.IsValid)
             {
-                _context.Add(goal);
+                _context.Add(activityEntry);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(goal);
+            return View(activityEntry);
         }
 
-        // GET: Goal/Edit/5
+        // GET: ActivityEntry/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Goal == null)
+            if (id == null || _context.ActivityEntry == null)
             {
                 return NotFound();
             }
 
-            var goal = await _context.Goal.FindAsync(id);
-            if (goal == null)
+            var activityEntry = await _context.ActivityEntry.FindAsync(id);
+            if (activityEntry == null)
             {
                 return NotFound();
             }
-            return View(goal);
+            return View(activityEntry);
         }
 
-        // POST: Goal/Edit/5
+        // POST: ActivityEntry/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,CreatedDate,TargetDate,Completed,CompletedDate,Category")] Goal goal)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,CreatedDate,TargetDate,CompletedDate,Completed,Category,Icon,Color")] ActivityEntry activityEntry)
         {
-            if (id != goal.Id)
+            if (id != activityEntry.Id)
             {
                 return NotFound();
-            }
-
-            if (goal.Completed)
-            {
-                goal.CompletedDate = DateTime.Today;
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(goal);
+                    _context.Update(activityEntry);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GoalExists(goal.Id))
+                    if (!ActivityEntryExists(activityEntry.Id))
                     {
                         return NotFound();
                     }
@@ -134,49 +115,49 @@ namespace GoalTracker.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(goal);
+            return View(activityEntry);
         }
 
-        // GET: Goal/Delete/5
+        // GET: ActivityEntry/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Goal == null)
+            if (id == null || _context.ActivityEntry == null)
             {
                 return NotFound();
             }
 
-            var goal = await _context.Goal
+            var activityEntry = await _context.ActivityEntry
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (goal == null)
+            if (activityEntry == null)
             {
                 return NotFound();
             }
 
-            return View(goal);
+            return View(activityEntry);
         }
 
-        // POST: Goal/Delete/5
+        // POST: ActivityEntry/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Goal == null)
+            if (_context.ActivityEntry == null)
             {
-                return Problem("Entity set 'GoalTrackerContext.Goal'  is null.");
+                return Problem("Entity set 'GoalTrackerContext.ActivityEntry'  is null.");
             }
-            var goal = await _context.Goal.FindAsync(id);
-            if (goal != null)
+            var activityEntry = await _context.ActivityEntry.FindAsync(id);
+            if (activityEntry != null)
             {
-                _context.Goal.Remove(goal);
+                _context.ActivityEntry.Remove(activityEntry);
             }
-
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GoalExists(int id)
+        private bool ActivityEntryExists(int id)
         {
-            return (_context.Goal?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.ActivityEntry?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

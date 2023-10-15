@@ -10,120 +10,101 @@ using GoalTracker.Models;
 
 namespace GoalTracker.Controllers
 {
-    public class GoalController : Controller
+    public class MilestoneController : Controller
     {
         private readonly GoalTrackerContext _context;
 
-        public GoalController(GoalTrackerContext context)
+        public MilestoneController(GoalTrackerContext context)
         {
             _context = context;
         }
 
-        // GET: Goal
-        public async Task<IActionResult> Index(string searchString)
+        // GET: Milestone
+        public async Task<IActionResult> Index()
         {
-            if (_context.Goal == null)
-            {
-                return Problem("Entity Set 'GoalTrackerContext.Goal' is null.");
-            }
-
-            var goals = from g in _context.Goal select g;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                goals = goals.Where(s => s.Title!.Contains(searchString) ||
-                    s.Description!.Contains(searchString) ||
-                    s.Category!.Contains(searchString));
-            }
-
-            return View(await goals.ToListAsync());
+              return _context.Milestone != null ? 
+                          View(await _context.Milestone.ToListAsync()) :
+                          Problem("Entity set 'GoalTrackerContext.Milestone'  is null.");
         }
 
-        // GET: Goal/Details/5
+        // GET: Milestone/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Goal == null)
+            if (id == null || _context.Milestone == null)
             {
                 return NotFound();
             }
 
-            var goal = await _context.Goal
+            var milestone = await _context.Milestone
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (goal == null)
+            if (milestone == null)
             {
                 return NotFound();
             }
 
-            return View(goal);
+            return View(milestone);
         }
 
-        // GET: Goal/Create
+        // GET: Milestone/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Goal/Create
+        // POST: Milestone/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,CreatedDate,TargetDate,Completed,CompletedDate,Category")] Goal goal)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,CreatedDate,TargetDate,CompletedDate,Completed,Category,Icon,Color")] Milestone milestone)
         {
-            goal.CreatedDate = DateTime.Today;
-
             if (ModelState.IsValid)
             {
-                _context.Add(goal);
+                _context.Add(milestone);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(goal);
+            return View(milestone);
         }
 
-        // GET: Goal/Edit/5
+        // GET: Milestone/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Goal == null)
+            if (id == null || _context.Milestone == null)
             {
                 return NotFound();
             }
 
-            var goal = await _context.Goal.FindAsync(id);
-            if (goal == null)
+            var milestone = await _context.Milestone.FindAsync(id);
+            if (milestone == null)
             {
                 return NotFound();
             }
-            return View(goal);
+            return View(milestone);
         }
 
-        // POST: Goal/Edit/5
+        // POST: Milestone/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,CreatedDate,TargetDate,Completed,CompletedDate,Category")] Goal goal)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,CreatedDate,TargetDate,CompletedDate,Completed,Category,Icon,Color")] Milestone milestone)
         {
-            if (id != goal.Id)
+            if (id != milestone.Id)
             {
                 return NotFound();
-            }
-
-            if (goal.Completed)
-            {
-                goal.CompletedDate = DateTime.Today;
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(goal);
+                    _context.Update(milestone);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GoalExists(goal.Id))
+                    if (!MilestoneExists(milestone.Id))
                     {
                         return NotFound();
                     }
@@ -134,49 +115,49 @@ namespace GoalTracker.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(goal);
+            return View(milestone);
         }
 
-        // GET: Goal/Delete/5
+        // GET: Milestone/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Goal == null)
+            if (id == null || _context.Milestone == null)
             {
                 return NotFound();
             }
 
-            var goal = await _context.Goal
+            var milestone = await _context.Milestone
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (goal == null)
+            if (milestone == null)
             {
                 return NotFound();
             }
 
-            return View(goal);
+            return View(milestone);
         }
 
-        // POST: Goal/Delete/5
+        // POST: Milestone/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Goal == null)
+            if (_context.Milestone == null)
             {
-                return Problem("Entity set 'GoalTrackerContext.Goal'  is null.");
+                return Problem("Entity set 'GoalTrackerContext.Milestone'  is null.");
             }
-            var goal = await _context.Goal.FindAsync(id);
-            if (goal != null)
+            var milestone = await _context.Milestone.FindAsync(id);
+            if (milestone != null)
             {
-                _context.Goal.Remove(goal);
+                _context.Milestone.Remove(milestone);
             }
-
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GoalExists(int id)
+        private bool MilestoneExists(int id)
         {
-            return (_context.Goal?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Milestone?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

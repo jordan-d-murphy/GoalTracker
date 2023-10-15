@@ -3,6 +3,7 @@ using System;
 using GoalTracker.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoalTracker.Migrations
 {
     [DbContext(typeof(GoalTrackerContext))]
-    partial class GoalTrackerContextModelSnapshot : ModelSnapshot
+    [Migration("20231014234621_InheritanceSetup")]
+    partial class InheritanceSetup
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
@@ -44,7 +47,7 @@ namespace GoalTracker.Migrations
                     b.Property<string>("Icon")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("MilestoneId")
+                    b.Property<int?>("MilestoneId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("TargetDate")
@@ -122,7 +125,7 @@ namespace GoalTracker.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("GoalId")
+                    b.Property<int?>("GoalId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Icon")
@@ -143,24 +146,16 @@ namespace GoalTracker.Migrations
 
             modelBuilder.Entity("GoalTracker.Models.ActivityEntry", b =>
                 {
-                    b.HasOne("GoalTracker.Models.Milestone", "Milestone")
+                    b.HasOne("GoalTracker.Models.Milestone", null)
                         .WithMany("Activities")
-                        .HasForeignKey("MilestoneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Milestone");
+                        .HasForeignKey("MilestoneId");
                 });
 
             modelBuilder.Entity("GoalTracker.Models.Milestone", b =>
                 {
-                    b.HasOne("GoalTracker.Models.Goal", "Goal")
+                    b.HasOne("GoalTracker.Models.Goal", null)
                         .WithMany("Milestones")
-                        .HasForeignKey("GoalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Goal");
+                        .HasForeignKey("GoalId");
                 });
 
             modelBuilder.Entity("GoalTracker.Models.Goal", b =>

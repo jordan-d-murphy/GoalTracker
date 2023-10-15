@@ -15,5 +15,9 @@ namespace GoalTracker.Data
         }
 
         public DbSet<GoalTracker.Models.Goal> Goal { get; set; } = default!;
+
+        public DbSet<GoalTracker.Models.Milestone> Milestone { get; set; } = default!;
+
+        public DbSet<GoalTracker.Models.ActivityEntry> ActivityEntry { get; set; } = default!;
     }
 }
