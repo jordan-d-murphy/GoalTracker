@@ -36,7 +36,16 @@ namespace GoalTracker.Controllers
                     s.Category!.Contains(searchString));
             }
 
-            return View(await goals.ToListAsync());
+            var milestones = from m in _context.Milestone select m;
+
+            var listViewModel = new GoalListMilestonesViewModel
+            {
+                Goals = await goals.ToListAsync(),
+                Milestones = await milestones.ToListAsync()
+            };
+
+            // return View(await goals.ToListAsync());
+            return View(listViewModel);
         }
 
         // GET: Goal/Details/5
@@ -54,7 +63,16 @@ namespace GoalTracker.Controllers
                 return NotFound();
             }
 
-            return View(goal);
+            var milestones = from m in _context.Milestone select m;
+            milestones = milestones.Where(m => m.GoalId == goal.Id);
+
+            var detailViewModel = new GoalDetailMilestoneActivityViewModel
+            {
+                Goal = goal,
+                Milestones = await milestones.ToListAsync()
+            };
+
+            return View(detailViewModel);
         }
 
         // GET: Goal/Create

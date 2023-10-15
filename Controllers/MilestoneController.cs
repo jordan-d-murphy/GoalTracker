@@ -46,9 +46,26 @@ namespace GoalTracker.Controllers
         }
 
         // GET: Milestone/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int? id)
         {
-            return View();
+            if (id == null || _context.Goal == null) 
+            {
+                return NotFound();
+            }
+
+            var goal = await _context.Goal.FindAsync(id);
+            if (goal == null) 
+            {
+                return NotFound();
+            }
+
+            var milestone = new Milestone
+            {
+                Goal = goal,
+                GoalId = goal.Id
+            };
+
+            return View(milestone);
         }
 
         // POST: Milestone/Create
@@ -56,8 +73,20 @@ namespace GoalTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,CreatedDate,TargetDate,CompletedDate,Completed,Category,Icon,Color")] Milestone milestone)
+        public async Task<IActionResult> CreatePost([Bind("Goal,GoalId,Id,Title,Description,CreatedDate,TargetDate,CompletedDate,Completed,Category,Icon,Color")] Milestone milestone)
         {
+            var goal = await _context.Goal.FindAsync(milestone.GoalId);
+
+            if (goal == null)
+            {
+                return NotFound();
+            }
+
+            milestone.Goal = goal;
+
+            ModelState.ClearValidationState(nameof(goal));
+            TryValidateModel(goal, nameof(goal));
+
             if (ModelState.IsValid)
             {
                 _context.Add(milestone);

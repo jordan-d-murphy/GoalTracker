@@ -6,16 +6,8 @@ namespace GoalTracker.Models;
 
 public class ActivityEntry : TrackingRecord
 {
-    public Milestone Milestone {get;set;}
+    public int MilestoneId { get; set; }
 
-    public ActivityEntry() 
-    {
-        Milestone = new Milestone();
-    }
-
-    public ActivityEntry(Milestone milestone) 
-    {
-        Milestone = milestone;
-    }
+    public Milestone Milestone { get; set; } = null!;
 
 }

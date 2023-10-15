@@ -1,4 +1,4 @@
-@model GoalTracker.Models.GoalListMilestonesViewModel
+@model IEnumerable<GoalTracker.Models.Goal>
 
 @{
     ViewData["Title"] = "Goals";
@@ -34,25 +34,25 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Goals![0].Title)
+                        @Html.DisplayNameFor(model => model.Title)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Goals![0].Category)
+                        @Html.DisplayNameFor(model => model.Category)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Goals![0].CreatedDate)
+                        @Html.DisplayNameFor(model => model.CreatedDate)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Goals![0].TargetDate)
+                        @Html.DisplayNameFor(model => model.TargetDate)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Goals![0].Completed)
+                        @Html.DisplayNameFor(model => model.Completed)
                     </th>
 
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.Goals!)
+                @foreach (var item in Model)
                 {
                     <tr>
                         <td>
@@ -60,17 +60,6 @@
                                 <h4>@Html.DisplayFor(modelItem => item.Title)</h4>
                             </a>
                             @Html.DisplayFor(modelItem => item.Description)
-
-                            <ul>
-                                @foreach (var milestone in Model.Milestones!)
-                                {
-                                    @if(milestone.GoalId == item.Id)
-                                    {
-                                        <li>@milestone.Title | @milestone.Description</li>
-                                    }                                    
-                                }
-                            </ul>
-
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Category)

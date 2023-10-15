@@ -22,7 +22,15 @@
     <div class="col-md-6">
         <h4>Milestone</h4>
         <hr />
-        <form asp-controller="Milestone" asp-action="Create">
+        <p>Goal: @Model?.Goal</p>
+        <p>Goal Id: @Model?.GoalId</p>
+        <p>Goal Title: @Model?.Goal?.Title</p>
+        <p>Goal Desc: @Model?.Goal?.Description</p>
+        <hr />
+        <form asp-controller="Milestone" asp-action="CreatePost">
+
+            <input type="hidden" asp-for="GoalId" />
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group mb-3">
                 <label asp-for="Title" class="control-label"></label>
@@ -36,7 +44,7 @@
             </div>
             <div class="form-group mb-3">
                 <label asp-for="TargetDate" class="control-label"></label>
-                <input asp-for="TargetDate" class="form-control" />
+                <input asp-for="TargetDate" class="form-control" value="mm/dd/yyyy" />
                 <span asp-validation-for="TargetDate" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">

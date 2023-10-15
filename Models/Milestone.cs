@@ -6,19 +6,11 @@ namespace GoalTracker.Models;
 
 public class Milestone : TrackingRecord
 {
-    public Goal Goal {get;set;}
+
+    public int GoalId { get; set; }
+
+    public Goal Goal { get; set; } = null!;
+
     public List<ActivityEntry>? Activities { get; set; }
-
-    public Milestone() 
-    {
-        Goal = new Goal();
-        Activities = new List<ActivityEntry>();
-    }
-
-    public Milestone(Goal goal) 
-    {
-        Goal = goal;
-        Activities = new List<ActivityEntry>();
-    }
 
 }
