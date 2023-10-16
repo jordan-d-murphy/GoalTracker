@@ -4,7 +4,7 @@
     ViewData["Title"] = "Goals";
 }
 
-<div class="row mt-5 mb-5">
+<div class="row mb-5">
     <div class="col-6">
         <h1>Goals</h1>
     </div>
@@ -56,7 +56,7 @@
                 {
                     <tr>
                         <td>
-                            <a asp-action="Details" asp-route-id="@item.Id">
+                            <a asp-controller="Goal" asp-action="Details" asp-route-id="@item.Id">
                                 <h4>Goal: @Html.DisplayFor(modelItem => item.Title)</h4>
                             </a>
                             @Html.DisplayFor(modelItem => item.Description)
@@ -67,7 +67,7 @@
                                     @if (milestone.GoalId == item.Id)
                                     {
                                         <li>
-                                            <a asp-action="Details" asp-route-id="@item.Id">
+                                            <a asp-controller="Milestone" asp-action="Details" asp-route-id="@milestone.Id">
                                                 <h5>Milestone: @milestone.Title</h5>
                                             </a>
                                             @milestone.Description
@@ -79,7 +79,7 @@
                                                 @if (milestone.Id == activity.MilestoneId)
                                                 {
                                                     <li>
-                                                        <a asp-action="Details" asp-route-id="@item.Id">
+                                                        <a asp-controller="ActivityEntry" asp-action="Details" asp-route-id="@activity.Id">
                                                             <h6>Activity: @activity.Title</h6>
                                                         </a>
                                                         @activity.Description

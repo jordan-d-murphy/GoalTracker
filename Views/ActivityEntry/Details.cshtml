@@ -4,9 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<div class="row mt-5 mb-5">
-    <div class="col-6">
-        <h1>Details</h1>
+<div class="row mb-5">
+    <div class="col-10">
+        <h1>Activity Details | @Html.DisplayFor(model => model.Title)</h1>
     </div>
 </div>
 
@@ -14,7 +14,7 @@
 
     <div class="col-md-2">
         <nav class="nav flex-column">
-            <a asp-action="Index" class="nav-link">Back to List</a>
+            <a asp-controller="Goal" asp-action="Index" class="nav-link">Back to Goals</a>
             <a asp-action="Edit" asp-route-id="@Model?.Id" class="nav-link">Edit</a>
             <a asp-action="Delete" asp-route-id="@Model?.Id" class="nav-link">Delete</a>
         </nav>
