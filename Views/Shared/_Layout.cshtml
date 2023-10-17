@@ -44,7 +44,7 @@
 
 <div class="row">
 
-    @await Html.PartialAsync("~/Views/Shared/_SideNav.cshtml");
+    @await Html.PartialAsync("~/Views/Shared/_SideNav.cshtml")
 
    
 
@@ -57,13 +57,9 @@
     </div>
 
 
-    
-    @await Html.PartialAsync("~/Views/Shared/_OffCanvas_SideNav.cshtml");
-    @await Html.PartialAsync("~/Views/Shared/_OffCanvas_GoalIndex.cshtml");
-    @await Html.PartialAsync("~/Views/Shared/_OffCanvas_GoalCreate.cshtml");
-    @await Html.PartialAsync("~/Views/Shared/_OffCanvas_GoalDetails.cshtml");
-    @await Html.PartialAsync("~/Views/Shared/_OffCanvas_GoalEdit.cshtml");
-    @await Html.PartialAsync("~/Views/Shared/_OffCanvas_GoalDelete.cshtml");
+
+    @await Html.PartialAsync("~/Views/Shared/OffCanvas/_OffCanvasPartials.cshtml")
+
     
 
     
