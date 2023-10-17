@@ -40,6 +40,9 @@
                         @Html.DisplayNameFor(model => model.Goals![0].Title)
                     </th>
                     <th>
+                        Actions
+                    </th>
+                    <th>
                         @Html.DisplayNameFor(model => model.Goals![0].Category)
                     </th>
                     <th>
@@ -59,10 +62,11 @@
                 {
                     <tr>
                         <td>
+                        
                             <a asp-controller="Goal" asp-action="Details" asp-route-id="@item.Id">
                                 <h4>Goal: @Html.DisplayFor(modelItem => item.Title)</h4>
                             </a>
-                            @Html.DisplayFor(modelItem => item.Description)
+                            @Html.DisplayFor(modelItem => item.Description)                                                                                  
 
                             <ul>
                                 @foreach (var milestone in Model.Milestones!)
@@ -94,6 +98,19 @@
                                 }
                             </ul>
 
+                        </td>
+                        <td>
+                            <div class="btn-group dropend">
+                                <a class="nav-link" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Details</a></li>
+                                    <li><a class="dropdown-item" href="#">Move</a></li>
+                                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                                    <li><a class="dropdown-item" href="#">Delete</a></li>
+                                </ul>
+                            </div>    
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Category)
