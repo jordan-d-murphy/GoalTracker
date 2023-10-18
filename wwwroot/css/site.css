@@ -23,6 +23,7 @@ body {
 
 a {
   text-decoration: none;
+  color: #0077cc !important;
 }
 
 #left-side-navbar {
@@ -31,7 +32,7 @@ a {
   margin-top: 3.5rem;
   box-shadow: 0 0.55rem 0.75rem rgba(0, 0, 0, .1);
   position: fixed;
-  border-right: 1px solid #e5e5e5!important;
+  border-right: 1px solid #e5e5e5 !important;
 }
 
 i {
@@ -39,5 +40,5 @@ i {
 }
 
 main {
-  margin-top: 5rem;
+  margin-top: 3rem;
 }

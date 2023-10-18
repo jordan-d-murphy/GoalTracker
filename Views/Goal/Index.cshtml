@@ -4,214 +4,175 @@
     ViewData["Title"] = "Goals";
 }
 
-<div class="row mb-5">
-    <div class="col-6">
+<div class="row mb-3">
+    <div class="col-4">
         <h1>Goals</h1>
     </div>
-    <div class="col-6">
+    <div class="col-4">
+        <nav class="nav">
+            
+            <li class="nav-item">
+                <a asp-action="Create" class="nav-link">Create New Goal</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_GoalIndex">
+                    <i class="bi-arrow-up-right-circle" style="font-size: 1rem; color: #0077cc;"></i>Offcanvas
+                </a>
+            </li>
+                        
+        </nav>
+    </div>
+    <div class="col-4">
         <form asp-controller="Goal" asp-action="Index" method="get" class="row g-2 float-end">
             <div class="col-auto">
                 <input type="text" name="SearchString" class="form-control" placeholder="Search..." />
             </div>
             <div class="col-auto">
-                <input type="submit" value="Filter" class="form-control btn btn-outline-primary" />
+                <input type="submit" value="Filter" class="form-control btn btn-outline-success" />
             </div>
         </form>
     </div>
 </div>
 
 <div class="row">
-
-    <div class="col-md-2">
-        <nav class="nav flex-column">
-            <a asp-action="Create" class="nav-link">Create New Goal</a>
-            <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_GoalIndex">
-                <i class="bi-arrow-up-right-circle" style="font-size: 1rem; color: #0077cc;"></i>Offcanvas
-            </a>
-        </nav>
-    </div>
-
-    <div class="col-md-10 mb-5">
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Goals![0].Title)
-                    </th>
-                    <th>
-                        Actions
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Goals![0].Category)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Goals![0].CreatedDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Goals![0].TargetDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Goals![0].Completed)
-                    </th>
-
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Goals!)
-                {
-                    <tr>
-                        <td>
-
-                            <div class="card">
-                                <h5 class="card-header">Goal</h5>
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <a asp-controller="Goal" asp-action="Details" asp-route-id="@item.Id">
-                                            @Html.DisplayFor(modelItem => item.Title)
-                                        </a>
-                                    </h5>
-                                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)  </p>
+    <div class="col mb-3">      
+        @foreach (var item in Model.Goals!)
+        {            
+            <div class="card mb-3">
+                <h4 class="card-header">
+                    <a asp-controller="Goal" asp-action="Details" asp-route-id="@item.Id">
+                        Goal: @Html.DisplayFor(modelItem => item.Title)
+                    </a>
+                </h4>
 
 
-                                    <ul>
-                                        @foreach (var milestone in Model.Milestones!)
+
+                <div class="card-body">
+
+                    <div class="row mb-3">
+                        <h5 class="card-title">   
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </h5>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-3">
+                            
+                            <ul class="list-group">                                                                                                                       
+                                
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">
+                                            @Html.DisplayNameFor(model => model.Goals![0].Category)                                                            
+                                        </div>                                                     
+                                        @Html.DisplayFor(modelItem => item.Category)   
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">
+                                            @Html.DisplayNameFor(model => model.Goals![0].CreatedDate)                                                            
+                                        </div>                                                        
+                                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">
+                                            @Html.DisplayNameFor(model => model.Goals![0].TargetDate)                                                            
+                                        </div>                                                       
+                                        @Html.DisplayFor(modelItem => item.TargetDate) 
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">
+                                            @Html.DisplayNameFor(model => model.Goals![0].Completed)                                                                                                        
+                                        </div>                                                        
+                                        @if (item.Completed)
                                         {
-                                            @if (milestone.GoalId == item.Id)
-                                            {
-
-                                               
-
-                                                <li>
-                                                     <ol class="list-group list-group-numbered">
-                                                    
-                                                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                            <div class="ms-2 me-auto">
-                                                            <div class="fw-bold">
-                                                                <a asp-controller="Milestone" asp-action="Details" asp-route-id="@milestone.Id">
-                                                                    <h5>Milestone: @milestone.Title</h5>
-                                                                </a>
-                                                            </div>
-                                                            @milestone.Description
-                                                            </div>
-                                                            <span class="badge bg-primary rounded-pill">@milestone.Completed</span>
-                                                        </li>
-                                                    
-                                                    </ol>
-                                                    
-                                                    
-                                                </li>
-
-                                                <ul>
-                                                    @foreach (var activity in Model.ActivityEntries!)
-                                                    {
-                                                        @if (milestone.Id == activity.MilestoneId)
-                                                        {
-                                                            <li>
-
-                                                                 <li>
-                                                                    <ol class="list-group list-group-numbered">
-                                                                    
-                                                                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                                            <div class="ms-2 me-auto">
-                                                                            <div class="fw-bold">
-                                                                                 <a asp-controller="ActivityEntry" asp-action="Details" asp-route-id="@activity.Id">
-                                                                                    <h6>Activity: @activity.Title</h6>
-                                                                                </a>
-                                                                            </div>
-                                                                            @activity.Description
-                                                                            </div>
-                                                                            <span class="badge bg-primary rounded-pill">@activity.Completed</span>
-                                                                        </li>
-                                                                    
-                                                                    </ol>                                                                                                    
-                                                                </li>
-                                                               
-                                                                
-                                                            </li>
-                                                        }
-                                                    }
-                                                </ul>
-
-                                            }
+                                            @Html.DisplayFor(modelItem => item.CompletedDate)
                                         }
-                                    </ul>
+                                    </div>
+                                </li>    
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">                                                                                           
+                                        <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_GoalEdit">
+                                            <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit Goal 
+                                        </a>  
+                                    </div>
+                                </li>                    
+                            </ul>                                                                
+                        </div>
 
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-                        
-
-
-                            @* <a asp-controller="Goal" asp-action="Details" asp-route-id="@item.Id">
-                                <h4>Goal: @Html.DisplayFor(modelItem => item.Title)</h4>
-                            </a>
-                            @Html.DisplayFor(modelItem => item.Description)                                                                                  
+                        <div class="col-md-9">                           
 
                             <ul>
                                 @foreach (var milestone in Model.Milestones!)
                                 {
                                     @if (milestone.GoalId == item.Id)
-                                    {
+                                    {                                                    
                                         <li>
-                                            <a asp-controller="Milestone" asp-action="Details" asp-route-id="@milestone.Id">
-                                                <h5>Milestone: @milestone.Title</h5>
-                                            </a>
-                                            @milestone.Description
+                                            <ol class="list-group list-group-numbered">                                            
+                                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                    <div class="ms-2 me-auto">
+                                                    <div class="fw-bold">
+                                                        <a asp-controller="Milestone" asp-action="Details" asp-route-id="@milestone.Id">
+                                                            <h5>Milestone: @milestone.Title</h5>
+                                                        </a>
+                                                    </div>
+                                                    @milestone.Description
+                                                    </div>
+                                                    @if (milestone.Completed) 
+                                                    {
+                                                        <span class="badge bg-success rounded-pill">Completed</span>
+                                                    } 
+                                                    else 
+                                                    {
+                                                        <span class="badge bg-primary rounded-pill">In Progress</span>
+                                                    }
+                                                </li>                                            
+                                            </ol>                                                                                        
                                         </li>
-
                                         <ul>
                                             @foreach (var activity in Model.ActivityEntries!)
                                             {
                                                 @if (milestone.Id == activity.MilestoneId)
-                                                {
+                                                {                                                                   
                                                     <li>
-                                                        <a asp-controller="ActivityEntry" asp-action="Details" asp-route-id="@activity.Id">
-                                                            <h6>Activity: @activity.Title</h6>
-                                                        </a>
-                                                        @activity.Description
-                                                    </li>
+                                                        <ol class="list-group list-group-numbered">                                                        
+                                                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                                <div class="ms-2 me-auto">
+                                                                    <div class="fw-bold">
+                                                                        <a asp-controller="ActivityEntry" asp-action="Details" asp-route-id="@activity.Id">
+                                                                            <h6>Activity: @activity.Title</h6>
+                                                                        </a>
+                                                                    </div>
+                                                                    @activity.Description
+                                                                </div>
+                                                                @if (activity.Completed) 
+                                                                {
+                                                                    <span class="badge bg-success rounded-pill">Completed</span>
+                                                                } 
+                                                                else 
+                                                                {
+                                                                    <span class="badge bg-primary rounded-pill">In Progress</span>
+                                                                }
+                                                                
+                                                            </li>                                                        
+                                                        </ol>                                                                                                    
+                                                    </li>                                                                                                                        
                                                 }
                                             }
                                         </ul>
                                     }
                                 }
-                            </ul> *@
-
-                        </td>
-                        <td>
-                            <div class="btn-group dropend">
-                                <a class="nav-link" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Details</a></li>
-                                    <li><a class="dropdown-item" href="#">Move</a></li>
-                                    <li><a class="dropdown-item" href="#">Edit</a></li>
-                                    <li><a class="dropdown-item" href="#">Delete</a></li>
-                                </ul>
-                            </div>    
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Category)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreatedDate)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TargetDate)
-                        </td>
-
-                        <td>
-                            @if (item.Completed)
-                            {
-                                @Html.DisplayFor(modelItem => item.CompletedDate)
-                            }
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>                                    
+        }
     </div>
 </div>

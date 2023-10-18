@@ -131,12 +131,24 @@ namespace GoalTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,CreatedDate,TargetDate,CompletedDate,Completed,Category,Icon,Color")] Milestone milestone)
+        public async Task<IActionResult> Edit(int id, [Bind("Goal,GoalId,Id,Title,Description,CreatedDate,TargetDate,CompletedDate,Completed,Category,Icon,Color")] Milestone milestone)
         {
             if (id != milestone.Id)
             {
                 return NotFound();
             }
+
+            var goal = await _context.Goal.FindAsync(milestone.GoalId);
+
+            if (goal == null)
+            {
+                return NotFound();
+            }
+
+            milestone.Goal = goal;
+
+            ModelState.ClearValidationState(nameof(goal));
+            TryValidateModel(goal, nameof(goal));
 
             if (ModelState.IsValid)
             {
