@@ -62,8 +62,88 @@
                 {
                     <tr>
                         <td>
+
+                            <div class="card">
+                                <h5 class="card-header">Goal</h5>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <a asp-controller="Goal" asp-action="Details" asp-route-id="@item.Id">
+                                            @Html.DisplayFor(modelItem => item.Title)
+                                        </a>
+                                    </h5>
+                                    <p class="card-text">@Html.DisplayFor(modelItem => item.Description)  </p>
+
+
+                                    <ul>
+                                        @foreach (var milestone in Model.Milestones!)
+                                        {
+                                            @if (milestone.GoalId == item.Id)
+                                            {
+
+                                               
+
+                                                <li>
+                                                     <ol class="list-group list-group-numbered">
+                                                    
+                                                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                            <div class="ms-2 me-auto">
+                                                            <div class="fw-bold">
+                                                                <a asp-controller="Milestone" asp-action="Details" asp-route-id="@milestone.Id">
+                                                                    <h5>Milestone: @milestone.Title</h5>
+                                                                </a>
+                                                            </div>
+                                                            @milestone.Description
+                                                            </div>
+                                                            <span class="badge bg-primary rounded-pill">@milestone.Completed</span>
+                                                        </li>
+                                                    
+                                                    </ol>
+                                                    
+                                                    
+                                                </li>
+
+                                                <ul>
+                                                    @foreach (var activity in Model.ActivityEntries!)
+                                                    {
+                                                        @if (milestone.Id == activity.MilestoneId)
+                                                        {
+                                                            <li>
+
+                                                                 <li>
+                                                                    <ol class="list-group list-group-numbered">
+                                                                    
+                                                                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                                            <div class="ms-2 me-auto">
+                                                                            <div class="fw-bold">
+                                                                                 <a asp-controller="ActivityEntry" asp-action="Details" asp-route-id="@activity.Id">
+                                                                                    <h6>Activity: @activity.Title</h6>
+                                                                                </a>
+                                                                            </div>
+                                                                            @activity.Description
+                                                                            </div>
+                                                                            <span class="badge bg-primary rounded-pill">@activity.Completed</span>
+                                                                        </li>
+                                                                    
+                                                                    </ol>                                                                                                    
+                                                                </li>
+                                                               
+                                                                
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+
+                                            }
+                                        }
+                                    </ul>
+
+                                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                                </div>
+                            </div>
                         
-                            <a asp-controller="Goal" asp-action="Details" asp-route-id="@item.Id">
+
+
+                            @* <a asp-controller="Goal" asp-action="Details" asp-route-id="@item.Id">
                                 <h4>Goal: @Html.DisplayFor(modelItem => item.Title)</h4>
                             </a>
                             @Html.DisplayFor(modelItem => item.Description)                                                                                  
@@ -96,7 +176,7 @@
                                         </ul>
                                     }
                                 }
-                            </ul>
+                            </ul> *@
 
                         </td>
                         <td>
