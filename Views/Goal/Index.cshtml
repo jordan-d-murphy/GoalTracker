@@ -116,6 +116,14 @@
                                         </a>  
                                         @await Html.PartialAsync("~/Views/Goal/OffCanvas/_GoalDelete.cshtml", @item)
                                     </div>
+                                </li>   
+                                <li class="list-group-item d-flex justify-content-start align-items-start">
+                                    <div>                                                                                           
+                                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_MilestoneCreate_@item.Id">
+                                            <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i> Add Milestone 
+                                        </a>  
+                                        @await Html.PartialAsync("~/Views/Milestone/OffCanvas/_MilestoneCreate.cshtml", new Milestone {GoalId = @item.Id, Goal = @item})
+                                    </div>
                                 </li>                                                    
                             </ul>                                                                
                         </div>
