@@ -153,7 +153,7 @@ namespace GoalTracker.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "Goal", new {}, $"GoalCard_{goal.Id}");
             }
             return View(goal);
         }
