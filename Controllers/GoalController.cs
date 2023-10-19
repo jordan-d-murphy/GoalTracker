@@ -97,7 +97,9 @@ namespace GoalTracker.Controllers
             {
                 _context.Add(goal);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "Goal", new {}, $"GoalCard_{goal.Id}");
+
             }
             return View(goal);
         }

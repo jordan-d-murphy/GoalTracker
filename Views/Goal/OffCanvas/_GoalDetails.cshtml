@@ -1,9 +1,63 @@
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvas_GoalDetails" aria-labelledby="offcanvasRightLabel">
+@model GoalTracker.Models.Goal
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvas_GoalDetails_@Model.Id" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas Goal Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body" id="offcanvas-body">
                 This is the offcanvas-body from "Goal//Offcanvas//GoalDetails"
-            </div>
-        </div>
+
+                <hr />
+
+                
+
+
+        <h4>Goal</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Category)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TargetDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TargetDate)
+            </dd>
+
+            @if (@Model != null && @Model.Completed)
+            {
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.CompletedDate)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.CompletedDate)
+                </dd>
+            }
+
+        </dl>
+    </div>
+</div>
+

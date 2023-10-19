@@ -46,3 +46,7 @@ main {
 div.card {
   scroll-margin-top: 60px;
 }
+
+.offcanvas {
+  width: 50% !important;
+}
