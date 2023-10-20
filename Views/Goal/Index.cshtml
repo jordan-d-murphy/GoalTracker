@@ -136,7 +136,7 @@
                                     @if (milestone.GoalId == item.Id)
                                     {                                                    
                                         <li>
-                                            <ol class="list-group list-group-numbered">                                            
+                                            <ol class="list-group">                                            
                                                 <li class="list-group-item d-flex align-items-start">
                                                     <div class="col">
 
@@ -210,28 +210,33 @@
                                                 @if (milestone.Id == activity.MilestoneId)
                                                 {                                                                   
                                                     <li>
-                                                        <ol class="list-group list-group-numbered">                                                        
-                                                            <li class="list-group-item d-flex justify-content-between align-items-start">
-                                                                <div class="row justify-content-between">
-                                                                    <div class="ms-2 me-auto">
-                                                                        <div class="fw-bold">
-                                                                            <a asp-controller="ActivityEntry" asp-action="Details" asp-route-id="@activity.Id">
-                                                                                <h6>Activity: @activity.Title</h6>
-                                                                            </a>
+                                                        <ol class="list-group">                                                        
+                                                            <li class="list-group-item d-flex justify-content-start align-items-start">
+
+                                                                <div class="col">
+                                                                    <div class="row justify-content-between">
+                                                                        <div class="col-sm-10">
+                                                                            <div class="fw-bold">
+                                                                                <a asp-controller="ActivityEntry" asp-action="Details" asp-route-id="@activity.Id">
+                                                                                    <h6>Activity: @activity.Title</h6>
+                                                                                </a>
+                                                                            </div>
+                                                                            @activity.Description
                                                                         </div>
-                                                                        @activity.Description
+                                                                        <div class="col-sm-2 align-items-end">
+                                                                            @if (activity.Completed) 
+                                                                            {
+                                                                                <span class="badge bg-success rounded-pill">Completed</span>
+                                                                            } 
+                                                                            else 
+                                                                            {
+                                                                                <span class="badge bg-primary rounded-pill">In Progress</span>
+                                                                            }
+                                                                        </div>
+                                                                        
                                                                     </div>
-                                                                    @if (activity.Completed) 
-                                                                    {
-                                                                        <span class="badge bg-success rounded-pill">Completed</span>
-                                                                    } 
-                                                                    else 
-                                                                    {
-                                                                        <span class="badge bg-primary rounded-pill">In Progress</span>
-                                                                    }
-                                                                </div>
                                                                 
-                                                                <div>
+                                                                
                                                                     <div class="row">
                                                                         <ul class="navbar-nav d-flex flex-grow-1">
                                                                             <li class="list-group-item d-flex justify-content-start align-items-start">
@@ -239,7 +244,7 @@
                                                                                     <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ActivityDetails_@activity.Id">
                                                                                         <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Activity Details 
                                                                                     </a>  
-                                                                                    @await Html.PartialAsync("~/Views/Activity/OffCanvas/_ActivityDetails.cshtml", @activity)
+                                                                                    @await Html.PartialAsync("~/Views/ActivityEntry/OffCanvas/_ActivityDetails.cshtml", @activity)
                                                                                 </div>
                                                                             </li> 
                                                                             <li class="list-group-item d-flex justify-content-start align-items-start">
@@ -247,7 +252,7 @@
                                                                                     <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ActivityEdit_@activity.Id">
                                                                                         <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit Activity 
                                                                                     </a>  
-                                                                                    @await Html.PartialAsync("~/Views/Activity/OffCanvas/_ActivityEdit.cshtml", @activity)
+                                                                                    @await Html.PartialAsync("~/Views/ActivityEntry/OffCanvas/_ActivityEdit.cshtml", @activity)
                                                                                 </div>
                                                                             </li>                                                                                                       
                                                                             <li class="list-group-item d-flex justify-content-start align-items-start">
@@ -255,13 +260,13 @@
                                                                                     <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ActivityDelete_@activity.Id">
                                                                                         <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete Activity 
                                                                                     </a>  
-                                                                                    @await Html.PartialAsync("~/Views/Activity/OffCanvas/_ActivityDelete.cshtml", @activity)
+                                                                                    @await Html.PartialAsync("~/Views/ActivityEntry/OffCanvas/_ActivityDelete.cshtml", @activity)
                                                                                 </div>
                                                                             </li>                                                                                                       
-                                                                                                                     
+                                                                                                                        
                                                                         </ul>
                                                                     </div>
-                                                                </div>
+                                                                </div>                                                                                                                               
                                                                 
                                                             </li>                                                        
                                                         </ol>                                                                                                    

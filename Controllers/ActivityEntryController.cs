@@ -197,7 +197,9 @@ namespace GoalTracker.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                // return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "Goal", new {}, $"GoalCard_{goal.Id}");
+
             }
             return View(activityEntry);
         }
@@ -236,7 +238,7 @@ namespace GoalTracker.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), "Goal");
         }
 
         private bool ActivityEntryExists(int id)
