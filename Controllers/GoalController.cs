@@ -28,23 +28,46 @@ namespace GoalTracker.Controllers
             }
 
             var goals = from g in _context.Goal select g;
+            var milestones = from m in _context.Milestone select m;
+            var activities = from a in _context.ActivityEntry select a;
 
             if (!String.IsNullOrEmpty(searchString))
             {
+
+
+                activities = activities.Where(s => s.Title!.Contains(searchString) ||
+                    s.Description!.Contains(searchString) ||
+                    s.Category!.Contains(searchString));
+
+                milestones = milestones.Where(s => s.Title!.Contains(searchString) ||
+                    s.Description!.Contains(searchString) ||
+                    s.Category!.Contains(searchString));
+                    
                 goals = goals.Where(s => s.Title!.Contains(searchString) ||
                     s.Description!.Contains(searchString) ||
                     s.Category!.Contains(searchString));
-            }
 
-            var milestones = from m in _context.Milestone select m;
 
-            var activities = from a in _context.ActivityEntry select a;
+
+               
+
+            
+
+                // var query2 = from g in _context.Set<Goal>()
+                //     from m in _context.Set<Milestone>().Where(m => g.Id == m.GoalId).DefaultIfEmpty()
+                //     from a in _context.Set<ActivityEntry>().Where(a => m.Id == a.MilestoneId).DefaultIfEmpty()
+                //     select new { g, m, a };
+
+                // var results = await query2.ToListAsync();
+            }        
 
             var listViewModel = new GoalListMilestonesViewModel
             {
                 Goals = await goals.ToListAsync(),
-                Milestones = await milestones.ToListAsync(),
-                ActivityEntries = await activities.ToListAsync()
+                Milestones = await milestones.ToListAsync(),            
+                ActivityEntries = await activities.ToListAsync()         
+                //  Fix: filter doesnt show results yet for milestone or activity (even though they are here) 
+                // because the associated goal/milestone isn't available in Viewmodel when the UI iterates through the results.
             };
 
             // return View(await goals.ToListAsync());
