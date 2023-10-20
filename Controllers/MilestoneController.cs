@@ -97,6 +97,7 @@ namespace GoalTracker.Controllers
             }
 
             milestone.Goal = goal;
+            milestone.CreatedDate = DateTime.Today;
 
             ModelState.ClearValidationState(nameof(goal));
             TryValidateModel(goal, nameof(goal));
