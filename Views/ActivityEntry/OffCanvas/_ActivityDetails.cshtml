@@ -1,9 +1,84 @@
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvas_ActivityDetails" aria-labelledby="offcanvasRightLabel">
+@model GoalTracker.Models.ActivityEntry
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvas_ActivityDetails_@Model.Id" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body" id="offcanvas-body">
                 This is the offcanvas-body "ActivityEntry//Offcanvas//ActivityDetails"
-            </div>
-        </div>
+
+                <hr />
+
+
+
+        <h4>ActivityEntry</h4>
+            <hr />
+                <p>Goal: @Model?.Milestone?.Goal</p>
+                <p>Goal Id: @Model?.Milestone?.GoalId</p>
+                <p>Goal Title: @Model?.Milestone?.Goal?.Title</p>
+                <p>Goal Desc: @Model?.Milestone?.Goal?.Description</p>
+            <hr />
+                <p>Milestone: @Model?.Milestone</p>
+                <p>Milestone Id: @Model?.MilestoneId</p>
+                <p>Milestone Title: @Model?.Milestone?.Title</p>
+                <p>Milestone Desc: @Model?.Milestone?.Description</p>
+            <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreatedDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreatedDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TargetDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TargetDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CompletedDate)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CompletedDate)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Completed)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Completed)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Category)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Category)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Icon)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Icon)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Color)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Color)
+            </dd>
+        </dl>
+    </div>
+</div>

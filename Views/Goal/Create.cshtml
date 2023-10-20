@@ -24,7 +24,7 @@
     <div class="col-md-6">
         <h4>Goal</h4>
         <hr />
-        <form asp-action="Create">
+        <form asp-controller="Goal" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group mb-3">
                 <label asp-for="Title" class="control-label"></label>

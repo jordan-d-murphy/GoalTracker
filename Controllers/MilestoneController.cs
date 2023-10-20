@@ -169,7 +169,8 @@ namespace GoalTracker.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                // return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), "Goal", new {}, $"GoalCard_{milestone?.GoalId}");
             }
             return View(milestone);
         }
@@ -208,7 +209,7 @@ namespace GoalTracker.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), "Goal", new {}, $"GoalCard_{milestone?.GoalId}");
         }
 
         private bool MilestoneExists(int id)

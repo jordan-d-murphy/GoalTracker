@@ -26,7 +26,7 @@
     <div class="col-md-6">
         <h4>Goal</h4>
         <hr />
-        <form asp-action="Edit">
+        <form asp-controller="Goal" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <input type="hidden" asp-for="CreatedDate" />
