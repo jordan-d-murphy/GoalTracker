@@ -22,55 +22,54 @@ namespace GoalTracker.Controllers
         // GET: Goal
         public async Task<IActionResult> Index(string searchString)
         {
-            if (_context.Goal == null)
+            if (_context.Goal == null || _context.Milestone == null || _context.ActivityEntry == null)
             {
-                return Problem("Entity Set 'GoalTrackerContext.Goal' is null.");
+                return Problem("One or more Entity Sets is null.");
             }
 
             var goals = from g in _context.Goal select g;
             var milestones = from m in _context.Milestone select m;
             var activities = from a in _context.ActivityEntry select a;
 
+            GoalListMilestonesViewModel listViewModel = new GoalListMilestonesViewModel();
+
             if (!String.IsNullOrEmpty(searchString))
             {
+        
+                var activityMatches = activities.Where(a => a.Title!.Contains(searchString) ||
+                    a.Description!.Contains(searchString) ||
+                    a.Category!.Contains(searchString));
 
+                var milestoneMatchIds = activityMatches.Select(a => a.MilestoneId).ToList();
 
-                activities = activities.Where(s => s.Title!.Contains(searchString) ||
-                    s.Description!.Contains(searchString) ||
-                    s.Category!.Contains(searchString));
+                var milestoneMatches = milestones.Where(m => m.Title!.Contains(searchString) ||
+                    m.Description!.Contains(searchString) ||
+                    m.Category!.Contains(searchString) || milestoneMatchIds.Contains(m.Id));
 
-                milestones = milestones.Where(s => s.Title!.Contains(searchString) ||
-                    s.Description!.Contains(searchString) ||
-                    s.Category!.Contains(searchString));
+                var goalMatchIds = milestoneMatches.Select(m => m.GoalId).ToList();
                     
-                goals = goals.Where(s => s.Title!.Contains(searchString) ||
-                    s.Description!.Contains(searchString) ||
-                    s.Category!.Contains(searchString));
+                var goalMatches = goals.Where(g => g.Title!.Contains(searchString) ||
+                    g.Description!.Contains(searchString) ||
+                    g.Category!.Contains(searchString) || goalMatchIds.Contains(g.Id));
 
+                listViewModel = new GoalListMilestonesViewModel
+                {
+                    Goals = await goalMatches.ToListAsync(),
+                    Milestones = await milestoneMatches.ToListAsync(),            
+                    ActivityEntries = await activityMatches.ToListAsync()                            
+                };                          
 
-
-               
-
-            
-
-                // var query2 = from g in _context.Set<Goal>()
-                //     from m in _context.Set<Milestone>().Where(m => g.Id == m.GoalId).DefaultIfEmpty()
-                //     from a in _context.Set<ActivityEntry>().Where(a => m.Id == a.MilestoneId).DefaultIfEmpty()
-                //     select new { g, m, a };
-
-                // var results = await query2.ToListAsync();
-            }        
-
-            var listViewModel = new GoalListMilestonesViewModel
+            }  
+            else 
             {
-                Goals = await goals.ToListAsync(),
-                Milestones = await milestones.ToListAsync(),            
-                ActivityEntries = await activities.ToListAsync()         
-                //  Fix: filter doesnt show results yet for milestone or activity (even though they are here) 
-                // because the associated goal/milestone isn't available in Viewmodel when the UI iterates through the results.
-            };
+                listViewModel = new GoalListMilestonesViewModel
+                {
+                    Goals = await goals.ToListAsync(),
+                    Milestones = await milestones.ToListAsync(),            
+                    ActivityEntries = await activities.ToListAsync()                             
+                };
+            }      
 
-            // return View(await goals.ToListAsync());
             return View(listViewModel);
         }
 
