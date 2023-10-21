@@ -20,15 +20,39 @@
                         
         </nav>
     </div>
+     @* <div class="col-3">
+        @if (@ViewData["filter"] != null) 
+        {
+            <a class="nav-link" asp-area="" asp-controller="Goal" asp-action="Index">
+                Applied Filter: @ViewData["filter"]
+                <i class="bi-x-square" style="font-size: 1rem; color: #0077cc;"></i>
+            </a>            
+        }
+    </div> *@
     <div class="col-4">
-        <form asp-controller="Goal" asp-action="Index" method="get" class="row g-2 float-end">
-            <div class="col-auto">
-                <input type="text" name="SearchString" class="form-control" placeholder="Search..." />
-            </div>
-            <div class="col-auto">
-                <input type="submit" value="Filter" class="form-control btn btn-outline-success" />
-            </div>
-        </form>
+        <div class="row">
+            <form asp-controller="Goal" asp-action="Index" method="get" class="row g-2 float-end">
+                <div class="col-auto">
+                    <input type="text" name="SearchString" class="form-control" placeholder="Search..." />
+                </div>
+                <div class="col-auto">
+                    <input type="submit" value="Filter" class="form-control btn btn-outline-success" />
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            @if (@ViewData["filter"] != null) 
+            {
+
+                <a class="nav-link align-self-end" asp-area="" asp-controller="Goal" asp-action="Index">
+                    Applied Filter: @ViewData["filter"]
+                    <i class="bi-x-square" style="font-size: 1rem; color: #0077cc;"></i>
+                </a>            
+            }
+        </div>
+       
+        
+
     </div>
 </div>
 

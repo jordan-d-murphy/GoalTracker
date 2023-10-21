@@ -74,7 +74,9 @@ namespace GoalTracker.Controllers
                     Goals = await goalMatchesFinal.ToListAsync(),
                     Milestones = await milestoneMatchesFinal.ToListAsync(),            
                     ActivityEntries = await activityMatchesFinal.ToListAsync()                            
-                };                          
+                };          
+
+                ViewData["filter"] = searchString;                
 
             }  
             else 
@@ -85,6 +87,8 @@ namespace GoalTracker.Controllers
                     Milestones = await milestones.ToListAsync(),            
                     ActivityEntries = await activities.ToListAsync()                             
                 };
+
+                ViewData["filter"] = null;
             }      
 
             return View(listViewModel);
