@@ -46,17 +46,34 @@ namespace GoalTracker.Controllers
                     m.Description!.Contains(searchString) ||
                     m.Category!.Contains(searchString) || milestoneMatchIds.Contains(m.Id));
 
-                var goalMatchIds = milestoneMatches.Select(m => m.GoalId).ToList();
-                    
-                var goalMatches = goals.Where(g => g.Title!.Contains(searchString) ||
+                var goalMatchIds = milestoneMatches.Select(m => m.GoalId).ToList();                
+
+                var goalMatchesFinal = goals.Where(g => g.Title!.Contains(searchString) ||
                     g.Description!.Contains(searchString) ||
                     g.Category!.Contains(searchString) || goalMatchIds.Contains(g.Id));
 
+                var goalMatchesIdsFinal = goalMatchesFinal.Select(g => g.Id).ToList();
+               
+                var milestoneMatchesFinal = milestones.Where(m => m.Title!.Contains(searchString) ||
+                    m.Description!.Contains(searchString) ||
+                    m.Category!.Contains(searchString) || milestoneMatchIds.Contains(m.Id) ||
+                    goalMatchesIdsFinal.Contains(m.GoalId));
+
+                var milestoneMatchesIdsFinal = milestoneMatchesFinal.Select(m => m.Id).ToList();
+
+                var activityMatchesFinal = activities.Where(a => a.Title!.Contains(searchString) ||
+                    a.Description!.Contains(searchString) ||
+                    a.Category!.Contains(searchString) || milestoneMatchesIdsFinal.Contains(a.MilestoneId));
+
+
+
+
+
                 listViewModel = new GoalListMilestonesViewModel
                 {
-                    Goals = await goalMatches.ToListAsync(),
-                    Milestones = await milestoneMatches.ToListAsync(),            
-                    ActivityEntries = await activityMatches.ToListAsync()                            
+                    Goals = await goalMatchesFinal.ToListAsync(),
+                    Milestones = await milestoneMatchesFinal.ToListAsync(),            
+                    ActivityEntries = await activityMatchesFinal.ToListAsync()                            
                 };                          
 
             }  
