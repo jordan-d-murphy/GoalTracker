@@ -91,6 +91,33 @@ namespace GoalTracker.Controllers
                 ViewData["filter"] = null;
             }      
 
+
+
+
+
+
+            // var goalsForColors = from g in _context.Goal select g;
+            var suggestions = goals.Select(c => c.Color).ToList();
+
+            var suggestionsList = new List<SelectListItem> {
+                new SelectListItem { Value = "#000000" , Text = "#000000"},
+                new SelectListItem { Value = "#FFFFFF" , Text = "#FFFFFF"}                    
+            };
+            
+            foreach (var s in suggestions) 
+            {
+                suggestionsList.Add(new SelectListItem { Value = s , Text = s });
+            }
+            
+            suggestionsList = suggestionsList.Select(o => o).Distinct(new SelectListItemComparer()).ToList();
+
+            listViewModel.ColorSuggestions = suggestionsList;
+
+            foreach (var goalObj in listViewModel.Goals) 
+            {
+                goalObj.ColorSuggestions = suggestionsList;
+            }
+
             return View(listViewModel);
         }
 
@@ -123,7 +150,7 @@ namespace GoalTracker.Controllers
 
         // GET: Goal/Create
         public IActionResult Create()
-        {
+        {            
             return View();
         }
 
@@ -132,7 +159,7 @@ namespace GoalTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,CreatedDate,TargetDate,Completed,CompletedDate,Category")] Goal goal)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,CreatedDate,TargetDate,Completed,CompletedDate,Category,Color")] Goal goal)
         {
             goal.CreatedDate = DateTime.Today;
 
@@ -160,6 +187,7 @@ namespace GoalTracker.Controllers
             {
                 return NotFound();
             }
+
             return View(goal);
         }
 
@@ -168,7 +196,7 @@ namespace GoalTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,CreatedDate,TargetDate,Completed,CompletedDate,Category")] Goal goal)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,CreatedDate,TargetDate,Completed,CompletedDate,Category,Color")] Goal goal)
         {
             if (id != goal.Id)
             {

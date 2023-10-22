@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing;
 
 namespace GoalTracker.Models;
 
@@ -32,5 +33,18 @@ public abstract class TrackingRecord
 
     public string? Color { get; set; }
 
-
+    public string GetTextColor() 
+    {
+        if (!String.IsNullOrEmpty(this.Color)) 
+        {
+            Color color = ColorTranslator.FromHtml(this.Color);
+            var brightness = color.GetBrightness();
+            if (brightness < 0.5) 
+            {
+                return "#FFFFFF";
+            } 
+        }
+        return "#000000";        
+    }
+    
 }

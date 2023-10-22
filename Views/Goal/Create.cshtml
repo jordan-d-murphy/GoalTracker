@@ -46,6 +46,11 @@
                 <input asp-for="Category" class="form-control" />
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
+            <div class="form-group mb-3">
+                <label asp-for="Color" class="control-label"></label>
+                <input type="color" class="form-control form-control-color" id="goalColorInput" value="#563d7c" title="Choose your color">
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
             <div class="form-group mb-3 float-end">
                 <input type="submit" value="Create" class="btn btn-outline-primary" />
             </div>
