@@ -13,4 +13,5 @@ public class Milestone : TrackingRecord
 
     public List<ActivityEntry>? Activities { get; set; }
 
+
 }

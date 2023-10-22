@@ -7,7 +7,7 @@ $(document).ready(function (){
     
 });
 
-$("input.goalColorSuggestion").click(function(event) {
+$("input.colorSuggestion").click(function(event) {
         event.preventDefault()
         var color = event.target.dataset.value
         var targetId = event.target.dataset.targetid

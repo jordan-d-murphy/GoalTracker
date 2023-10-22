@@ -96,8 +96,10 @@ namespace GoalTracker.Controllers
 
 
 
-            // var goalsForColors = from g in _context.Goal select g;
+            
             var suggestions = goals.Select(c => c.Color).ToList();
+            suggestions.AddRange(activities.Select(c => c.Color).ToList());
+            suggestions.AddRange(milestones.Select(c => c.Color).ToList());
 
             var suggestionsList = new List<SelectListItem> {
                 new SelectListItem { Value = "#000000" , Text = "#000000"},
@@ -116,6 +118,14 @@ namespace GoalTracker.Controllers
             foreach (var goalObj in listViewModel.Goals) 
             {
                 goalObj.ColorSuggestions = suggestionsList;
+            }
+            foreach (var activityObj in listViewModel.ActivityEntries) 
+            {
+                activityObj.ColorSuggestions = suggestionsList;
+            }
+            foreach (var milestoneObj in listViewModel.Milestones) 
+            {
+                milestoneObj.ColorSuggestions = suggestionsList;
             }
 
             return View(listViewModel);

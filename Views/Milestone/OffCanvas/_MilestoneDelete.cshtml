@@ -6,11 +6,16 @@
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body" id="offcanvas-body">
+
+                <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                    <strong>Goal @Model?.GoalId: @Model?.Goal?.Title</strong> @Model?.Goal?.Description
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                
                <div class="alert alert-danger d-flex align-items-center py-0" role="alert">                
-                <i class="bi-exclamation-triangle-fill" style="font-size: 1rem; color: #dc3545;"></i>                
-                    Are you sure you want to delete this Milestone?                
-            </div>
+                    <i class="bi-exclamation-triangle-fill" style="font-size: 1rem; color: #dc3545;"></i>                
+                        Are you sure you want to delete this Milestone?                
+                </div>
                
     <dl class="row">
         <dt class = "col-sm-2">

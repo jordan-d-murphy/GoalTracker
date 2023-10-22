@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GoalTracker.Models;
 
@@ -46,5 +47,9 @@ public abstract class TrackingRecord
         }
         return "#000000";        
     }
+
+    [NotMapped]
+    [Display(Name = "Color Suggestions")]
+    public List<SelectListItem>? ColorSuggestions { get; set; }
     
 }

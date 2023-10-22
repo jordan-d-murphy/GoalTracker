@@ -12,8 +12,4 @@ public class Goal : TrackingRecord
 {
     public List<Milestone>? Milestones { get; set; }
 
-    [NotMapped]
-    [Display(Name = "Color Suggestions")]
-    public List<SelectListItem>? ColorSuggestions { get; set; }
-
 }

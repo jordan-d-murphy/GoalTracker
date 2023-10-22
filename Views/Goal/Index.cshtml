@@ -45,16 +45,16 @@
 
 <div class="row">
     <div class="col mb-3">      
-        @foreach (var item in Model.Goals!)
+        @foreach (var goal in Model.Goals!)
         {            
 
-            <div class="card mb-3" id="GoalCard_@item.Id">
+            <div class="card mb-3" id="GoalCard_@goal.Id">
                 <h4 class="card-header">
-                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_GoalDetails_@item.Id">
-                        Goal: @Html.DisplayFor(modelItem => item.Title)
+                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_GoalDetails_@goal.Id">
+                        Goal: @Html.DisplayFor(modelItem => goal.Title)
                     </a>
 
-                    @if (item.Completed) 
+                    @if (goal.Completed) 
                     {
                         <span class="badge bg-success float-end">Completed</span>
                     } 
@@ -68,7 +68,7 @@
 
                     <div class="row mb-3">
                         <h5 class="card-title">   
-                            @Html.DisplayFor(modelItem => item.Description)
+                            @Html.DisplayFor(modelItem => goal.Description)
                         </h5>
                     </div>
                     <div class="row">
@@ -80,80 +80,80 @@
                                 <li class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="ms-2 me-auto">
                                         <div class="fw-bold">
-                                            @Html.DisplayNameFor(model => model.Goals![0].Category)                                                            
+                                            @Html.DisplayNameFor(model => goal.Category)                                                            
                                         </div>                                                     
-                                        @Html.DisplayFor(modelItem => item.Category)   
+                                        @Html.DisplayFor(modelItem => goal.Category)   
                                     </div>
                                 </li>
-                                @if (!String.IsNullOrEmpty(item.Color)) 
+                                @if (!String.IsNullOrEmpty(goal.Color)) 
                                 {
                                     <li class="list-group-item d-flex justify-content-between align-items-start" 
-                                        style="background-color: @item.Color; color: @item!.GetTextColor();">
+                                        style="background-color: @goal.Color; color: @goal!.GetTextColor();">
                                         <div class="ms-2 me-auto">
                                             <div class="fw-bold">
-                                                @Html.DisplayNameFor(model => model.Goals![0].Color)                                                            
+                                                @Html.DisplayNameFor(model => goal.Color)                                                            
                                             </div>                                                     
-                                            @Html.DisplayFor(modelItem => item.Color)   
+                                            @Html.DisplayFor(modelItem => goal.Color)   
                                         </div>
                                     </li>
                                 }                                
                                 <li class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="ms-2 me-auto">
                                         <div class="fw-bold">
-                                            @Html.DisplayNameFor(model => model.Goals![0].CreatedDate)                                                            
+                                            @Html.DisplayNameFor(model => goal.CreatedDate)                                                            
                                         </div>                                                        
-                                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                                        @Html.DisplayFor(modelItem => goal.CreatedDate)
                                     </div>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="ms-2 me-auto">
                                         <div class="fw-bold">
-                                            @Html.DisplayNameFor(model => model.Goals![0].TargetDate)                                                            
+                                            @Html.DisplayNameFor(model => goal.TargetDate)                                                            
                                         </div>                                                       
-                                        @Html.DisplayFor(modelItem => item.TargetDate) 
+                                        @Html.DisplayFor(modelItem => goal.TargetDate) 
                                     </div>
                                 </li>
-                                @if (item.Completed)
+                                @if (goal.Completed)
                                 {
                                     <li class="list-group-item d-flex justify-content-between align-items-start">
                                         <div class="ms-2 me-auto">
                                             <div class="fw-bold">
-                                                @Html.DisplayNameFor(model => model.Goals![0].Completed)                                                                                                        
+                                                @Html.DisplayNameFor(model => goal.Completed)                                                                                                        
                                             </div>                                                                                                    
-                                                @Html.DisplayFor(modelItem => item.CompletedDate)                                            
+                                                @Html.DisplayFor(modelItem => goal.CompletedDate)                                            
                                         </div>
                                     </li>     
                                 }                               
                                 <li class="list-group-item d-flex justify-content-start align-items-start">
                                     <div>                                                                                           
-                                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_GoalDetails_@item.Id">
+                                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_GoalDetails_@goal.Id">
                                             <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Goal Details 
                                         </a>  
-                                        @await Html.PartialAsync("~/Views/Goal/OffCanvas/_GoalDetails.cshtml", @item)
+                                        @await Html.PartialAsync("~/Views/Goal/OffCanvas/_GoalDetails.cshtml", @goal)
                                     </div>
                                 </li>  
                                 <li class="list-group-item d-flex justify-content-start align-items-start">
                                     <div>                                                                                           
-                                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_GoalEdit_@item.Id">
+                                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_GoalEdit_@goal.Id">
                                             <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit Goal 
                                         </a>  
-                                        @await Html.PartialAsync("~/Views/Goal/OffCanvas/_GoalEdit.cshtml", @item)
+                                        @await Html.PartialAsync("~/Views/Goal/OffCanvas/_GoalEdit.cshtml", @goal)
                                     </div>
                                 </li>  
                                 <li class="list-group-item d-flex justify-content-start align-items-start">
                                     <div>                                                                                           
-                                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_GoalDelete_@item.Id">
+                                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_GoalDelete_@goal.Id">
                                             <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete Goal 
                                         </a>  
-                                        @await Html.PartialAsync("~/Views/Goal/OffCanvas/_GoalDelete.cshtml", @item)
+                                        @await Html.PartialAsync("~/Views/Goal/OffCanvas/_GoalDelete.cshtml", @goal)
                                     </div>
                                 </li>   
                                 <li class="list-group-item d-flex justify-content-start align-items-start">
                                     <div>                                                                                           
-                                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_MilestoneCreate_@item.Id">
+                                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_MilestoneCreate_@goal.Id">
                                             <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i> Add Milestone 
                                         </a>  
-                                        @await Html.PartialAsync("~/Views/Milestone/OffCanvas/_MilestoneCreate.cshtml", new Milestone {GoalId = @item.Id, Goal = @item})
+                                        @await Html.PartialAsync("~/Views/Milestone/OffCanvas/_MilestoneCreate.cshtml", new Milestone {GoalId = @goal.Id, Goal = @goal})
                                     </div>
                                 </li>                                                    
                             </ul>                                                                
@@ -164,7 +164,7 @@
                             <ul>
                                 @foreach (var milestone in Model.Milestones!)
                                 {
-                                    @if (milestone.GoalId == item.Id)
+                                    @if (milestone.GoalId == goal.Id)
                                     {                                                    
                                         <li>
                                             <ol class="list-group">                                            
@@ -196,6 +196,55 @@
                                                         <div class="row">
                                                             <div class="col-md-4">
                                                                 <ul class="navbar-nav d-flex flex-grow-1">
+
+                                                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                                        <div class="ms-2 me-auto">
+                                                                            <div class="fw-bold">
+                                                                                @Html.DisplayNameFor(model => milestone.Category)                                                            
+                                                                            </div>                                                     
+                                                                            @Html.DisplayFor(modelItem => milestone.Category)   
+                                                                        </div>
+                                                                    </li>
+                                                                    @if (!String.IsNullOrEmpty(milestone.Color)) 
+                                                                    {
+                                                                        <li class="list-group-item d-flex justify-content-between align-items-start" 
+                                                                            style="background-color: @milestone.Color; color: @milestone!.GetTextColor();">
+                                                                            <div class="ms-2 me-auto">
+                                                                                <div class="fw-bold">
+                                                                                    @Html.DisplayNameFor(model => milestone.Color)                                                            
+                                                                                </div>                                                     
+                                                                                @Html.DisplayFor(modelItem => milestone.Color)   
+                                                                            </div>
+                                                                        </li>
+                                                                    }                                
+                                                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                                        <div class="ms-2 me-auto">
+                                                                            <div class="fw-bold">
+                                                                                @Html.DisplayNameFor(model => milestone.CreatedDate)                                                            
+                                                                            </div>                                                        
+                                                                            @Html.DisplayFor(modelItem => milestone.CreatedDate)
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                                        <div class="ms-2 me-auto">
+                                                                            <div class="fw-bold">
+                                                                                @Html.DisplayNameFor(model => milestone.TargetDate)                                                            
+                                                                            </div>                                                       
+                                                                            @Html.DisplayFor(modelItem => milestone.TargetDate) 
+                                                                        </div>
+                                                                    </li>
+                                                                    @if (milestone.Completed)
+                                                                    {
+                                                                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                                            <div class="ms-2 me-auto">
+                                                                                <div class="fw-bold">
+                                                                                    @Html.DisplayNameFor(model => milestone.Completed)                                                                                                        
+                                                                                </div>                                                                                                    
+                                                                                    @Html.DisplayFor(modelItem => milestone.CompletedDate)                                            
+                                                                            </div>
+                                                                        </li>     
+                                                                    }           
+
                                                                     <li class="list-group-item d-flex justify-content-start align-items-start">
                                                                         <div>                                                                                           
                                                                             <a class="" data-bs-toggle="offcanvas" href="#offCanvas_MilestoneDetails_@milestone.Id">
@@ -272,6 +321,55 @@
                                                                     <div class="row">
                                                                         <div class="col-md-4">                                                                        
                                                                             <ul class="navbar-nav d-flex flex-grow-1">
+
+                                                                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                                                    <div class="ms-2 me-auto">
+                                                                                        <div class="fw-bold">
+                                                                                            @Html.DisplayNameFor(model => activity.Category)                                                            
+                                                                                        </div>                                                     
+                                                                                        @Html.DisplayFor(modelItem => activity.Category)   
+                                                                                    </div>
+                                                                                </li>
+                                                                                @if (!String.IsNullOrEmpty(activity.Color)) 
+                                                                                {
+                                                                                    <li class="list-group-item d-flex justify-content-between align-items-start" 
+                                                                                        style="background-color: @activity.Color; color: @activity!.GetTextColor();">
+                                                                                        <div class="ms-2 me-auto">
+                                                                                            <div class="fw-bold">
+                                                                                                @Html.DisplayNameFor(model => activity.Color)                                                            
+                                                                                            </div>                                                     
+                                                                                            @Html.DisplayFor(modelItem => activity.Color)   
+                                                                                        </div>
+                                                                                    </li>
+                                                                                }                                
+                                                                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                                                    <div class="ms-2 me-auto">
+                                                                                        <div class="fw-bold">
+                                                                                            @Html.DisplayNameFor(model => activity.CreatedDate)                                                            
+                                                                                        </div>                                                        
+                                                                                        @Html.DisplayFor(modelItem => activity.CreatedDate)
+                                                                                    </div>
+                                                                                </li>
+                                                                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                                                    <div class="ms-2 me-auto">
+                                                                                        <div class="fw-bold">
+                                                                                            @Html.DisplayNameFor(model => activity.TargetDate)                                                            
+                                                                                        </div>                                                       
+                                                                                        @Html.DisplayFor(modelItem => activity.TargetDate) 
+                                                                                    </div>
+                                                                                </li>
+                                                                                @if (activity.Completed)
+                                                                                {
+                                                                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                                                        <div class="ms-2 me-auto">
+                                                                                            <div class="fw-bold">
+                                                                                                @Html.DisplayNameFor(model => activity.Completed)                                                                                                        
+                                                                                            </div>                                                                                                    
+                                                                                                @Html.DisplayFor(modelItem => activity.CompletedDate)                                            
+                                                                                        </div>
+                                                                                    </li>     
+                                                                                }         
+
                                                                                 <li class="list-group-item d-flex justify-content-start align-items-start">
                                                                                     <div>                                                                                           
                                                                                         <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ActivityDetails_@activity.Id">

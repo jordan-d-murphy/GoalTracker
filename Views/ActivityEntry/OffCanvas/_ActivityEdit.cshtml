@@ -6,6 +6,18 @@
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body" id="offcanvas-body">
+
+
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong>Goal @Model?.Milestone?.GoalId: @Model?.Milestone?.Goal?.Title</strong> @Model?.Milestone?.Goal?.Description
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+            <strong>Goal @Model?.MilestoneId: @Model?.Milestone?.Title</strong> @Model?.Milestone?.Description
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
               
         
         <form asp-controller="ActivityEntry" asp-action="Edit">
@@ -49,10 +61,24 @@
                 <span asp-validation-for="Icon" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="Color" class="control-label"></label>
-                <input asp-for="Color" class="form-control" />
+                <label asp-for="Color" class="control-label">Color Picker</label>
+                <input asp-for="Color" type="color" class="form-control form-control-color" 
+                    id="activityColorInputEdit" value="@Model!.Color" title="Choose your color">
                 <span asp-validation-for="Color" class="text-danger"></span>
             </div>
+            <div class="form-group mb-3">
+                <label asp-for="ColorSuggestions" class="control-label"></label>
+                <div class="row">
+                    @if (@Model!.ColorSuggestions != null) 
+                    {
+                        @foreach (var c in @Model!.ColorSuggestions) 
+                        {                                            
+                            <input asp-for="ColorSuggestions" type="color" class="form-control form-control-color d-inline mx-3 colorSuggestion" 
+                                id="activityColorSuggestion_@c.Value" value="@c.Value" data-value="@c.Value" data-targetId="activityColorInputEdit" title="Suggestion">                                                   
+                        } 
+                    }                    
+                </div>    
+            </div>    
             <div class="form-group form-check mb-3">
                 <label class="form-check-label">
                     @Html.DisplayNameFor(model => model.Completed)
