@@ -9,49 +9,77 @@
              
              
         
-        <dl class="row">
-            <dt class="col-sm-2">
+        <dl>
+            <dt>
                 @Html.DisplayNameFor(model => model.Title)
             </dt>
-            <dd class="col-sm-10">
+            <dd>
                 @Html.DisplayFor(model => model.Title)
             </dd>
-            <dt class="col-sm-2">
+            <dt>
                 @Html.DisplayNameFor(model => model.Description)
             </dt>
-            <dd class="col-sm-10">
+            <dd>
                 @Html.DisplayFor(model => model.Description)
             </dd>
-            <dt class="col-sm-2">
+
+            <div class="row">
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CreatedDate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.CreatedDate)
+                    </dd>
+                </div>
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TargetDate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.TargetDate)
+                    </dd>
+                </div>
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CompletedDate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.CompletedDate)
+                    </dd>
+                </div>
+            </div>
+
+
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Completed)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Completed)
+            </dd>
+            <dt>
                 @Html.DisplayNameFor(model => model.Category)
             </dt>
-            <dd class="col-sm-10">
+            <dd>
                 @Html.DisplayFor(model => model.Category)
             </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.CreatedDate)
+            <dt>
+                @Html.DisplayNameFor(model => model.Icon)
             </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.CreatedDate)
+            <dd>
+                @Html.DisplayFor(model => model.Icon)
             </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.TargetDate)
+            <dt>
+                @Html.DisplayNameFor(model => model.Color)
             </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.TargetDate)
+            <dd>
+                @Html.DisplayFor(model => model.Color)
             </dd>
-
-            @if (@Model != null && @Model.Completed)
-            {
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.CompletedDate)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.CompletedDate)
-                </dd>
-            }
-
         </dl>
+
+
     </div>
 </div>
 
