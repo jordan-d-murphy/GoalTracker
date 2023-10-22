@@ -2,20 +2,12 @@
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvas_MilestoneEdit_@Model.Id" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+                <h1 class="offcanvas-title" id="offcanvasRightLabel">Edit Milestone</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body" id="offcanvas-body">
-                This is the offcanvas-body from "Milestone//Offcanvas//MilestoneEdit"
-
-
-                <hr />
-
-
-                
-
-        <h4>Milestone</h4>
-        <hr />
+              
+        
         <form asp-controller="Milestone" asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />

@@ -2,29 +2,24 @@
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvas_ActivityCreate_@Model.MilestoneId" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+                <h1 class="offcanvas-title" id="offcanvasRightLabel">Create Activity</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body" id="offcanvas-body">
-                This is the offcanvas-body "ActivityEntry//Offcanvas//ActivityCreate"
+              
+        
+        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+            <strong>Goal @Model?.Milestone?.GoalId: @Model?.Milestone?.Goal?.Title</strong> @Model?.Milestone?.Goal?.Description
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
 
+        <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+            <strong>Goal @Model?.MilestoneId: @Model?.Milestone?.Title</strong> @Model?.Milestone?.Description
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
 
-                <hr />
-
-                
-
-        <h4>Activity</h4>
-        <hr />
-        <p>Goal: @Model?.Milestone?.Goal</p>
-        <p>Goal Id: @Model?.Milestone?.GoalId</p>
-        <p>Goal Title: @Model?.Milestone?.Goal?.Title</p>
-        <p>Goal Desc: @Model?.Milestone?.Goal?.Description</p>
-        <hr />
-        <p>Milestone: @Model?.Milestone</p>
-        <p>Milestone Id: @Model?.MilestoneId</p>
-        <p>Milestone Title: @Model?.Milestone?.Title</p>
-        <p>Milestone Desc: @Model?.Milestone?.Description</p>
-        <hr />
+       
+       
         <form asp-controller="ActivityEntry" asp-action="CreatePost">
 
             <input type="hidden" asp-for="MilestoneId" />

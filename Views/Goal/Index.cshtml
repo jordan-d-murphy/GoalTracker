@@ -50,7 +50,7 @@
 
             <div class="card mb-3" id="GoalCard_@item.Id">
                 <h4 class="card-header">
-                    <a asp-controller="Goal" asp-action="Details" asp-route-id="@item.Id">
+                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_GoalDetails_@item.Id">
                         Goal: @Html.DisplayFor(modelItem => item.Title)
                     </a>
 
@@ -174,7 +174,7 @@
                                                         <div class="row justify-content-between">
                                                             <div class="col-sm-10">
                                                                 <div class="fw-bold">
-                                                                    <a asp-controller="Milestone" asp-action="Details" asp-route-id="@milestone.Id">
+                                                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_MilestoneDetails_@milestone.Id">
                                                                         <h5>Milestone: @milestone.Title</h5>
                                                                     </a>
                                                                 </div>
@@ -249,7 +249,7 @@
                                                                     <div class="row justify-content-between">
                                                                         <div class="col-sm-10">
                                                                             <div class="fw-bold">
-                                                                                <a asp-controller="ActivityEntry" asp-action="Details" asp-route-id="@activity.Id">
+                                                                                <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ActivityDetails_@activity.Id">
                                                                                     <h6>Activity: @activity.Title</h6>
                                                                                 </a>
                                                                             </div>

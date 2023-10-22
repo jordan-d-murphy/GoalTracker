@@ -2,21 +2,16 @@
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvas_ActivityDelete_@Model.Id" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+                <h1 class="offcanvas-title" id="offcanvasRightLabel">Delete Activity</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body" id="offcanvas-body">
-                This is the offcanvas-body "ActivityEntry//Offcanvas//ActivityDelete"
+            
+        <div class="alert alert-danger d-flex align-items-center py-0" role="alert">                
+                <i class="bi-exclamation-triangle-fill" style="font-size: 1rem; color: #dc3545;"></i>                
+                    Are you sure you want to delete this Activity?                
+            </div> 
 
-
-                <hr />
-
-
-                
-
-        <h3>Are you sure you want to delete this?</h3>
-        <h4>ActivityEntry</h4>
-        <hr />
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
