@@ -10,7 +10,11 @@ $(document).ready(function (){
 $("input.goalColorSuggestion").click(function(event) {
         event.preventDefault()
         var color = event.target.dataset.value
-        $(".goalColorInput").val(color)         
+        var targetId = event.target.dataset.targetid
+
+        console.log("Color: " + color + "   targetId: " + targetId)
+
+        $("#" + targetId).val(color)                 
     }
 )
 

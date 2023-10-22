@@ -17,7 +17,7 @@ public class GoalListMilestonesViewModel
 
     public List<ActivityEntry>? ActivityEntries { get; set; }    
     
-    [Display(Name = "Suggestions")]
+    [Display(Name = "Color Suggestions")]
     public List<SelectListItem>? ColorSuggestions { get; set; }
 
 }

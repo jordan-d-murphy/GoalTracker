@@ -101,7 +101,7 @@ namespace GoalTracker.Controllers
 
             var suggestionsList = new List<SelectListItem> {
                 new SelectListItem { Value = "#000000" , Text = "#000000"},
-                new SelectListItem { Value = "#FFFFFF" , Text = "#FFFFFF"}                    
+                new SelectListItem { Value = "#ffffff" , Text = "#ffffff"}                    
             };
             
             foreach (var s in suggestions) 
