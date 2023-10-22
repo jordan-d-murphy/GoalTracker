@@ -51,3 +51,8 @@ div.card {
   width: 50% !important;
   padding: 2rem !important;
 }
+
+.brand-logo-font {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.5rem;
+}

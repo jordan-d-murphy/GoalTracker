@@ -7,7 +7,7 @@ namespace GoalTracker.Models;
 public class Milestone : TrackingRecord
 {
 
-    public int GoalId { get; set; }
+    public Guid GoalId { get; set; }
 
     public Goal Goal { get; set; } = null!;
 

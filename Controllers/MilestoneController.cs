@@ -28,7 +28,7 @@ namespace GoalTracker.Controllers
         }
 
         // GET: Milestone/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null || _context.Milestone == null)
             {
@@ -60,7 +60,7 @@ namespace GoalTracker.Controllers
         }
 
         // GET: Milestone/Create
-        public async Task<IActionResult> Create(int? id)
+        public async Task<IActionResult> Create(Guid? id)
         {
             if (id == null || _context.Goal == null) 
             {
@@ -113,7 +113,7 @@ namespace GoalTracker.Controllers
         }
 
         // GET: Milestone/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.Milestone == null)
             {
@@ -133,7 +133,7 @@ namespace GoalTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Goal,GoalId,Id,Title,Description,CreatedDate,TargetDate,CompletedDate,Completed,Category,Icon,Color")] Milestone milestone)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Goal,GoalId,Id,Title,Description,CreatedDate,TargetDate,CompletedDate,Completed,Category,Icon,Color")] Milestone milestone)
         {
             if (id != milestone.Id)
             {
@@ -177,7 +177,7 @@ namespace GoalTracker.Controllers
         }
 
         // GET: Milestone/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.Milestone == null)
             {
@@ -197,7 +197,7 @@ namespace GoalTracker.Controllers
         // POST: Milestone/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             if (_context.Milestone == null)
             {
@@ -213,7 +213,7 @@ namespace GoalTracker.Controllers
             return RedirectToAction(nameof(Index), "Goal", new {}, $"GoalCard_{milestone?.GoalId}");
         }
 
-        private bool MilestoneExists(int id)
+        private bool MilestoneExists(Guid id)
         {
           return (_context.Milestone?.Any(e => e.Id == id)).GetValueOrDefault();
         }

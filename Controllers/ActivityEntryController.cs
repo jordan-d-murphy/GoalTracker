@@ -28,7 +28,7 @@ namespace GoalTracker.Controllers
         }
 
         // GET: ActivityEntry/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null || _context.ActivityEntry == null)
             {
@@ -62,7 +62,7 @@ namespace GoalTracker.Controllers
         }
 
         // GET: ActivityEntry/Create
-        public async Task<IActionResult> Create(int? id)
+        public async Task<IActionResult> Create(Guid? id)
         {
             if (id == null || _context.Milestone == null) 
             {
@@ -133,7 +133,7 @@ namespace GoalTracker.Controllers
         }
 
         // GET: ActivityEntry/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.ActivityEntry == null)
             {
@@ -153,7 +153,7 @@ namespace GoalTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Milestone,MilestoneId,Id,Title,Description,CreatedDate,TargetDate,CompletedDate,Completed,Category,Icon,Color")] ActivityEntry activityEntry)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Milestone,MilestoneId,Id,Title,Description,CreatedDate,TargetDate,CompletedDate,Completed,Category,Icon,Color")] ActivityEntry activityEntry)
         {
             if (id != activityEntry.Id)
             {
@@ -206,7 +206,7 @@ namespace GoalTracker.Controllers
         }
 
         // GET: ActivityEntry/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.ActivityEntry == null)
             {
@@ -226,7 +226,7 @@ namespace GoalTracker.Controllers
         // POST: ActivityEntry/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             if (_context.ActivityEntry == null)
             {
@@ -242,7 +242,7 @@ namespace GoalTracker.Controllers
             return RedirectToAction(nameof(Index), "Goal");
         }
 
-        private bool ActivityEntryExists(int id)
+        private bool ActivityEntryExists(Guid id)
         {
           return (_context.ActivityEntry?.Any(e => e.Id == id)).GetValueOrDefault();
         }

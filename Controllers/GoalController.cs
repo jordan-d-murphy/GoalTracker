@@ -132,7 +132,7 @@ namespace GoalTracker.Controllers
         }
 
         // GET: Goal/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null || _context.Goal == null)
             {
@@ -185,7 +185,7 @@ namespace GoalTracker.Controllers
         }
 
         // GET: Goal/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.Goal == null)
             {
@@ -206,7 +206,7 @@ namespace GoalTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,CreatedDate,TargetDate,Completed,CompletedDate,Category,Color")] Goal goal)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Title,Description,CreatedDate,TargetDate,Completed,CompletedDate,Category,Color")] Goal goal)
         {
             if (id != goal.Id)
             {
@@ -242,7 +242,7 @@ namespace GoalTracker.Controllers
         }
 
         // GET: Goal/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null || _context.Goal == null)
             {
@@ -262,7 +262,7 @@ namespace GoalTracker.Controllers
         // POST: Goal/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             if (_context.Goal == null)
             {
@@ -278,7 +278,7 @@ namespace GoalTracker.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GoalExists(int id)
+        private bool GoalExists(Guid id)
         {
             return (_context.Goal?.Any(e => e.Id == id)).GetValueOrDefault();
         }
