@@ -169,7 +169,7 @@ namespace GoalTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,CreatedDate,TargetDate,Completed,CompletedDate,Category,Color")] Goal goal)
+        public async Task<IActionResult> Create([Bind("ProjectId,RoadmapId,Milestones,Id,Title,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color,FileAttachments,Links,Tags,CreatedBy,Assignee,Reviewer,Status,Priority")] Goal goal)
         {
             goal.CreatedDate = DateTime.Today;
 
@@ -206,7 +206,7 @@ namespace GoalTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Title,Description,CreatedDate,TargetDate,Completed,CompletedDate,Category,Color")] Goal goal)
+        public async Task<IActionResult> Edit(Guid id, [Bind("ProjectId,RoadmapId,Milestones,Id,Title,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color,FileAttachments,Links,Tags,CreatedBy,Assignee,Reviewer,Status,Priority")] Goal goal)
         {
             if (id != goal.Id)
             {

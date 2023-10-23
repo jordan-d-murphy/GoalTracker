@@ -26,72 +26,12 @@ public static class SeedData
                     Title = "Buy Murmurshan",
                     Description = "Buy Murmurshan from Grandma in one year",
                     CreatedDate = DateTime.Parse("2023-10-13"),
+                    StartedDate = DateTime.Parse("2023-10-13"),
                     TargetDate = DateTime.Parse("2024-10-13"),
                     Completed = false,
-                    Category = "Personal"
-                },
-                new Goal
-                {
-                    Title = "Get a New Job",
-                    Description = "Get a remote job with a $160k minimum base salary",
-                    CreatedDate = DateTime.Parse("2023-10-13"),
-                    TargetDate = DateTime.Parse("2024-10-13"),
-                    Completed = false,
-                    Category = "Work"
-                },
-                new Goal
-                {
-                    Title = "Move to the Oregon coast",
-                    Description = "Find a better place to live that feels like home",
-                    CreatedDate = DateTime.Parse("2023-10-13"),
-                    TargetDate = DateTime.Parse("2024-10-13"),
-                    Completed = false,
-                    Category = "Personal"
-                },
-                new Goal
-                {
-                    Title = "Buy a Porsche 911 Turbo S",
-                    Description = "Dream car | Green // Cognac",
-                    CreatedDate = DateTime.Parse("2023-10-13"),
-                    TargetDate = DateTime.Parse("2024-10-13"),
-                    Completed = false,
-                    Category = "Hobbies"
-                },
-                new Goal
-                {
-                    Title = "Get a Rolex GMT Master II Sprite",
-                    Description = "Matching colors with my 911",
-                    CreatedDate = DateTime.Parse("2023-10-13"),
-                    TargetDate = DateTime.Parse("2024-10-13"),
-                    Completed = false,
-                    Category = "Hobbies"
-                },
-                new Goal
-                {
-                    Title = "Get a Cocker Spaniel",
-                    Description = "Walks on the beach // Road Dog // Cuddle Buddy // BFF",
-                    CreatedDate = DateTime.Parse("2023-10-13"),
-                    TargetDate = DateTime.Parse("2024-10-13"),
-                    Completed = false,
-                    Category = "Personal"
-                },
-                new Goal
-                {
-                    Title = "Pay off all my debt",
-                    Description = "Fix my credit",
-                    CreatedDate = DateTime.Parse("2023-10-13"),
-                    TargetDate = DateTime.Parse("2024-10-13"),
-                    Completed = false,
-                    Category = "Finance"
-                },
-                new Goal
-                {
-                    Title = "Run a Marathon",
-                    Description = "",
-                    CreatedDate = DateTime.Parse("2023-10-13"),
-                    TargetDate = DateTime.Parse("2024-10-13"),
-                    Completed = false,
-                    Category = "Health"
+                    Favorited = true,
+                    Category = "Personal",
+                    Color = "#a372ee"
                 }
             );
 

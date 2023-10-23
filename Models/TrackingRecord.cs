@@ -19,6 +19,10 @@ public abstract class TrackingRecord
     [DataType(DataType.Date)]
     public DateTime CreatedDate { get; set; }
 
+    [Display(Name = "Started")]
+    [DataType(DataType.Date)]
+    public DateTime StartedDate { get; set; }
+
     [Display(Name = "Target")]
     [DataType(DataType.Date)]
     public DateTime TargetDate { get; set; }
