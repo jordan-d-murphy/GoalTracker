@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using GoalTracker.Data;
 using GoalTracker.Models;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ else
     builder.Services.AddDbContext<GoalTrackerContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("GoalTrackerContextProd") ?? throw new InvalidOperationException("Connection string 'GoalTrackerContextProd' not found.")));
 }
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<GoalTrackerContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -46,5 +49,8 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
+
 
 app.Run();

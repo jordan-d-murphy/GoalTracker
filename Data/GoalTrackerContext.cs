@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using GoalTracker.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace GoalTracker.Data
 {
-    public class GoalTrackerContext : DbContext
+    public class GoalTrackerContext : IdentityDbContext
     {
         public GoalTrackerContext (DbContextOptions<GoalTrackerContext> options)
             : base(options)
