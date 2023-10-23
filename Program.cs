@@ -9,15 +9,19 @@ var builder = WebApplication.CreateBuilder(args);
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddDbContext<GoalTrackerContext>(options =>
-        options.UseSqlite(builder.Configuration.GetConnectionString("GoalTrackerContextDev") ?? throw new InvalidOperationException("Connection string 'GoalTrackerContextDev' not found.")));
+        options.UseSqlite(builder.Configuration.GetConnectionString("GoalTrackerContextDev") 
+            ?? throw new InvalidOperationException("Connection string 'GoalTrackerContextDev' not found.")));
 }
 else
 {
     builder.Services.AddDbContext<GoalTrackerContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("GoalTrackerContextProd") ?? throw new InvalidOperationException("Connection string 'GoalTrackerContextProd' not found.")));
+        options.UseSqlServer(builder.Configuration.GetConnectionString("GoalTrackerContextProd") 
+            ?? throw new InvalidOperationException("Connection string 'GoalTrackerContextProd' not found.")));
 }
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<GoalTrackerContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(
+    options => options.SignIn.RequireConfirmedAccount = true
+    ).AddEntityFrameworkStores<GoalTrackerContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
