@@ -9,7 +9,17 @@ public class ApplicationUser : IdentityUser<Guid>
     public virtual ICollection<ApplicationUserToken>? Tokens { get; set; }
     public virtual ICollection<ApplicationUserRole>? UserRoles { get; set; }
 
+    [PersonalData]
     public string? CustomTag { get; set; }
+
+    [PersonalData]
+    public string? City { get; set; }
+
+    [PersonalData]
+    public string? State { get; set; }
+
+    [PersonalData]
+    public string? Zip { get; set; }
 
     [PersonalData]
     public string? DisplayName { get; set; }

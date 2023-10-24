@@ -98,6 +98,31 @@ namespace GoalTracker.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Phone]
+            [Display(Name = "Phone number")]
+            public string PhoneNumber { get; set; }
+            
+            [Display(Name = "Custom Tag")]
+            public string CustomTag { get; set; }
+
+            public string City { get; set; }
+
+            public string State { get; set; }
+            
+            public string Zip { get; set; }
+            
+            [Display(Name = "Time Zone")]
+            public TimeZoneInfo TimeZone { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Display Name")]
+            public string DisplayName { get; set; }
+            
+            [Display(Name = "Date of Birth")]
+            [DataType(DataType.Date)]   
+            public DateTime DOB { get; set; }
         }
 
 
@@ -114,6 +139,13 @@ namespace GoalTracker.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+                user.PhoneNumber = Input.PhoneNumber;
+                user.DisplayName = Input.DisplayName;
+                user.DOB = Input.DOB;
+                user.CustomTag = Input.CustomTag;
+                user.City = Input.City;
+                user.State = Input.State;
+                user.Zip = Input.Zip;                
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

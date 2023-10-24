@@ -59,6 +59,27 @@ namespace GoalTracker.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+            
+            [Display(Name = "Custom Tag")]
+            public string CustomTag { get; set; }
+
+            public string City { get; set; }
+
+            public string State { get; set; }
+            
+            public string Zip { get; set; }
+            
+            [Display(Name = "Time Zone")]
+            public TimeZoneInfo TimeZone { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Display Name")]
+            public string DisplayName { get; set; }
+            
+            [Display(Name = "Date of Birth")]
+            [DataType(DataType.Date)]   
+            public DateTime DOB { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -70,7 +91,13 @@ namespace GoalTracker.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                DisplayName = user.DisplayName,
+                DOB = user.DOB,
+                CustomTag = user.CustomTag,
+                City = user.City,
+                State = user.State,
+                Zip = user.Zip                
             };
         }
 
@@ -110,6 +137,40 @@ namespace GoalTracker.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+
+            if (Input.DisplayName != user.DisplayName)
+            {
+                user.DisplayName = Input.DisplayName;
+            }
+
+            if (Input.DOB != user.DOB)
+            {
+                user.DOB = Input.DOB;
+            }
+
+            if (Input.CustomTag != user.CustomTag)
+            {
+                user.CustomTag = Input.CustomTag;
+            }
+
+            if (Input.City != user.City)
+            {
+                user.City = Input.City;
+            }
+
+            if (Input.State != user.State)
+            {
+                user.State = Input.State;
+            }
+
+            if (Input.Zip != user.Zip)
+            {
+                user.Zip = Input.Zip;
+            }
+
+           
+
+        await _userManager.UpdateAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
