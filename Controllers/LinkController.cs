@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using GoalTracker.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GoalTracker.Controllers
 {
+    [Authorize]
     public class LinkController : Controller
     {
         private readonly GoalTrackerContext _context;

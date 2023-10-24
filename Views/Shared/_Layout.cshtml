@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using GoalTracker.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -16,31 +22,46 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-white border-bottom box-shadow fixed-top z-index-3">
             <div class="container-fluid">
-                <a class="navbar-brand px-4 brand-logo-font" asp-area="" asp-controller="Goal" asp-action="Index">koala GoalTracker</a>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <a class="navbar-brand px-4 brand-logo-font" asp-area="" asp-controller="Goal" asp-action="Index">koala GoalTracker</a>
+                } 
+                else 
+                {
+                    <a class="navbar-brand px-4 brand-logo-font" asp-area="" asp-controller="Home" asp-action="Index">koala GoalTracker</a>
+                }
+                
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav d-flex flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Goal" asp-action="Index">Goals</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Milestone" asp-action="Index">Milestones</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="ActivityEntry" asp-action="Index">Activities</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>   
-                        <li class="nav-item ms-auto px-3">
-                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Sign Out</a>
-                        </li>                                                                                                                                      
+                        
+
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Goal" asp-action="Index">Goals</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Milestone" asp-action="Index">Milestones</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="ActivityEntry" asp-action="Index">Activities</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>   
+                            <li class="nav-item ms-auto px-3">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Sign Out</a>
+                            </li>
+                        }
+
+                                                                                                                                                              
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -52,21 +73,34 @@
 
 <div class="row">
 
-    @await Html.PartialAsync("~/Views/Shared/_SideNav.cshtml")
+    
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @await Html.PartialAsync("~/Views/Shared/_SideNav.cshtml")
+
+        <div class="container col-10 offset-2">
+            <main role="main" class="p-4">
+                @RenderBody()
+            </main>
+        </div>
+
+        @await Html.PartialAsync("~/Views/Shared/OffCanvas/_OffCanvasPartials.cshtml")
+    }
+    else 
+    {
+        <div class="container">
+            <main role="main" class="p-4">
+                @RenderBody()
+            </main>
+        </div>
+    }
+    
 
    
 
 
 
-    <div class="container col-10 offset-2">
-        <main role="main" class="p-4">
-            @RenderBody()
-        </main>
-    </div>
-
-
-
-    @await Html.PartialAsync("~/Views/Shared/OffCanvas/_OffCanvasPartials.cshtml")
+    
 
     
 
