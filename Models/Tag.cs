@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
+using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Models;
 
@@ -9,7 +10,7 @@ public class Tag
 
     public string? Name {get;set;}    
 
-    public IdentityUser? CreatedBy { get; set; }
+    public ApplicationUser? CreatedBy { get; set; }
 
     [Display(Name = "Created")]
     [DataType(DataType.Date)]

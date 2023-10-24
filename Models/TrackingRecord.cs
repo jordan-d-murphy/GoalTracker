@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Models;
 
@@ -65,11 +66,11 @@ public abstract class TrackingRecord
 
     public List<Tag>? Tags { get; set; }
 
-    public IdentityUser? CreatedBy { get; set; }
+    public ApplicationUser? CreatedBy { get; set; }
 
-    public IdentityUser? Assignee { get; set; }
+    public ApplicationUser? Assignee { get; set; }
 
-    public IdentityUser? Reviewer { get; set; }
+    public ApplicationUser? Reviewer { get; set; }
 
     public Status? Status { get; set; }
 

@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
+using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Models;
 
@@ -15,7 +16,7 @@ public class FileAttachment
 
     public string? Url {get;set;}
 
-    public IdentityUser? UploadedBy { get; set; }
+    public ApplicationUser? UploadedBy { get; set; }
 
     [Display(Name = "Uploaded")]
     [DataType(DataType.Date)]

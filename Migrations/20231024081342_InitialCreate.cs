@@ -55,31 +55,6 @@ namespace GoalTracker.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "IdentityUser",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    UserName = table.Column<string>(type: "TEXT", nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "TEXT", nullable: true),
-                    Email = table.Column<string>(type: "TEXT", nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "TEXT", nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "TEXT", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IdentityUser", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -210,16 +185,16 @@ namespace GoalTracker.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
                     PriorityInt = table.Column<int>(type: "INTEGER", nullable: true),
-                    CreatedById = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "TEXT", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Priority", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Priority_IdentityUser_CreatedById",
+                        name: "FK_Priority_AspNetUsers_CreatedById",
                         column: x => x.CreatedById,
-                        principalTable: "IdentityUser",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
 
@@ -229,16 +204,16 @@ namespace GoalTracker.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedById = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "TEXT", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Status", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Status_IdentityUser_CreatedById",
+                        name: "FK_Status_AspNetUsers_CreatedById",
                         column: x => x.CreatedById,
-                        principalTable: "IdentityUser",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id");
                 });
 
@@ -258,9 +233,9 @@ namespace GoalTracker.Migrations
                     Category = table.Column<string>(type: "TEXT", nullable: true),
                     Icon = table.Column<string>(type: "TEXT", nullable: true),
                     Color = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedById = table.Column<string>(type: "TEXT", nullable: true),
-                    AssigneeId = table.Column<string>(type: "TEXT", nullable: true),
-                    ReviewerId = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "TEXT", nullable: true),
+                    AssigneeId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    ReviewerId = table.Column<Guid>(type: "TEXT", nullable: true),
                     StatusId = table.Column<Guid>(type: "TEXT", nullable: true),
                     PriorityId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
@@ -268,19 +243,19 @@ namespace GoalTracker.Migrations
                 {
                     table.PrimaryKey("PK_Project", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Project_IdentityUser_AssigneeId",
+                        name: "FK_Project_AspNetUsers_AssigneeId",
                         column: x => x.AssigneeId,
-                        principalTable: "IdentityUser",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Project_IdentityUser_CreatedById",
+                        name: "FK_Project_AspNetUsers_CreatedById",
                         column: x => x.CreatedById,
-                        principalTable: "IdentityUser",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Project_IdentityUser_ReviewerId",
+                        name: "FK_Project_AspNetUsers_ReviewerId",
                         column: x => x.ReviewerId,
-                        principalTable: "IdentityUser",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Project_Priority_PriorityId",
@@ -311,9 +286,9 @@ namespace GoalTracker.Migrations
                     Category = table.Column<string>(type: "TEXT", nullable: true),
                     Icon = table.Column<string>(type: "TEXT", nullable: true),
                     Color = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedById = table.Column<string>(type: "TEXT", nullable: true),
-                    AssigneeId = table.Column<string>(type: "TEXT", nullable: true),
-                    ReviewerId = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "TEXT", nullable: true),
+                    AssigneeId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    ReviewerId = table.Column<Guid>(type: "TEXT", nullable: true),
                     StatusId = table.Column<Guid>(type: "TEXT", nullable: true),
                     PriorityId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
@@ -321,19 +296,19 @@ namespace GoalTracker.Migrations
                 {
                     table.PrimaryKey("PK_Roadmap", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Roadmap_IdentityUser_AssigneeId",
+                        name: "FK_Roadmap_AspNetUsers_AssigneeId",
                         column: x => x.AssigneeId,
-                        principalTable: "IdentityUser",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Roadmap_IdentityUser_CreatedById",
+                        name: "FK_Roadmap_AspNetUsers_CreatedById",
                         column: x => x.CreatedById,
-                        principalTable: "IdentityUser",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Roadmap_IdentityUser_ReviewerId",
+                        name: "FK_Roadmap_AspNetUsers_ReviewerId",
                         column: x => x.ReviewerId,
-                        principalTable: "IdentityUser",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Roadmap_Priority_PriorityId",
@@ -370,9 +345,9 @@ namespace GoalTracker.Migrations
                     Category = table.Column<string>(type: "TEXT", nullable: true),
                     Icon = table.Column<string>(type: "TEXT", nullable: true),
                     Color = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedById = table.Column<string>(type: "TEXT", nullable: true),
-                    AssigneeId = table.Column<string>(type: "TEXT", nullable: true),
-                    ReviewerId = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "TEXT", nullable: true),
+                    AssigneeId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    ReviewerId = table.Column<Guid>(type: "TEXT", nullable: true),
                     StatusId = table.Column<Guid>(type: "TEXT", nullable: true),
                     PriorityId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
@@ -380,19 +355,19 @@ namespace GoalTracker.Migrations
                 {
                     table.PrimaryKey("PK_Goal", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Goal_IdentityUser_AssigneeId",
+                        name: "FK_Goal_AspNetUsers_AssigneeId",
                         column: x => x.AssigneeId,
-                        principalTable: "IdentityUser",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Goal_IdentityUser_CreatedById",
+                        name: "FK_Goal_AspNetUsers_CreatedById",
                         column: x => x.CreatedById,
-                        principalTable: "IdentityUser",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Goal_IdentityUser_ReviewerId",
+                        name: "FK_Goal_AspNetUsers_ReviewerId",
                         column: x => x.ReviewerId,
-                        principalTable: "IdentityUser",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Goal_Priority_PriorityId",
@@ -433,9 +408,9 @@ namespace GoalTracker.Migrations
                     Category = table.Column<string>(type: "TEXT", nullable: true),
                     Icon = table.Column<string>(type: "TEXT", nullable: true),
                     Color = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedById = table.Column<string>(type: "TEXT", nullable: true),
-                    AssigneeId = table.Column<string>(type: "TEXT", nullable: true),
-                    ReviewerId = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "TEXT", nullable: true),
+                    AssigneeId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    ReviewerId = table.Column<Guid>(type: "TEXT", nullable: true),
                     StatusId = table.Column<Guid>(type: "TEXT", nullable: true),
                     PriorityId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
@@ -443,26 +418,26 @@ namespace GoalTracker.Migrations
                 {
                     table.PrimaryKey("PK_Milestone", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Milestone_AspNetUsers_AssigneeId",
+                        column: x => x.AssigneeId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Milestone_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Milestone_AspNetUsers_ReviewerId",
+                        column: x => x.ReviewerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Milestone_Goal_GoalId",
                         column: x => x.GoalId,
                         principalTable: "Goal",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Milestone_IdentityUser_AssigneeId",
-                        column: x => x.AssigneeId,
-                        principalTable: "IdentityUser",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Milestone_IdentityUser_CreatedById",
-                        column: x => x.CreatedById,
-                        principalTable: "IdentityUser",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Milestone_IdentityUser_ReviewerId",
-                        column: x => x.ReviewerId,
-                        principalTable: "IdentityUser",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Milestone_Priority_PriorityId",
                         column: x => x.PriorityId,
@@ -492,9 +467,9 @@ namespace GoalTracker.Migrations
                     Category = table.Column<string>(type: "TEXT", nullable: true),
                     Icon = table.Column<string>(type: "TEXT", nullable: true),
                     Color = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedById = table.Column<string>(type: "TEXT", nullable: true),
-                    AssigneeId = table.Column<string>(type: "TEXT", nullable: true),
-                    ReviewerId = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "TEXT", nullable: true),
+                    AssigneeId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    ReviewerId = table.Column<Guid>(type: "TEXT", nullable: true),
                     StatusId = table.Column<Guid>(type: "TEXT", nullable: true),
                     PriorityId = table.Column<Guid>(type: "TEXT", nullable: true)
                 },
@@ -502,19 +477,19 @@ namespace GoalTracker.Migrations
                 {
                     table.PrimaryKey("PK_ActivityEntry", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ActivityEntry_IdentityUser_AssigneeId",
+                        name: "FK_ActivityEntry_AspNetUsers_AssigneeId",
                         column: x => x.AssigneeId,
-                        principalTable: "IdentityUser",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ActivityEntry_IdentityUser_CreatedById",
+                        name: "FK_ActivityEntry_AspNetUsers_CreatedById",
                         column: x => x.CreatedById,
-                        principalTable: "IdentityUser",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ActivityEntry_IdentityUser_ReviewerId",
+                        name: "FK_ActivityEntry_AspNetUsers_ReviewerId",
                         column: x => x.ReviewerId,
-                        principalTable: "IdentityUser",
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_ActivityEntry_Milestone_MilestoneId",
@@ -543,7 +518,7 @@ namespace GoalTracker.Migrations
                     FileName = table.Column<string>(type: "TEXT", nullable: true),
                     FileExtension = table.Column<string>(type: "TEXT", nullable: true),
                     Url = table.Column<string>(type: "TEXT", nullable: true),
-                    UploadedById = table.Column<string>(type: "TEXT", nullable: true),
+                    UploadedById = table.Column<Guid>(type: "TEXT", nullable: true),
                     UploadedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ActivityEntryId = table.Column<Guid>(type: "TEXT", nullable: true),
                     GoalId = table.Column<Guid>(type: "TEXT", nullable: true),
@@ -560,14 +535,14 @@ namespace GoalTracker.Migrations
                         principalTable: "ActivityEntry",
                         principalColumn: "Id");
                     table.ForeignKey(
+                        name: "FK_FileAttachment_AspNetUsers_UploadedById",
+                        column: x => x.UploadedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_FileAttachment_Goal_GoalId",
                         column: x => x.GoalId,
                         principalTable: "Goal",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_FileAttachment_IdentityUser_UploadedById",
-                        column: x => x.UploadedById,
-                        principalTable: "IdentityUser",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_FileAttachment_Milestone_MilestoneId",
@@ -593,7 +568,7 @@ namespace GoalTracker.Migrations
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     Url = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedById = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "TEXT", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ActivityEntryId = table.Column<Guid>(type: "TEXT", nullable: true),
                     GoalId = table.Column<Guid>(type: "TEXT", nullable: true),
@@ -610,14 +585,14 @@ namespace GoalTracker.Migrations
                         principalTable: "ActivityEntry",
                         principalColumn: "Id");
                     table.ForeignKey(
+                        name: "FK_Link_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Link_Goal_GoalId",
                         column: x => x.GoalId,
                         principalTable: "Goal",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Link_IdentityUser_CreatedById",
-                        column: x => x.CreatedById,
-                        principalTable: "IdentityUser",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Link_Milestone_MilestoneId",
@@ -642,7 +617,7 @@ namespace GoalTracker.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
-                    CreatedById = table.Column<string>(type: "TEXT", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "TEXT", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     ActivityEntryId = table.Column<Guid>(type: "TEXT", nullable: true),
                     GoalId = table.Column<Guid>(type: "TEXT", nullable: true),
@@ -659,14 +634,14 @@ namespace GoalTracker.Migrations
                         principalTable: "ActivityEntry",
                         principalColumn: "Id");
                     table.ForeignKey(
+                        name: "FK_Tag_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Tag_Goal_GoalId",
                         column: x => x.GoalId,
                         principalTable: "Goal",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Tag_IdentityUser_CreatedById",
-                        column: x => x.CreatedById,
-                        principalTable: "IdentityUser",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Tag_Milestone_MilestoneId",
@@ -1019,9 +994,6 @@ namespace GoalTracker.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "ActivityEntry");
 
             migrationBuilder.DropTable(
@@ -1043,7 +1015,7 @@ namespace GoalTracker.Migrations
                 name: "Status");
 
             migrationBuilder.DropTable(
-                name: "IdentityUser");
+                name: "AspNetUsers");
         }
     }
 }

@@ -241,7 +241,7 @@ namespace GoalTracker.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AssigneeId")
+                    b.Property<Guid?>("AssigneeId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Category")
@@ -256,7 +256,7 @@ namespace GoalTracker.Migrations
                     b.Property<DateTime?>("CompletedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CreatedById")
+                    b.Property<Guid?>("CreatedById")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedDate")
@@ -277,7 +277,7 @@ namespace GoalTracker.Migrations
                     b.Property<Guid?>("PriorityId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ReviewerId")
+                    b.Property<Guid?>("ReviewerId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("StartedDate")
@@ -339,7 +339,7 @@ namespace GoalTracker.Migrations
                     b.Property<Guid>("TrackingRecordId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UploadedById")
+                    b.Property<Guid?>("UploadedById")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("UploadedDate")
@@ -371,7 +371,7 @@ namespace GoalTracker.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AssigneeId")
+                    b.Property<Guid?>("AssigneeId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Category")
@@ -386,7 +386,7 @@ namespace GoalTracker.Migrations
                     b.Property<DateTime?>("CompletedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CreatedById")
+                    b.Property<Guid?>("CreatedById")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedDate")
@@ -407,7 +407,7 @@ namespace GoalTracker.Migrations
                     b.Property<Guid?>("ProjectId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ReviewerId")
+                    b.Property<Guid?>("ReviewerId")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("RoadmapId")
@@ -453,7 +453,7 @@ namespace GoalTracker.Migrations
                     b.Property<Guid?>("ActivityEntryId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CreatedById")
+                    b.Property<Guid?>("CreatedById")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedDate")
@@ -500,7 +500,7 @@ namespace GoalTracker.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AssigneeId")
+                    b.Property<Guid?>("AssigneeId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Category")
@@ -515,7 +515,7 @@ namespace GoalTracker.Migrations
                     b.Property<DateTime?>("CompletedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CreatedById")
+                    b.Property<Guid?>("CreatedById")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedDate")
@@ -536,7 +536,7 @@ namespace GoalTracker.Migrations
                     b.Property<Guid?>("PriorityId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ReviewerId")
+                    b.Property<Guid?>("ReviewerId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("StartedDate")
@@ -574,7 +574,7 @@ namespace GoalTracker.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CreatedById")
+                    b.Property<Guid?>("CreatedById")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedDate")
@@ -599,7 +599,7 @@ namespace GoalTracker.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AssigneeId")
+                    b.Property<Guid?>("AssigneeId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Category")
@@ -614,7 +614,7 @@ namespace GoalTracker.Migrations
                     b.Property<DateTime?>("CompletedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CreatedById")
+                    b.Property<Guid?>("CreatedById")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedDate")
@@ -632,7 +632,7 @@ namespace GoalTracker.Migrations
                     b.Property<Guid?>("PriorityId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ReviewerId")
+                    b.Property<Guid?>("ReviewerId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("StartedDate")
@@ -668,7 +668,7 @@ namespace GoalTracker.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AssigneeId")
+                    b.Property<Guid?>("AssigneeId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Category")
@@ -683,7 +683,7 @@ namespace GoalTracker.Migrations
                     b.Property<DateTime?>("CompletedDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CreatedById")
+                    b.Property<Guid?>("CreatedById")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedDate")
@@ -704,7 +704,7 @@ namespace GoalTracker.Migrations
                     b.Property<Guid?>("ProjectId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("ReviewerId")
+                    b.Property<Guid?>("ReviewerId")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("StartedDate")
@@ -742,7 +742,7 @@ namespace GoalTracker.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CreatedById")
+                    b.Property<Guid?>("CreatedById")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedDate")
@@ -767,7 +767,7 @@ namespace GoalTracker.Migrations
                     b.Property<Guid?>("ActivityEntryId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("CreatedById")
+                    b.Property<Guid?>("CreatedById")
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedDate")
@@ -803,58 +803,6 @@ namespace GoalTracker.Migrations
                     b.HasIndex("RoadmapId");
 
                     b.ToTable("Tag");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("IdentityUser");
                 });
 
             modelBuilder.Entity("GoalTracker.Areas.Identity.Data.ApplicationRoleClaim", b =>
@@ -934,11 +882,11 @@ namespace GoalTracker.Migrations
 
             modelBuilder.Entity("GoalTracker.Models.ActivityEntry", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Assignee")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "Assignee")
                         .WithMany()
                         .HasForeignKey("AssigneeId");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
@@ -952,7 +900,7 @@ namespace GoalTracker.Migrations
                         .WithMany()
                         .HasForeignKey("PriorityId");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Reviewer")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "Reviewer")
                         .WithMany()
                         .HasForeignKey("ReviewerId");
 
@@ -995,7 +943,7 @@ namespace GoalTracker.Migrations
                         .WithMany("FileAttachments")
                         .HasForeignKey("RoadmapId");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UploadedBy")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "UploadedBy")
                         .WithMany()
                         .HasForeignKey("UploadedById");
 
@@ -1004,11 +952,11 @@ namespace GoalTracker.Migrations
 
             modelBuilder.Entity("GoalTracker.Models.Goal", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Assignee")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "Assignee")
                         .WithMany()
                         .HasForeignKey("AssigneeId");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
@@ -1020,7 +968,7 @@ namespace GoalTracker.Migrations
                         .WithMany("Goals")
                         .HasForeignKey("ProjectId");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Reviewer")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "Reviewer")
                         .WithMany()
                         .HasForeignKey("ReviewerId");
 
@@ -1049,7 +997,7 @@ namespace GoalTracker.Migrations
                         .WithMany("Links")
                         .HasForeignKey("ActivityEntryId");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
@@ -1074,11 +1022,11 @@ namespace GoalTracker.Migrations
 
             modelBuilder.Entity("GoalTracker.Models.Milestone", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Assignee")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "Assignee")
                         .WithMany()
                         .HasForeignKey("AssigneeId");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
@@ -1092,7 +1040,7 @@ namespace GoalTracker.Migrations
                         .WithMany()
                         .HasForeignKey("PriorityId");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Reviewer")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "Reviewer")
                         .WithMany()
                         .HasForeignKey("ReviewerId");
 
@@ -1115,7 +1063,7 @@ namespace GoalTracker.Migrations
 
             modelBuilder.Entity("GoalTracker.Models.Priority", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
@@ -1124,11 +1072,11 @@ namespace GoalTracker.Migrations
 
             modelBuilder.Entity("GoalTracker.Models.Project", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Assignee")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "Assignee")
                         .WithMany()
                         .HasForeignKey("AssigneeId");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
@@ -1136,7 +1084,7 @@ namespace GoalTracker.Migrations
                         .WithMany()
                         .HasForeignKey("PriorityId");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Reviewer")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "Reviewer")
                         .WithMany()
                         .HasForeignKey("ReviewerId");
 
@@ -1157,11 +1105,11 @@ namespace GoalTracker.Migrations
 
             modelBuilder.Entity("GoalTracker.Models.Roadmap", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Assignee")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "Assignee")
                         .WithMany()
                         .HasForeignKey("AssigneeId");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
@@ -1173,7 +1121,7 @@ namespace GoalTracker.Migrations
                         .WithMany("Roadmaps")
                         .HasForeignKey("ProjectId");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Reviewer")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "Reviewer")
                         .WithMany()
                         .HasForeignKey("ReviewerId");
 
@@ -1194,7 +1142,7 @@ namespace GoalTracker.Migrations
 
             modelBuilder.Entity("GoalTracker.Models.Status", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
@@ -1207,7 +1155,7 @@ namespace GoalTracker.Migrations
                         .WithMany("Tags")
                         .HasForeignKey("ActivityEntryId");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "CreatedBy")
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
