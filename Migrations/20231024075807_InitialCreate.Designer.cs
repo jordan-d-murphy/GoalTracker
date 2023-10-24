@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoalTracker.Migrations
 {
     [DbContext(typeof(GoalTrackerContext))]
-    [Migration("20231023053700_InitialCreate")]
+    [Migration("20231024075807_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -20,60 +20,222 @@ namespace GoalTracker.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
 
-            modelBuilder.Entity("FileAttachment", b =>
+            modelBuilder.Entity("GoalTracker.Areas.Identity.Data.ApplicationRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("ActivityEntryId")
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FileExtension")
+                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("FileName")
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("GoalId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("MilestoneId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("ProjectId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("RoadmapId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("TrackingRecordId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UploadedById")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("UploadedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Url")
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ActivityEntryId");
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex");
 
-                    b.HasIndex("GoalId");
+                    b.ToTable("AspNetRoles", (string)null);
+                });
 
-                    b.HasIndex("MilestoneId");
+            modelBuilder.Entity("GoalTracker.Areas.Identity.Data.ApplicationRoleClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
 
-                    b.HasIndex("ProjectId");
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("TEXT");
 
-                    b.HasIndex("RoadmapId");
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("TEXT");
 
-                    b.HasIndex("UploadedById");
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("TEXT");
 
-                    b.ToTable("FileAttachment");
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("GoalTracker.Areas.Identity.Data.ApplicationUser", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CustomTag")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("DOB")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("GoalTracker.Areas.Identity.Data.ApplicationUserClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("GoalTracker.Areas.Identity.Data.ApplicationUserLogin", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProviderKey")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("GoalTracker.Areas.Identity.Data.ApplicationUserRole", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("GoalTracker.Areas.Identity.Data.ApplicationUserToken", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LoginProvider")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
                 });
 
             modelBuilder.Entity("GoalTracker.Models.ActivityEntry", b =>
@@ -148,6 +310,62 @@ namespace GoalTracker.Migrations
                     b.HasIndex("StatusId");
 
                     b.ToTable("ActivityEntry");
+                });
+
+            modelBuilder.Entity("GoalTracker.Models.FileAttachment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("ActivityEntryId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FileExtension")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("GoalId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("MilestoneId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("ProjectId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("RoadmapId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("TrackingRecordId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UploadedById")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("UploadedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActivityEntryId");
+
+                    b.HasIndex("GoalId");
+
+                    b.HasIndex("MilestoneId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.HasIndex("RoadmapId");
+
+                    b.HasIndex("UploadedById");
+
+                    b.ToTable("FileAttachment");
                 });
 
             modelBuilder.Entity("GoalTracker.Models.Goal", b =>
@@ -229,6 +447,56 @@ namespace GoalTracker.Migrations
                     b.ToTable("Goal");
                 });
 
+            modelBuilder.Entity("GoalTracker.Models.Link", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("ActivityEntryId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("GoalId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("MilestoneId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("ProjectId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("RoadmapId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Url")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActivityEntryId");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("GoalId");
+
+                    b.HasIndex("MilestoneId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.HasIndex("RoadmapId");
+
+                    b.ToTable("Link");
+                });
+
             modelBuilder.Entity("GoalTracker.Models.Milestone", b =>
                 {
                     b.Property<Guid>("Id")
@@ -303,109 +571,7 @@ namespace GoalTracker.Migrations
                     b.ToTable("Milestone");
                 });
 
-            modelBuilder.Entity("Link", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("ActivityEntryId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("GoalId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("MilestoneId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("ProjectId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("RoadmapId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Url")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ActivityEntryId");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("GoalId");
-
-                    b.HasIndex("MilestoneId");
-
-                    b.HasIndex("ProjectId");
-
-                    b.HasIndex("RoadmapId");
-
-                    b.ToTable("Link");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("IdentityUser");
-                });
-
-            modelBuilder.Entity("Priority", b =>
+            modelBuilder.Entity("GoalTracker.Models.Priority", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -430,7 +596,7 @@ namespace GoalTracker.Migrations
                     b.ToTable("Priority");
                 });
 
-            modelBuilder.Entity("Project", b =>
+            modelBuilder.Entity("GoalTracker.Models.Project", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -499,7 +665,7 @@ namespace GoalTracker.Migrations
                     b.ToTable("Project");
                 });
 
-            modelBuilder.Entity("Roadmap", b =>
+            modelBuilder.Entity("GoalTracker.Models.Roadmap", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -573,7 +739,7 @@ namespace GoalTracker.Migrations
                     b.ToTable("Roadmap");
                 });
 
-            modelBuilder.Entity("Status", b =>
+            modelBuilder.Entity("GoalTracker.Models.Status", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -595,7 +761,7 @@ namespace GoalTracker.Migrations
                     b.ToTable("Status");
                 });
 
-            modelBuilder.Entity("Tag", b =>
+            modelBuilder.Entity("GoalTracker.Models.Tag", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -642,33 +808,131 @@ namespace GoalTracker.Migrations
                     b.ToTable("Tag");
                 });
 
-            modelBuilder.Entity("FileAttachment", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
                 {
-                    b.HasOne("GoalTracker.Models.ActivityEntry", null)
-                        .WithMany("FileAttachments")
-                        .HasForeignKey("ActivityEntryId");
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
 
-                    b.HasOne("GoalTracker.Models.Goal", null)
-                        .WithMany("FileAttachments")
-                        .HasForeignKey("GoalId");
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("INTEGER");
 
-                    b.HasOne("GoalTracker.Models.Milestone", null)
-                        .WithMany("FileAttachments")
-                        .HasForeignKey("MilestoneId");
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("TEXT");
 
-                    b.HasOne("Project", null)
-                        .WithMany("FileAttachments")
-                        .HasForeignKey("ProjectId");
+                    b.Property<string>("Email")
+                        .HasColumnType("TEXT");
 
-                    b.HasOne("Roadmap", null)
-                        .WithMany("FileAttachments")
-                        .HasForeignKey("RoadmapId");
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("INTEGER");
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UploadedBy")
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IdentityUser");
+                });
+
+            modelBuilder.Entity("GoalTracker.Areas.Identity.Data.ApplicationRoleClaim", b =>
+                {
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationRole", "Role")
+                        .WithMany("RoleClaims")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("GoalTracker.Areas.Identity.Data.ApplicationUserClaim", b =>
+                {
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", null)
+                        .WithMany("Claims")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UploadedById");
+                        .HasForeignKey("UserId1");
 
-                    b.Navigation("UploadedBy");
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("GoalTracker.Areas.Identity.Data.ApplicationUserLogin", b =>
+                {
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", null)
+                        .WithMany("Logins")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("GoalTracker.Areas.Identity.Data.ApplicationUserRole", b =>
+                {
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationRole", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("GoalTracker.Areas.Identity.Data.ApplicationUserToken", b =>
+                {
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", null)
+                        .WithMany("Tokens")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("GoalTracker.Models.ActivityEntry", b =>
@@ -687,7 +951,7 @@ namespace GoalTracker.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Priority", "Priority")
+                    b.HasOne("GoalTracker.Models.Priority", "Priority")
                         .WithMany()
                         .HasForeignKey("PriorityId");
 
@@ -695,7 +959,7 @@ namespace GoalTracker.Migrations
                         .WithMany()
                         .HasForeignKey("ReviewerId");
 
-                    b.HasOne("Status", "Status")
+                    b.HasOne("GoalTracker.Models.Status", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId");
 
@@ -712,6 +976,35 @@ namespace GoalTracker.Migrations
                     b.Navigation("Status");
                 });
 
+            modelBuilder.Entity("GoalTracker.Models.FileAttachment", b =>
+                {
+                    b.HasOne("GoalTracker.Models.ActivityEntry", null)
+                        .WithMany("FileAttachments")
+                        .HasForeignKey("ActivityEntryId");
+
+                    b.HasOne("GoalTracker.Models.Goal", null)
+                        .WithMany("FileAttachments")
+                        .HasForeignKey("GoalId");
+
+                    b.HasOne("GoalTracker.Models.Milestone", null)
+                        .WithMany("FileAttachments")
+                        .HasForeignKey("MilestoneId");
+
+                    b.HasOne("GoalTracker.Models.Project", null)
+                        .WithMany("FileAttachments")
+                        .HasForeignKey("ProjectId");
+
+                    b.HasOne("GoalTracker.Models.Roadmap", null)
+                        .WithMany("FileAttachments")
+                        .HasForeignKey("RoadmapId");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "UploadedBy")
+                        .WithMany()
+                        .HasForeignKey("UploadedById");
+
+                    b.Navigation("UploadedBy");
+                });
+
             modelBuilder.Entity("GoalTracker.Models.Goal", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Assignee")
@@ -722,11 +1015,11 @@ namespace GoalTracker.Migrations
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
-                    b.HasOne("Priority", "Priority")
+                    b.HasOne("GoalTracker.Models.Priority", "Priority")
                         .WithMany()
                         .HasForeignKey("PriorityId");
 
-                    b.HasOne("Project", null)
+                    b.HasOne("GoalTracker.Models.Project", null)
                         .WithMany("Goals")
                         .HasForeignKey("ProjectId");
 
@@ -734,11 +1027,11 @@ namespace GoalTracker.Migrations
                         .WithMany()
                         .HasForeignKey("ReviewerId");
 
-                    b.HasOne("Roadmap", null)
+                    b.HasOne("GoalTracker.Models.Roadmap", null)
                         .WithMany("Goals")
                         .HasForeignKey("RoadmapId");
 
-                    b.HasOne("Status", "Status")
+                    b.HasOne("GoalTracker.Models.Status", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId");
 
@@ -751,6 +1044,35 @@ namespace GoalTracker.Migrations
                     b.Navigation("Reviewer");
 
                     b.Navigation("Status");
+                });
+
+            modelBuilder.Entity("GoalTracker.Models.Link", b =>
+                {
+                    b.HasOne("GoalTracker.Models.ActivityEntry", null)
+                        .WithMany("Links")
+                        .HasForeignKey("ActivityEntryId");
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+
+                    b.HasOne("GoalTracker.Models.Goal", null)
+                        .WithMany("Links")
+                        .HasForeignKey("GoalId");
+
+                    b.HasOne("GoalTracker.Models.Milestone", null)
+                        .WithMany("Links")
+                        .HasForeignKey("MilestoneId");
+
+                    b.HasOne("GoalTracker.Models.Project", null)
+                        .WithMany("Links")
+                        .HasForeignKey("ProjectId");
+
+                    b.HasOne("GoalTracker.Models.Roadmap", null)
+                        .WithMany("Links")
+                        .HasForeignKey("RoadmapId");
+
+                    b.Navigation("CreatedBy");
                 });
 
             modelBuilder.Entity("GoalTracker.Models.Milestone", b =>
@@ -769,7 +1091,7 @@ namespace GoalTracker.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Priority", "Priority")
+                    b.HasOne("GoalTracker.Models.Priority", "Priority")
                         .WithMany()
                         .HasForeignKey("PriorityId");
 
@@ -777,7 +1099,7 @@ namespace GoalTracker.Migrations
                         .WithMany()
                         .HasForeignKey("ReviewerId");
 
-                    b.HasOne("Status", "Status")
+                    b.HasOne("GoalTracker.Models.Status", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId");
 
@@ -794,36 +1116,7 @@ namespace GoalTracker.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("Link", b =>
-                {
-                    b.HasOne("GoalTracker.Models.ActivityEntry", null)
-                        .WithMany("Links")
-                        .HasForeignKey("ActivityEntryId");
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById");
-
-                    b.HasOne("GoalTracker.Models.Goal", null)
-                        .WithMany("Links")
-                        .HasForeignKey("GoalId");
-
-                    b.HasOne("GoalTracker.Models.Milestone", null)
-                        .WithMany("Links")
-                        .HasForeignKey("MilestoneId");
-
-                    b.HasOne("Project", null)
-                        .WithMany("Links")
-                        .HasForeignKey("ProjectId");
-
-                    b.HasOne("Roadmap", null)
-                        .WithMany("Links")
-                        .HasForeignKey("RoadmapId");
-
-                    b.Navigation("CreatedBy");
-                });
-
-            modelBuilder.Entity("Priority", b =>
+            modelBuilder.Entity("GoalTracker.Models.Priority", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
                         .WithMany()
@@ -832,7 +1125,7 @@ namespace GoalTracker.Migrations
                     b.Navigation("CreatedBy");
                 });
 
-            modelBuilder.Entity("Project", b =>
+            modelBuilder.Entity("GoalTracker.Models.Project", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Assignee")
                         .WithMany()
@@ -842,7 +1135,7 @@ namespace GoalTracker.Migrations
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
-                    b.HasOne("Priority", "Priority")
+                    b.HasOne("GoalTracker.Models.Priority", "Priority")
                         .WithMany()
                         .HasForeignKey("PriorityId");
 
@@ -850,7 +1143,7 @@ namespace GoalTracker.Migrations
                         .WithMany()
                         .HasForeignKey("ReviewerId");
 
-                    b.HasOne("Status", "Status")
+                    b.HasOne("GoalTracker.Models.Status", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId");
 
@@ -865,7 +1158,7 @@ namespace GoalTracker.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("Roadmap", b =>
+            modelBuilder.Entity("GoalTracker.Models.Roadmap", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Assignee")
                         .WithMany()
@@ -875,11 +1168,11 @@ namespace GoalTracker.Migrations
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
-                    b.HasOne("Priority", "Priority")
+                    b.HasOne("GoalTracker.Models.Priority", "Priority")
                         .WithMany()
                         .HasForeignKey("PriorityId");
 
-                    b.HasOne("Project", null)
+                    b.HasOne("GoalTracker.Models.Project", null)
                         .WithMany("Roadmaps")
                         .HasForeignKey("ProjectId");
 
@@ -887,7 +1180,7 @@ namespace GoalTracker.Migrations
                         .WithMany()
                         .HasForeignKey("ReviewerId");
 
-                    b.HasOne("Status", "Status")
+                    b.HasOne("GoalTracker.Models.Status", "Status")
                         .WithMany()
                         .HasForeignKey("StatusId");
 
@@ -902,7 +1195,7 @@ namespace GoalTracker.Migrations
                     b.Navigation("Status");
                 });
 
-            modelBuilder.Entity("Status", b =>
+            modelBuilder.Entity("GoalTracker.Models.Status", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "CreatedBy")
                         .WithMany()
@@ -911,7 +1204,7 @@ namespace GoalTracker.Migrations
                     b.Navigation("CreatedBy");
                 });
 
-            modelBuilder.Entity("Tag", b =>
+            modelBuilder.Entity("GoalTracker.Models.Tag", b =>
                 {
                     b.HasOne("GoalTracker.Models.ActivityEntry", null)
                         .WithMany("Tags")
@@ -929,15 +1222,33 @@ namespace GoalTracker.Migrations
                         .WithMany("Tags")
                         .HasForeignKey("MilestoneId");
 
-                    b.HasOne("Project", null)
+                    b.HasOne("GoalTracker.Models.Project", null)
                         .WithMany("Tags")
                         .HasForeignKey("ProjectId");
 
-                    b.HasOne("Roadmap", null)
+                    b.HasOne("GoalTracker.Models.Roadmap", null)
                         .WithMany("Tags")
                         .HasForeignKey("RoadmapId");
 
                     b.Navigation("CreatedBy");
+                });
+
+            modelBuilder.Entity("GoalTracker.Areas.Identity.Data.ApplicationRole", b =>
+                {
+                    b.Navigation("RoleClaims");
+
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("GoalTracker.Areas.Identity.Data.ApplicationUser", b =>
+                {
+                    b.Navigation("Claims");
+
+                    b.Navigation("Logins");
+
+                    b.Navigation("Tokens");
+
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("GoalTracker.Models.ActivityEntry", b =>
@@ -971,7 +1282,7 @@ namespace GoalTracker.Migrations
                     b.Navigation("Tags");
                 });
 
-            modelBuilder.Entity("Project", b =>
+            modelBuilder.Entity("GoalTracker.Models.Project", b =>
                 {
                     b.Navigation("FileAttachments");
 
@@ -984,7 +1295,7 @@ namespace GoalTracker.Migrations
                     b.Navigation("Tags");
                 });
 
-            modelBuilder.Entity("Roadmap", b =>
+            modelBuilder.Entity("GoalTracker.Models.Roadmap", b =>
                 {
                     b.Navigation("FileAttachments");
 

@@ -1,5 +1,7 @@
 using GoalTracker.Models;
 
+namespace GoalTracker.Models;
+
 public class Project : TrackingRecord
 {
     public List<Roadmap>? Roadmaps { get; set; }

@@ -3,6 +3,8 @@ using System.Security.Policy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
+namespace GoalTracker.Models;
+
 public class Link
 {
     public Guid Id {get;set;}

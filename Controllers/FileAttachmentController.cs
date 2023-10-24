@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
+using GoalTracker.Models;
 
 namespace GoalTracker.Controllers
 {

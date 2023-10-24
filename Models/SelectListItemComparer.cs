@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
+namespace GoalTracker.Models;
+
 public class SelectListItemComparer : IEqualityComparer<SelectListItem>
 {
     public bool Equals(SelectListItem? a, SelectListItem? b) 

@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
+namespace GoalTracker.Models;
+
 public class Tag 
 {
     public Guid Id {get;set;}
