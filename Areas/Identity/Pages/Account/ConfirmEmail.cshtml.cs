@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using GoalTracker.Areas.Identity.Data;
+using System.Net.WebSockets;
 
 namespace GoalTracker.Areas.Identity.Pages.Account
 {
@@ -46,6 +47,12 @@ namespace GoalTracker.Areas.Identity.Pages.Account
             code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
             var result = await _userManager.ConfirmEmailAsync(user, code);
             StatusMessage = result.Succeeded ? "Thank you for confirming your email." : "Error confirming your email.";
+            
+            if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "ConfirmedAccount");
+            }
+
             return Page();
         }
     }

@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GoalTracker.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class MilestoneController : Controller
     {
         private readonly GoalTrackerContext _context;

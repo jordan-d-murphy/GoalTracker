@@ -48,6 +48,21 @@
             <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
         </form>
     </div>
+    <div class="col-md-6">
+        <h3>User Claims: </h3>
+        @foreach(var claim in User.Claims) 
+        {
+            <p>@claim</p>
+        }
+
+        <h3>User Roles: </h3>
+        @foreach(var role in User.FindAll(System.Security.Claims.ClaimTypes.Role).ToList())
+        {
+            <p>@role</p>
+        }
+
+
+    </div>
 </div>
 
 @section Scripts {
