@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GoalTracker.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "ConfirmedAccount")]
     public class ActivityEntryController : Controller
     {
         private readonly GoalTrackerContext _context;
