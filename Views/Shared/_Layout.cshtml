@@ -53,21 +53,19 @@
                             <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="ActivityEntry" asp-action="Index">Activities</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>   
+                            
                             @if (User.IsInRole("Admin")) 
                             {
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
                                 </li>
                             }
-                            <li class="nav-item ms-auto px-3">
-                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Sign Out</a>
-                            </li>
-
+                            
                             
                         }
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>   
 
                                                                                                                                                               
                     </ul>
