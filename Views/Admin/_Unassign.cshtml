@@ -1,0 +1,7 @@
+@model AdminUnassign
+
+<form asp-controller="Admin" asp-action="Unassign" id="adminUnassign_@Model.UserId@Model.Role.Replace(" ", String.Empty)">
+    <input type="hidden" asp-for="Role" />
+    <input type="hidden" asp-for="UserId" />
+    <a class="nav-link" href="javascript:$('#adminUnassign_@Model.UserId@Model.Role.Replace(" ", String.Empty)').submit();">Unassign</a>
+</form>

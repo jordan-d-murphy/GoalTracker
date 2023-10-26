@@ -1,0 +1,26 @@
+@model AdminCreate
+
+<a class="nav-link float-end" href="" data-bs-toggle="modal" data-bs-target="#adminCreateRoleModal">Create New Role</a>
+
+
+<div class="modal fade" id="adminCreateRoleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Create New Role</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <form asp-controller="Admin" asp-action="Create" id="adminCreateRole">
+
+            <input class="form-control" asp-for="Role" />
+
+            <a class="nav-link float-end" href="javascript:$('#adminCreateRole').submit();">Create</a>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
