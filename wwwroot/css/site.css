@@ -88,3 +88,7 @@ div.card {
   background-color: DodgerBlue !important;
   color: #ffffff;
 }
+
+.z-10k {
+  z-index: 10000;
+}
