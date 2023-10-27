@@ -88,9 +88,9 @@
                         <li class="list-group-item">
                             <div class="row">
                                 <div class="col-8">
-                                    @role
+                                    <span class="roleName">@role</span>
                                 </div>
-                                <div class="col-4 text-end">
+                                <div class="col-4">
                                     @if (@role.Name is not null && @role.Name != "Admin" && @role.Name != "ConfirmedAccount" )                                    
                                     {                                       
                                         @await Html.PartialAsync("~/Views/Admin/_Delete.cshtml",

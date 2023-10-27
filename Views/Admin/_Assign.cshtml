@@ -14,7 +14,7 @@
          <form asp-controller="Admin" asp-action="Assign" id="adminAssign_@Model.UserId">
             <input type="hidden" asp-for="UserId" />
 
-            <input class="form-control" asp-for="Role" />
+            <input class="form-control autocomplete autocompleteAssignRoleInput" autocomplete="off" id="autocompleteAssignRoleInput_@Model.UserId" asp-for="Role" />
 
             <a class="nav-link float-end" href="javascript:$('#adminAssign_@Model.UserId').submit();">Assign</a>
         </form>
