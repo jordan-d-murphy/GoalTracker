@@ -47,10 +47,10 @@
                                                 {
                                                     @await Html.PartialAsync("~/Views/Admin/_Unassign.cshtml",
                                                              new AdminUnassign
-                                {
-                                    Role = @role,
-                                    UserId = (Guid)@uvm!.User!.Id
-                                })
+                                                    {
+                                                        Role = @role,
+                                                        UserId = (Guid)@uvm!.User!.Id
+                                                    })
                                                 }
                                             }
                                         </div>
@@ -65,10 +65,10 @@
                     {
                         @await Html.PartialAsync("~/Views/Admin/_Assign.cshtml",
                                  new AdminAssign
-                {
-                    UserId = (Guid)@uvm!.User!.Id,
-                    UserEmail = @uvm!.User!.Email
-                })
+                        {
+                            UserId = (Guid)@uvm!.User!.Id,
+                            UserEmail = @uvm!.User!.Email
+                        })
                     }
                 </div>
             </div>

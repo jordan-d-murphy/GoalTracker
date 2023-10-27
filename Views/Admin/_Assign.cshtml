@@ -1,6 +1,6 @@
 @model AdminAssign
 
-<a class="nav-link float-end" href="" data-bs-toggle="modal" data-bs-target="#adminAssignModal_@Model.UserId">Assign New Role</a>
+<a class="nav-link float-end pt-3" href="" data-bs-toggle="modal" data-bs-target="#adminAssignModal_@Model.UserId">Assign New Role</a>
 
 
 <div class="modal fade" id="adminAssignModal_@Model.UserId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -16,7 +16,7 @@
 
             <input class="form-control autocomplete autocompleteAssignRoleInput" autocomplete="off" id="autocompleteAssignRoleInput_@Model.UserId" asp-for="Role" />
 
-            <a class="nav-link float-end" href="javascript:$('#adminAssign_@Model.UserId').submit();">Assign</a>
+            <a class="nav-link float-end pt-3" href="javascript:$('#adminAssign_@Model.UserId').submit();">Assign</a>
         </form>
       </div>
       <div class="modal-footer">
