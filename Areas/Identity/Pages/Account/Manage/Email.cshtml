@@ -8,8 +8,8 @@
 <h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />
 <div class="row">
-    <div class="col-md-6">
-        <form id="email-form" method="post">
+    <div class="col-md-6 mt-3">
+        <form id="email-form" method="post" asp-page-handler="ChangeEmail">
             <div asp-validation-summary="All" class="text-danger" role="alert"></div>
             @if (Model.IsEmailConfirmed)
             {
@@ -34,7 +34,12 @@
                 <label asp-for="Input.NewEmail" class="form-label"></label>
                 <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
             </div>
-            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="w-100 btn btn-lg btn-primary">Change email</button>
+
+            
+            <div class="form-group mb-3 float-end">
+                <input type="submit" id="change-email-button" value="Update Email" class="btn btn-outline-primary" />
+            </div>
+
         </form>
     </div>
 </div>
