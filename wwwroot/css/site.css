@@ -8,7 +8,11 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
@@ -19,6 +23,7 @@ html {
 
 body {
   margin-bottom: 60px;
+  opacity: .9;
 }
 
 a {
@@ -26,13 +31,23 @@ a {
   color: #0077cc !important;
 }
 
-#left-side-navbar {
-  height: 100vh;
-  padding-top: 3.5rem;
-  margin-top: 3.5rem;
-  box-shadow: 0 0.55rem 0.75rem rgba(0, 0, 0, .1);
+#top-navbar {
+  background-color: #02153b;
+  border-bottom: 1px solid black;
   position: fixed;
-  border-right: 1px solid #e5e5e5 !important;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+#left-side-navbar {
+  background-color: #02153b;
+  border-right: 1px solid black;
+  height: 100vh;
+  padding-top: 3rem;
+  position: fixed;
+  top: 57px;
+  left: 0;
 }
 
 i {
@@ -50,11 +65,15 @@ div.card {
 .offcanvas {
   width: 50% !important;
   padding: 2rem !important;
+  position: fixed;
+  top: 56px !important;
+  right: 0;
 }
 
 .brand-logo-font {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.5rem;
+  font-family: 'Tajawal', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 2px;
 }
 
 .autocomplete {
@@ -67,21 +86,23 @@ div.card {
   border: 1px solid #d4d4d4;
   border-bottom: none;
   border-top: none;
-  z-index: 99;  
+  z-index: 99;
   top: 100%;
   left: 0;
   right: 0;
+  color: black !important;
 }
 
 .autocomplete-items div {
   padding: 10px;
   cursor: pointer;
-  background-color: #fff;
+  background-color: #e9e9e9;
   border-bottom: 1px solid #d4d4d4;
 }
 
 .autocomplete-items div:hover {
-  background-color: #e9e9e9;
+  background-color: DodgerBlue;
+  color: black !important;
 }
 
 .autocomplete-active {
@@ -91,4 +112,8 @@ div.card {
 
 .z-10k {
   z-index: 10000;
+}
+
+.modal-dialog {
+  top: 7rem !important;
 }
