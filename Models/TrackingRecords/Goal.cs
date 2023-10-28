@@ -10,10 +10,5 @@ namespace GoalTracker.Models;
 
 public class Goal : TrackingRecord
 {
-    public Guid? ProjectId { get; set; }
-
-    public Guid? RoadmapId { get; set; }
-
-    public List<Milestone>? Milestones { get; set; }
 
 }

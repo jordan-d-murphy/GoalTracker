@@ -6,18 +6,11 @@ using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Models;
 
-public class Link
+public class Link : TrackingRecord
 {
-    public Guid Id {get;set;}
-
-    public string? Title {get;set;}
+    [Display(Name = "Display Name")]
+    public string? DisplayName {get;set;}
 
     public string? Url {get;set;}
-
-    public ApplicationUser? CreatedBy { get; set; }
-
-    [Display(Name = "Created")]
-    [DataType(DataType.Date)]
-    public DateTime CreatedDate { get; set; }
     
 }

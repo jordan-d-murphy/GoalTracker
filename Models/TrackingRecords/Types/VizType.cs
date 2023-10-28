@@ -4,10 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GoalTracker.Models;
 
-public class ActivityEntry : TrackingRecord
+public class VizType
 {
-    public Guid MilestoneId { get; set; }
-
-    public Milestone Milestone { get; set; } = null!;
-
+    public string? Name { get; set; }
 }

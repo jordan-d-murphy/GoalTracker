@@ -12,6 +12,10 @@ public abstract class TrackingRecord
 {
     public Guid Id { get; set; }
 
+    public Guid? ParentId { get; set; }
+
+    public TrackingRecord? ParentClass { get; set; }
+
     public string? Title { get; set; }
 
     public string? Description { get; set; }
@@ -60,11 +64,17 @@ public abstract class TrackingRecord
     [Display(Name = "Color Suggestions")]
     public List<SelectListItem>? ColorSuggestions { get; set; }
 
+    public List<TrackingRecord>? Children { get; set; }
+
     public List<FileAttachment>? FileAttachments { get; set; }
+
+    public List<ReactionEmoji>? ReactionEmojis { get; set; }
 
     public List<Link>? Links { get; set; }
 
     public List<Tag>? Tags { get; set; }
+
+    public List<Note>? Notes { get; set; }
 
     public ApplicationUser? CreatedBy { get; set; }
 
