@@ -42,30 +42,30 @@ namespace GoalTracker.Controllers
                     a.Description!.Contains(searchString) ||
                     a.Category!.Contains(searchString));
 
-                var milestoneMatchIds = activityMatches.Select(a => a.MilestoneId).ToList();
+                // var milestoneMatchIds = activityMatches.Select(a => a.MilestoneId).ToList();
 
-                var milestoneMatches = milestones.Where(m => m.Title!.Contains(searchString) ||
-                    m.Description!.Contains(searchString) ||
-                    m.Category!.Contains(searchString) || milestoneMatchIds.Contains(m.Id));
+                // var milestoneMatches = milestones.Where(m => m.Title!.Contains(searchString) ||
+                //     m.Description!.Contains(searchString) ||
+                //     m.Category!.Contains(searchString) || milestoneMatchIds.Contains(m.Id));
 
-                var goalMatchIds = milestoneMatches.Select(m => m.GoalId).ToList();                
+                // var goalMatchIds = milestoneMatches.Select(m => m.GoalId).ToList();                
 
-                var goalMatchesFinal = goals.Where(g => g.Title!.Contains(searchString) ||
-                    g.Description!.Contains(searchString) ||
-                    g.Category!.Contains(searchString) || goalMatchIds.Contains(g.Id));
+                // var goalMatchesFinal = goals.Where(g => g.Title!.Contains(searchString) ||
+                //     g.Description!.Contains(searchString) ||
+                //     g.Category!.Contains(searchString) || goalMatchIds.Contains(g.Id));
 
-                var goalMatchesIdsFinal = goalMatchesFinal.Select(g => g.Id).ToList();
+                // var goalMatchesIdsFinal = goalMatchesFinal.Select(g => g.Id).ToList();
                
-                var milestoneMatchesFinal = milestones.Where(m => m.Title!.Contains(searchString) ||
-                    m.Description!.Contains(searchString) ||
-                    m.Category!.Contains(searchString) || milestoneMatchIds.Contains(m.Id) ||
-                    goalMatchesIdsFinal.Contains(m.GoalId));
+                // var milestoneMatchesFinal = milestones.Where(m => m.Title!.Contains(searchString) ||
+                //     m.Description!.Contains(searchString) ||
+                //     m.Category!.Contains(searchString) || milestoneMatchIds.Contains(m.Id) ||
+                //     goalMatchesIdsFinal.Contains(m.GoalId));
 
-                var milestoneMatchesIdsFinal = milestoneMatchesFinal.Select(m => m.Id).ToList();
+                // var milestoneMatchesIdsFinal = milestoneMatchesFinal.Select(m => m.Id).ToList();
 
-                var activityMatchesFinal = activities.Where(a => a.Title!.Contains(searchString) ||
-                    a.Description!.Contains(searchString) ||
-                    a.Category!.Contains(searchString) || milestoneMatchesIdsFinal.Contains(a.MilestoneId));
+                // var activityMatchesFinal = activities.Where(a => a.Title!.Contains(searchString) ||
+                //     a.Description!.Contains(searchString) ||
+                //     a.Category!.Contains(searchString) || milestoneMatchesIdsFinal.Contains(a.MilestoneId));
 
 
 
@@ -73,9 +73,9 @@ namespace GoalTracker.Controllers
 
                 listViewModel = new GoalListMilestonesViewModel
                 {
-                    Goals = await goalMatchesFinal.ToListAsync(),
-                    Milestones = await milestoneMatchesFinal.ToListAsync(),            
-                    ActivityEntries = await activityMatchesFinal.ToListAsync()                            
+                    // Goals = await goalMatchesFinal.ToListAsync(),
+                    // Milestones = await milestoneMatchesFinal.ToListAsync(),            
+                    // ActivityEntries = await activityMatchesFinal.ToListAsync()                            
                 };          
 
                 ViewData["filter"] = searchString;                
@@ -117,18 +117,18 @@ namespace GoalTracker.Controllers
 
             listViewModel.ColorSuggestions = suggestionsList;
 
-            foreach (var goalObj in listViewModel.Goals) 
-            {
-                goalObj.ColorSuggestions = suggestionsList;
-            }
-            foreach (var activityObj in listViewModel.ActivityEntries) 
-            {
-                activityObj.ColorSuggestions = suggestionsList;
-            }
-            foreach (var milestoneObj in listViewModel.Milestones) 
-            {
-                milestoneObj.ColorSuggestions = suggestionsList;
-            }
+            // foreach (var goalObj in listViewModel.Goals) 
+            // {
+            //     goalObj.ColorSuggestions = suggestionsList;
+            // }
+            // foreach (var activityObj in listViewModel.ActivityEntries) 
+            // {
+            //     activityObj.ColorSuggestions = suggestionsList;
+            // }
+            // foreach (var milestoneObj in listViewModel.Milestones) 
+            // {
+            //     milestoneObj.ColorSuggestions = suggestionsList;
+            // }
 
             return View(listViewModel);
         }
@@ -149,7 +149,7 @@ namespace GoalTracker.Controllers
             }
 
             var milestones = from m in _context.Milestone select m;
-            milestones = milestones.Where(m => m.GoalId == goal.Id);
+            milestones = milestones.Where(m => m.ParentId == goal.Id);
 
             var detailViewModel = new GoalDetailMilestoneActivityViewModel
             {
