@@ -386,9 +386,6 @@ namespace GoalTracker.Migrations
                     b.Property<string>("Icon")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("ParentClassId")
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid?>("ParentId")
                         .HasColumnType("TEXT");
 
@@ -416,7 +413,7 @@ namespace GoalTracker.Migrations
 
                     b.HasIndex("CreatedById");
 
-                    b.HasIndex("ParentClassId");
+                    b.HasIndex("ParentId");
 
                     b.HasIndex("PriorityId");
 
@@ -450,6 +447,13 @@ namespace GoalTracker.Migrations
                     b.HasBaseType("GoalTracker.Models.TrackingRecord");
 
                     b.HasDiscriminator().HasValue("ActivityEntry");
+                });
+
+            modelBuilder.Entity("GoalTracker.Models.Calendar", b =>
+                {
+                    b.HasBaseType("GoalTracker.Models.TrackingRecord");
+
+                    b.HasDiscriminator().HasValue("Calendar");
                 });
 
             modelBuilder.Entity("GoalTracker.Models.Dash", b =>
@@ -874,9 +878,9 @@ namespace GoalTracker.Migrations
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
-                    b.HasOne("GoalTracker.Models.TrackingRecord", "ParentClass")
+                    b.HasOne("GoalTracker.Models.TrackingRecord", "Parent")
                         .WithMany("Children")
-                        .HasForeignKey("ParentClassId");
+                        .HasForeignKey("ParentId");
 
                     b.HasOne("GoalTracker.Models.RecordPriority", "Priority")
                         .WithMany()
@@ -894,7 +898,7 @@ namespace GoalTracker.Migrations
 
                     b.Navigation("CreatedBy");
 
-                    b.Navigation("ParentClass");
+                    b.Navigation("Parent");
 
                     b.Navigation("Priority");
 

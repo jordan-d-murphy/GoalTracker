@@ -1,93 +1,101 @@
+@using Microsoft.AspNetCore.Identity
+@using GoalTracker.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
 <div id="left-side-navbar" class="col-2 p-3 mb-2 mr-4 z-10k">
-    
     <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="bi-house" style="font-size: 1rem; color: #0077cc;"></i>Home
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="bi-star" style="font-size: 1rem; color: #0077cc;"></i>Goals
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>New Goal
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="bi-speedometer" style="font-size: 1rem; color: #0077cc;"></i>Dash
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="bi-database-dash" style="font-size: 1rem; color: #0077cc;"></i>Metrics
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="bi-calendar3" style="font-size: 1rem; color: #0077cc;"></i>Calendar
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="bi-compass" style="font-size: 1rem; color: #0077cc;"></i>Planning
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="bi-kanban" style="font-size: 1rem; color: #0077cc;"></i>Projects
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="bi-file-earmark-text" style="font-size: 1rem; color: #0077cc;"></i>Reports
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="bi-people" style="font-size: 1rem; color: #0077cc;"></i>Team
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="bi-person-check" style="font-size: 1rem; color: #0077cc;"></i>Roles
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="bi-shield-check" style="font-size: 1rem; color: #0077cc;"></i>Admin
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="bi-bank" style="font-size: 1rem; color: #0077cc;"></i>Billing
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="bi-gear" style="font-size: 1rem; color: #0077cc;"></i>Settings
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="bi-person-circle" style="font-size: 1rem; color: #0077cc;"></i>Account
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">
-                <i class="bi-question-circle" style="font-size: 1rem; color: #0077cc;"></i>Help
-            </a>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_FromSideNav">
-                <i class="bi-arrow-up-right-circle" style="font-size: 1rem; color: #0077cc;"></i>Offcanvas
-            </a>
-        </li>
-
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Home" asp-action="Index">
+                    <i class="bi-house" style="font-size: 1rem; color: #0077cc;"></i>Home
+                </a>
+            </li>
+            @if (User.IsInRole("Admin"))
+            {
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Admin" asp-action="Index">
+                        <i class="bi-shield-check" style="font-size: 1rem; color: #0077cc;"></i>Admin
+                    </a>
+                </li>
+            }
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Dash" asp-action="Index">
+                    <i class="bi-speedometer" style="font-size: 1rem; color: #0077cc;"></i>Dash
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Project" asp-action="Index">
+                    <i class="bi-kanban" style="font-size: 1rem; color: #0077cc;"></i>Projects
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Roadmap" asp-action="Index">
+                    <i class="bi-compass" style="font-size: 1rem; color: #0077cc;"></i>Roadmaps
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Goal" asp-action="Index">
+                    <i class="bi-sign-merge-right" style="font-size: 1rem; color: #0077cc;"></i>Goals
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Milestone" asp-action="Index">
+                    <i class="bi-geo-fill" style="font-size: 1rem; color: #0077cc;"></i>Milestones
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="ActivityEntry" asp-action="Index">
+                    <i class="bi-geo-alt" style="font-size: 1rem; color: #0077cc;"></i>Activities
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Calendar" asp-action="Index">
+                    <i class="bi-calendar3" style="font-size: 1rem; color: #0077cc;"></i>Calendar
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Team" asp-action="Index">
+                    <i class="bi-people" style="font-size: 1rem; color: #0077cc;"></i>Teams
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Metric" asp-action="Index">
+                    <i class="bi-database-dash" style="font-size: 1rem; color: #0077cc;"></i>Metrics
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Report" asp-action="Index">
+                    <i class="bi-file-earmark-text" style="font-size: 1rem; color: #0077cc;"></i>Reports
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index">
+                    <i class="bi-person-circle" style="font-size: 1rem; color: #0077cc;"></i>Account
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Settings" asp-action="Index">
+                    <i class="bi-gear" style="font-size: 1rem; color: #0077cc;"></i>Settings
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="Billing" asp-action="Index">
+                    <i class="bi-bank" style="font-size: 1rem; color: #0077cc;"></i>Billing
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-controller="SupportRequest" asp-action="Index">
+                    <i class="bi-question-circle" style="font-size: 1rem; color: #0077cc;"></i>Help
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_FromSideNav">
+                    <i class="bi-arrow-up-right-circle" style="font-size: 1rem; color: #0077cc;"></i>Offcanvas
+                </a>
+            </li>
+        }
     </ul>
-    
 </div>

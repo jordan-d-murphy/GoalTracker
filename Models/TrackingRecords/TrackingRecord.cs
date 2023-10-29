@@ -14,7 +14,7 @@ public abstract class TrackingRecord
 
     public Guid? ParentId { get; set; }
 
-    public TrackingRecord? ParentClass { get; set; }
+    public TrackingRecord? Parent { get; set; }
 
     public string? Title { get; set; }
 

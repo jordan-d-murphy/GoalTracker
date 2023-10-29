@@ -104,5 +104,7 @@ namespace GoalTracker.Data
         public DbSet<GoalTracker.Models.SupportRequest> SupportRequest { get; set; } = default!;
 
         public DbSet<GoalTracker.Models.Team> Team { get; set; } = default!;
+
+        public DbSet<GoalTracker.Models.Calendar> Calendar { get; set; } = default!;
     }
 }

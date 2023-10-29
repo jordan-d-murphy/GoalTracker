@@ -227,7 +227,6 @@ namespace GoalTracker.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     ParentId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    ParentClassId = table.Column<Guid>(type: "TEXT", nullable: true),
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     Description = table.Column<string>(type: "TEXT", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: false),
@@ -319,8 +318,8 @@ namespace GoalTracker.Migrations
                         principalTable: "TrackingRecord",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_TrackingRecord_TrackingRecord_ParentClassId",
-                        column: x => x.ParentClassId,
+                        name: "FK_TrackingRecord_TrackingRecord_ParentId",
+                        column: x => x.ParentId,
                         principalTable: "TrackingRecord",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -502,9 +501,9 @@ namespace GoalTracker.Migrations
                 column: "Note_TrackingRecordId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TrackingRecord_ParentClassId",
+                name: "IX_TrackingRecord_ParentId",
                 table: "TrackingRecord",
-                column: "ParentClassId");
+                column: "ParentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TrackingRecord_PriorityId",

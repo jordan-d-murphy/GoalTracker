@@ -13,10 +13,11 @@
         <div class="navbar-collapse collapse d-sm-inline-flex d-flex align-items-center">
             <ul class="navbar-nav d-flex flex-grow-1">
                 
-                <li class="nav-item">
+                <li class="nav-item me-auto">
                     <a class="px-4 brand-logo-font" asp-area="" asp-controller="Home" asp-action="Index">koala</a>
                 </li>
 
+                @*
                 @if (SignInManager.IsSignedIn(User))
                 {
                     
@@ -41,8 +42,9 @@
                     }
                 }
                 <li class="nav-item me-auto">
-                    @* <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
-                </li>               
+                    
+                </li>
+                *@
 
                 <partial name="_LoginPartial" />
                 <partial name="_ThemeToggle" />
