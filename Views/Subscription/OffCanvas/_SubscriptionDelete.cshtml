@@ -1,0 +1,73 @@
+@model GoalTracker.Models.Subscription
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvas_SubscriptionDelete_@Model.Id"
+    aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <h1 class="offcanvas-title" id="offcanvasRightLabel">Delete Subscription</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body" id="offcanvas-body">
+            
+            <div class="alert alert-danger d-flex align-items-center py-0" role="alert">                
+                <i class="bi-exclamation-triangle-fill" style="font-size: 1rem; color: #dc3545;"></i>                
+                    Are you sure you want to delete this Subscription?                
+            </div>
+        
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.Tier)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Tier)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <div class="row">
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Price)
+                    </dd>
+                </div>
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Details)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Details)
+                    </dd>
+                </div>
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.BillingFrequency)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.BillingFrequency)
+                    </dd>
+                </div>
+            </div>
+
+
+
+
+            
+        </dl>
+    
+
+            <div class="form-group mb-3 float-end">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <input type="submit" value="Delete" class="btn btn-outline-danger" />
+                </form>
+            </div>
+
+
+      
+    </div>

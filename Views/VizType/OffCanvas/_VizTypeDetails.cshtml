@@ -1,0 +1,25 @@
+@model GoalTracker.Models.VizType
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvas_VizTypeDetails_@Model.Id" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+                <h1 class="offcanvas-title" id="offcanvasRightLabel">VizType Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body" id="offcanvas-body">
+             
+             
+        
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+           
+        </dl>
+
+
+    </div>
+</div>
+

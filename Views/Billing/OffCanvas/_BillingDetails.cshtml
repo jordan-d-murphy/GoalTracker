@@ -1,0 +1,74 @@
+@model GoalTracker.Models.Billing
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvas_BillingDetails_@Model.Id" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+                <h1 class="offcanvas-title" id="offcanvasRightLabel">Billing Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body" id="offcanvas-body">
+             
+             
+        
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.User)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.User)
+            </dd>
+
+            <div class="row">
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Subscription)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Subscription)
+                    </dd>
+                </div>
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.BillingDate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.BillingDate)
+                    </dd>
+                </div>
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.DueDate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.DueDate)
+                    </dd>
+                </div>
+            </div>
+
+
+
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PaidDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PaidDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Paid)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Paid)
+            </dd>
+            
+        </dl>
+
+
+    </div>
+</div>
+

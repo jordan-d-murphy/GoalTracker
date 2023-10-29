@@ -1,0 +1,62 @@
+@model GoalTracker.Models.Subscription
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvas_SubscriptionDetails_@Model.Id" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header">
+                <h1 class="offcanvas-title" id="offcanvasRightLabel">Subscription Details</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body" id="offcanvas-body">
+             
+             
+        
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.Tier)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Tier)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <div class="row">
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Price)
+                    </dd>
+                </div>
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Details)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Details)
+                    </dd>
+                </div>
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.BillingFrequency)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.BillingFrequency)
+                    </dd>
+                </div>
+            </div>
+
+
+
+
+           
+        </dl>
+
+
+    </div>
+</div>
+
