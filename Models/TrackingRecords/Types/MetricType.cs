@@ -7,6 +7,8 @@ namespace GoalTracker.Models;
 
 public class MetricType
 {
+    public Guid Id { get; set; }
+    
     public string? Name { get; set; }
 
 }

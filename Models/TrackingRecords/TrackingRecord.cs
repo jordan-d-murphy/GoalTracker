@@ -82,8 +82,8 @@ public abstract class TrackingRecord
 
     public ApplicationUser? Reviewer { get; set; }
 
-    public Status? Status { get; set; }
+    public RecordStatus? Status { get; set; }
 
-    public Priority? Priority { get; set; }
+    public RecordPriority? Priority { get; set; }
 
 }

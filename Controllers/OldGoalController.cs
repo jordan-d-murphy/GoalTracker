@@ -12,11 +12,11 @@ using Microsoft.AspNetCore.Authorization;
 namespace GoalTracker.Controllers
 {
     [Authorize(Roles = "ConfirmedAccount")]
-    public class GoalController : Controller
+    public class OldGoalController : Controller
     {
         private readonly GoalTrackerContext _context;
 
-        public GoalController(GoalTrackerContext context)
+        public OldGoalController(GoalTrackerContext context)
         {
             _context = context;
         }

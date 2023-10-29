@@ -1,4 +1,4 @@
-@model IEnumerable<Roadmap>
+@model IEnumerable<GoalTracker.Models.Roadmap>
 
 @{
     ViewData["Title"] = "Index";
@@ -12,6 +12,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ParentId)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
@@ -51,6 +54,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParentId)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>

@@ -7,17 +7,10 @@ namespace GoalTracker.Models;
 
 public class History : TrackingRecord
 {
-    public History(ApplicationUser user, string action, TrackingRecord trackingRecord, string url) 
-    {
-        CreatedBy = user;
-        CreatedDate = DateTime.Now;
-        Action = action;
-        TrackingRecord = trackingRecord;
-        Url = url;
-    }
+    
     public string? Action { get; set; }
 
-    public TrackingRecord TrackingRecord { get; set; }
+    public TrackingRecord? TrackingRecord { get; set; }
 
     public string? Url { get; set; }
 
@@ -27,7 +20,7 @@ public class History : TrackingRecord
             $"{CreatedDate}\n" +
             $"User [Email: {CreatedBy?.Email} Id: {CreatedBy?.Id}]\n" + 
             $"Action: [{Action}]\n" + 
-            $"Reference: [{TrackingRecord.GetType()} {TrackingRecord.Title} {TrackingRecord.Id}]\n" + 
+            $"Reference: [{TrackingRecord?.GetType()} {TrackingRecord?.Title} {TrackingRecord?.Id}]\n" + 
             $"URL: [{Url}]";
     }
 

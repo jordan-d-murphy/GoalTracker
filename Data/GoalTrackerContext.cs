@@ -69,14 +69,40 @@ namespace GoalTracker.Data
 
         public DbSet<Link> Link { get; set; } = default!;
 
-        public DbSet<Priority> Priority { get; set; } = default!;
+        public DbSet<RecordPriority> RecordPriority { get; set; } = default!;
 
         public DbSet<Project> Project { get; set; } = default!;
 
         public DbSet<Roadmap> Roadmap { get; set; } = default!;
 
-        public DbSet<Status> Status { get; set; } = default!;
+        public DbSet<RecordStatus> RecordStatus { get; set; } = default!;
 
         public DbSet<Tag> Tag { get; set; } = default!;
+
+        public DbSet<GoalTracker.Models.Billing> Billing { get; set; } = default!;
+
+        public DbSet<GoalTracker.Models.Subscription> Subscription { get; set; } = default!;
+
+        public DbSet<GoalTracker.Models.MetricType> MetricType { get; set; } = default!;
+
+        public DbSet<GoalTracker.Models.VizType> VizType { get; set; } = default!;
+
+        public DbSet<GoalTracker.Models.Dash> Dash { get; set; } = default!;
+
+        public DbSet<GoalTracker.Models.DashViz> DashViz { get; set; } = default!;
+
+        public DbSet<GoalTracker.Models.History> History { get; set; } = default!;
+
+        public DbSet<GoalTracker.Models.Metric> Metric { get; set; } = default!;
+
+        public DbSet<GoalTracker.Models.Note> Note { get; set; } = default!;
+
+        public DbSet<GoalTracker.Models.Report> Report { get; set; } = default!;
+
+        public DbSet<GoalTracker.Models.Settings> Settings { get; set; } = default!;
+
+        public DbSet<GoalTracker.Models.SupportRequest> SupportRequest { get; set; } = default!;
+
+        public DbSet<GoalTracker.Models.Team> Team { get; set; } = default!;
     }
 }

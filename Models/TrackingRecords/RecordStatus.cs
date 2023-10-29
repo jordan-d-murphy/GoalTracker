@@ -4,7 +4,7 @@ using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Models;
 
-public class Status : TrackingRecord
+public class RecordStatus : TrackingRecord
 {
 
 }

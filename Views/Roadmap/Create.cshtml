@@ -1,4 +1,4 @@
-@model Roadmap
+@model GoalTracker.Models.Roadmap
 
 @{
     ViewData["Title"] = "Create";
@@ -12,6 +12,11 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ParentId" class="control-label"></label>
+                <input asp-for="ParentId" class="form-control" />
+                <span asp-validation-for="ParentId" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />

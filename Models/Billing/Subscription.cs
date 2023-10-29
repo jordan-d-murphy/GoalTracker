@@ -6,6 +6,8 @@ namespace GoalTracker.Models;
 
 public class Subscription 
 {
+    public Guid Id { get; set; }
+    
     public string? Tier { get; set; }
 
     public string? Name { get; set; }

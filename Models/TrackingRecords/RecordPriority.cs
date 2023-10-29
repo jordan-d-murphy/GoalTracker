@@ -5,7 +5,7 @@ using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Models;
 
-public class Priority : TrackingRecord
+public class RecordPriority : TrackingRecord
 {    
     public int? PriorityInt {get;set;}
    
