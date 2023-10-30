@@ -21,7 +21,7 @@
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-md-11 offset-md-1">
+        <div class="col-md-10 offset-md-1">
 
             <div class="card mb-3">
                 <div class="row g-0">
@@ -114,7 +114,7 @@
                                     <i class="bi-star" style="font-size: 1rem; color: #0077cc;"></i>
                                 }
                             </h5>
-                            <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.Category)</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.Team)</h6>
                             <p class="card-text">
                                 @Html.DisplayFor(modelItem => item.Description)
                             </p>
