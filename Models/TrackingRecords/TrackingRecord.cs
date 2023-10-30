@@ -22,15 +22,15 @@ public abstract class TrackingRecord
 
     [Display(Name = "Created")]
     [DataType(DataType.Date)]
-    public DateTime CreatedDate { get; set; }
+    public DateTime? CreatedDate { get; set; }
 
     [Display(Name = "Started")]
     [DataType(DataType.Date)]
-    public DateTime StartedDate { get; set; }
+    public DateTime? StartedDate { get; set; }
 
     [Display(Name = "Target")]
     [DataType(DataType.Date)]
-    public DateTime TargetDate { get; set; }
+    public DateTime? TargetDate { get; set; }
 
     [Display(Name = "Completed")]
     [DataType(DataType.Date)]

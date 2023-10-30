@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoalTracker.Migrations
 {
     [DbContext(typeof(GoalTrackerContext))]
-    [Migration("20231029040009_InitialCreate")]
+    [Migration("20231029235933_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -373,7 +373,7 @@ namespace GoalTracker.Migrations
                     b.Property<Guid?>("CreatedById")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
@@ -398,13 +398,13 @@ namespace GoalTracker.Migrations
                     b.Property<Guid?>("ReviewerId")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("StartedDate")
+                    b.Property<DateTime?>("StartedDate")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("StatusId")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("TargetDate")
+                    b.Property<DateTime?>("TargetDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
