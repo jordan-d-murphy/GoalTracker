@@ -109,10 +109,27 @@ div.card {
   color: #ffffff;
 }
 
+.z-5k {
+  z-index: 5000;
+}
+
 .z-10k {
   z-index: 10000;
 }
 
 .modal-dialog {
   top: 7rem !important;
+}
+
+.roadmap {
+  max-width: 10rem;
+  max-height: 6rem;  
+}
+
+.roadmap-complete {
+  border: 2px solid #0077cc;
+}
+
+.progress-bar {
+  background-color: #0077cc !important;
 }

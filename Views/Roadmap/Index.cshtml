@@ -9,93 +9,49 @@
 <p>
     <a asp-action="Create">Create New Roadmap</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ParentId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TargetDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CompletedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Completed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Favorited)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Icon)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParentId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TargetDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompletedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Completed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Favorited)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Icon)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+
+
+@foreach (var item in Model)
+{
+    <div class="row">
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">@item.Title</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@item.Category</h6>
+            <p class="card-text">@item.Description</p>
+
+            <div class="row position-relative p-3" style="width: 100%;">
+
+                @for (int i = 1, y = new Random().Next(1, 7); i < 8; i++)
+                    {
+                        <div class="progress position-absolute start-0" style="top: 45% !important; height: 4px; width: 90%;">
+                            <div class="progress-bar" role="progressbar" style="width: @((int)((y/7m)*100))%"></div>
+                        </div>
+                        if (i < y)
+                        {
+                            <div class="col z-5k">
+                                <div class="roadmap roadmap-complete px-3 py-4 mb-2 bg-body-secondary text-center rounded">
+                                    <i class="bi-check2-square" style="font-size: 2rem; color: #0077cc;"></i>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col z-5k">
+                                <div class="roadmap px-3 py-4 mb-2 bg-body-secondary text-center rounded">
+                                    <i class="bi-square" style="font-size: 2rem; color: #0077cc;"></i>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+
+                <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a>
+            </div>
+        </div>
+
+    </div>
+
 }
-    </tbody>
-</table>
