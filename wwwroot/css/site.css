@@ -109,6 +109,10 @@ div.card {
   color: #ffffff;
 }
 
+.z-1k {
+  z-index: 1000;
+}
+
 .z-5k {
   z-index: 5000;
 }

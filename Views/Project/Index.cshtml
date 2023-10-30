@@ -21,120 +21,108 @@
 <div class="row">
     @foreach (var item in Model)
     {
-        <div class="col-md-10 offset-md-1">
 
-            <div class="card mb-3">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        <ul class="list-group m-3">
+        <div class="card mb-3 col-md-10 offset-md-1">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <ul class="list-group m-3">
 
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">
+                                    @Html.DisplayNameFor(model => item.Category)
+                                </div>
+                                @Html.DisplayFor(modelItem => item.Category)
+                            </div>
+                        </li>
+                        @if (!String.IsNullOrEmpty(item.Color))
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-start"
+                                style="background-color: @item.Color; color: @item!.GetTextColor();">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">
+                                        @Html.DisplayNameFor(model => item.Color)
+                                    </div>
+                                    @Html.DisplayFor(modelItem => item.Color)
+                                </div>
+                            </li>
+                        }
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">
+                                    @Html.DisplayNameFor(model => item.CreatedDate)
+                                </div>
+                                @Html.DisplayFor(modelItem => item.CreatedDate)
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">
+                                    @Html.DisplayNameFor(model => item.TargetDate)
+                                </div>
+                                @Html.DisplayFor(modelItem => item.TargetDate)
+                            </div>
+                        </li>
+                        @if (item.Completed)
+                        {
                             <li class="list-group-item d-flex justify-content-between align-items-start">
                                 <div class="ms-2 me-auto">
                                     <div class="fw-bold">
-                                        @Html.DisplayNameFor(model => item.Category)
+                                        @Html.DisplayNameFor(model => item.Completed)
                                     </div>
-                                    @Html.DisplayFor(modelItem => item.Category)
+                                    @Html.DisplayFor(modelItem => item.CompletedDate)
                                 </div>
                             </li>
-                            @if (!String.IsNullOrEmpty(item.Color))
+                        }
+                        <li class="list-group-item d-flex justify-content-start align-items-start">
+                            <div>
+                                <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ProjectDetails_@item.Id">
+                                    <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
+                                </a>
+                                @await Html.PartialAsync("~/Views/Project/OffCanvas/_ProjectDetails.cshtml", @item)
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-start align-items-start">
+                            <div>
+                                <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ProjectEdit_@item.Id">
+                                    <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
+                                </a>
+                                @await Html.PartialAsync("~/Views/Project/OffCanvas/_ProjectEdit.cshtml", @item)
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-start align-items-start">
+                            <div>
+                                <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ProjectDelete_@item.Id">
+                                    <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
+                                </a>
+                                @await Html.PartialAsync("~/Views/Project/OffCanvas/_ProjectDelete.cshtml", @item)
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @Html.DisplayFor(modelItem => item.Title)
+                            @if (@item.Favorited)
                             {
-                                <li class="list-group-item d-flex justify-content-between align-items-start"
-                                    style="background-color: @item.Color; color: @item!.GetTextColor();">
-                                    <div class="ms-2 me-auto">
-                                        <div class="fw-bold">
-                                            @Html.DisplayNameFor(model => item.Color)
-                                        </div>
-                                        @Html.DisplayFor(modelItem => item.Color)
-                                    </div>
-                                </li>
+                                <i class="bi-star-fill" style="font-size: 1rem; color: #0077cc;"></i>
                             }
-                            <li class="list-group-item d-flex justify-content-between align-items-start">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold">
-                                        @Html.DisplayNameFor(model => item.CreatedDate)
-                                    </div>
-                                    @Html.DisplayFor(modelItem => item.CreatedDate)
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-start">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold">
-                                        @Html.DisplayNameFor(model => item.TargetDate)
-                                    </div>
-                                    @Html.DisplayFor(modelItem => item.TargetDate)
-                                </div>
-                            </li>
-                            @if (item.Completed)
+                            else
                             {
-                                <li class="list-group-item d-flex justify-content-between align-items-start">
-                                    <div class="ms-2 me-auto">
-                                        <div class="fw-bold">
-                                            @Html.DisplayNameFor(model => item.Completed)
-                                        </div>
-                                        @Html.DisplayFor(modelItem => item.CompletedDate)
-                                    </div>
-                                </li>
+                                <i class="bi-star" style="font-size: 1rem; color: #0077cc;"></i>
                             }
-                            <li class="list-group-item d-flex justify-content-start align-items-start">
-                                <div>
-                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ProjectDetails_@item.Id">
-                                        <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
-                                    </a>
-                                    @await Html.PartialAsync("~/Views/Project/OffCanvas/_ProjectDetails.cshtml", @item)
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-start align-items-start">
-                                <div>
-                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ProjectEdit_@item.Id">
-                                        <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
-                                    </a>
-                                    @await Html.PartialAsync("~/Views/Project/OffCanvas/_ProjectEdit.cshtml", @item)
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-start align-items-start">
-                                <div>
-                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ProjectDelete_@item.Id">
-                                        <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
-                                    </a>
-                                    @await Html.PartialAsync("~/Views/Project/OffCanvas/_ProjectDelete.cshtml", @item)
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                @Html.DisplayFor(modelItem => item.Title)
-                                @if (@item.Favorited)
-                                {
-                                    <i class="bi-star-fill" style="font-size: 1rem; color: #0077cc;"></i>
-                                }
-                                else
-                                {
-                                    <i class="bi-star" style="font-size: 1rem; color: #0077cc;"></i>
-                                }
-                            </h5>
-                            <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.Team)</h6>
-                            <p class="card-text">
-                                @Html.DisplayFor(modelItem => item.Description)
-                            </p>
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                        </div>
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.Team)</h6>
+                        <p class="card-text">
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </p>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
         </div>
+
     }
 </div>
