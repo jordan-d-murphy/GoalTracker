@@ -21,7 +21,7 @@
             <h6 class="card-subtitle mb-2 text-muted">@item.Category</h6>
             <p class="card-text">@item.Description</p>
 
-            <div class="row position-relative p-3" style="width: 100%;">
+            <div class="row position-relative p-3 m-3" style="width: 100%;">
 
                 @for (int i = 1, y = new Random().Next(1, 7); i < 8; i++)
                     {
@@ -36,11 +36,19 @@
                                 </div>
                             </div>
                         }
-                        else
+                        else if (i == y) 
+                        {
+                            <div class="col z-5k">
+                                <div class="roadmap roadmap-create px-3 py-4 mb-2 bg-body-secondary text-center rounded">
+                                    <i class="bi-plus-square" style="font-size: 2rem; color: #0077cc;"></i>
+                                </div>
+                            </div>
+                        }
+                        else 
                         {
                             <div class="col z-5k">
                                 <div class="roadmap px-3 py-4 mb-2 bg-body-secondary text-center rounded">
-                                    <i class="bi-square" style="font-size: 2rem; color: #0077cc;"></i>
+                                    <i class="bi-square" style="font-size: 2rem; color: #0077cc; visibility: hidden;"></i>
                                 </div>
                             </div>
                         }

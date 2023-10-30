@@ -123,12 +123,22 @@ div.card {
 
 .roadmap {
   max-width: 10rem;
-  max-height: 6rem;  
+  max-height: 6rem;    
 }
 
 .roadmap-complete {
-  border: 2px solid #0077cc;
+  border: 2px solid #0077cc !important;
 }
+
+.roadmap-complete:hover {
+  filter: brightness(95%);
+}
+
+.roadmap-create:hover {
+  filter: brightness(95%);
+  border: 2px solid #0077cc !important;
+}
+
 
 .progress-bar {
   background-color: #0077cc !important;
