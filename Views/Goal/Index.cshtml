@@ -4,98 +4,81 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Goal Index</h1>
+<h1>Goals</h1>
 
 <p>
-    <a asp-action="Create">Create New Goal</a>
+    <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_GoalCreate">
+        <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Create New Goal
+    </a>
+    @await Html.PartialAsync("~/Views/Goal/OffCanvas/_GoalCreate.cshtml", new Goal() { })
+
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ParentId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TargetDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CompletedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Completed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Favorited)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Icon)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParentId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TargetDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompletedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Completed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Favorited)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Icon)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+
+
+<div class="row">
+
+    @foreach (var goal in Model)
+    {
+        <div class="col-md-10 offset-md-1">
+
+
+            <div class="card m-3 p-3" style="min-height: 10rem;">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="card-body">
+                            <h5 class="card-title">@goal.Title</h5>
+                            <p class="card-text">@goal.Description</p>
+                            <button type="button" class="btn btn-outline-primary">Expand</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="card-body">
+                            <h5 class="card-title">@goal.Category</h5>
+                            <p class="card-text">@goal.Description</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <strong>@Html.DisplayNameFor(model => model.CreatedDate)</strong> @goal.CreatedDate
+                            </li>
+                            <li class="list-group-item">
+                                <strong>@Html.DisplayNameFor(model => model.StartedDate)</strong> @goal.StartedDate
+                            </li>
+                            <li class="list-group-item">
+                                <strong>@Html.DisplayNameFor(model => model.TargetDate)</strong> @goal.TargetDate
+                            </li>
+                        </ul>
+                        <div class="card-body">
+                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                                <div>
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_GoalDetails_@goal.Id">
+                                        <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
+                                    </a>
+                                    @await Html.PartialAsync("~/Views/Goal/OffCanvas/_GoalDetails.cshtml", @goal)
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                                <div>
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_GoalEdit_@goal.Id">
+                                        <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
+                                    </a>
+                                    @await Html.PartialAsync("~/Views/Goal/OffCanvas/_GoalEdit.cshtml", @goal)
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                                <div>
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_GoalDelete_@goal.Id">
+                                        <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
+                                    </a>
+                                    @await Html.PartialAsync("~/Views/Goal/OffCanvas/_GoalDelete.cshtml", @goal)
+                                </div>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+
+</div>
