@@ -7,95 +7,132 @@
 <h1>Milestone Index</h1>
 
 <p>
-    <a asp-action="Create">Create New Milestone</a>
+    <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_MilestoneCreate">
+        <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Create New Milestone
+    </a>
+    @await Html.PartialAsync("~/Views/Milestone/OffCanvas/_MilestoneCreate.cshtml", new Milestone() { })
+
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ParentId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TargetDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CompletedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Completed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Favorited)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Icon)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParentId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TargetDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompletedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Completed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Favorited)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Icon)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+
+
+
+
+@foreach (var milestone in Model)
+{
+    @* <div class="col-md-10 offset-md-1"> *@
+    <div class="row">
+    <div class="col">
+
+
+        <div class="card m-3 p-3">
+            <div class="row g-0">
+
+
+                <div class="col-md-9">
+
+                    <div class="card-body">
+                        <h5 class="card-title">@milestone.Title
+                                @if (@milestone.Favorited)
+                                {
+                                    <i class="bi-star-fill" style="font-size: 1rem; color: #0077cc;"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi-star" style="font-size: 1rem; color: #0077cc;"></i>
+                                }
+                            </h5>
+                            <h6 class="card-subtitle mb-2 text-muted">@milestone.Category</h6>
+                            <p class="card-text">@milestone.Description</p>
+
+
+
+                            <div class="row p-3">
+
+                                <div class="col-sm-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card title</h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                            <p class="card-text">Some quick example text to build on the card title and make
+                                                up
+                                                the
+                                                bulk of
+                                                the card's content.</p>
+                                            <a href="#" class="card-link">Card link</a>
+                                            <a href="#" class="card-link">Another link</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card title</h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                            <p class="card-text">Some quick example text to build on the card title and make
+                                                up
+                                                the
+                                                bulk of
+                                                the card's content.</p>
+                                            <a href="#" class="card-link">Card link</a>
+                                            <a href="#" class="card-link">Another link</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Card title</h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                                            <p class="card-text">Some quick example text to build on the card title and make
+                                                up
+                                                the
+                                                bulk of
+                                                the card's content.</p>
+                                            <a href="#" class="card-link">Card link</a>
+                                            <a href="#" class="card-link">Another link</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                            <a class="" data-bs-toggle="offcanvas" href="#offCanvas_MilestoneDetails_@milestone.Id">
+                                <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
+                            </a>
+                            @await Html.PartialAsync("~/Views/Milestone/OffCanvas/_MilestoneDetails.cshtml", @milestone)
+
+                            <a class="" data-bs-toggle="offcanvas" href="#offCanvas_MilestoneEdit_@milestone.Id">
+                                <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
+                            </a>
+                            @await Html.PartialAsync("~/Views/Milestone/OffCanvas/_MilestoneEdit.cshtml", @milestone)
+
+                            <a class="" data-bs-toggle="offcanvas" href="#offCanvas_MilestoneDelete_@milestone.Id">
+                                <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
+                            </a>
+                            @await Html.PartialAsync("~/Views/Milestone/OffCanvas/_MilestoneDelete.cshtml", @milestone)
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>@Html.DisplayNameFor(model =>
+                                    model.CreatedDate)</strong> @milestone.CreatedDate</li>
+                                <li class="list-group-item"><strong>@Html.DisplayNameFor(model => model.TargetDate)</strong>
+                                    @milestone.TargetDate</li>
+                                <li class="list-group-item"><strong>@Html.DisplayNameFor(model =>
+                                    model.StartedDate)</strong> @milestone.StartedDate</li>
+                                <li class="list-group-item"><strong>@Html.DisplayNameFor(model =>
+                                    model.CompletedDate)</strong> @milestone.CompletedDate</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 }
-    </tbody>
-</table>
