@@ -282,6 +282,26 @@ namespace GoalTracker.Migrations
                     b.ToTable("Billing");
                 });
 
+            modelBuilder.Entity("GoalTracker.Models.Kai", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Model")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Prompt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Response")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Kai");
+                });
+
             modelBuilder.Entity("GoalTracker.Models.MetricType", b =>
                 {
                     b.Property<Guid>("Id")
@@ -729,6 +749,15 @@ namespace GoalTracker.Migrations
 
                     b.HasIndex("TypeId");
 
+                    b.ToTable("TrackingRecord", t =>
+                        {
+                            t.Property("JSONData")
+                                .HasColumnName("Settings_JSONData");
+
+                            t.Property("Name")
+                                .HasColumnName("Settings_Name");
+                        });
+
                     b.HasDiscriminator().HasValue("Settings");
                 });
 
@@ -756,6 +785,19 @@ namespace GoalTracker.Migrations
                     b.HasBaseType("GoalTracker.Models.TrackingRecord");
 
                     b.HasDiscriminator().HasValue("Team");
+                });
+
+            modelBuilder.Entity("GoalTracker.Models.Template", b =>
+                {
+                    b.HasBaseType("GoalTracker.Models.TrackingRecord");
+
+                    b.Property<string>("JSONData")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasDiscriminator().HasValue("Template");
                 });
 
             modelBuilder.Entity("GoalTracker.Areas.Identity.Data.ApplicationRoleClaim", b =>
@@ -970,7 +1012,7 @@ namespace GoalTracker.Migrations
 
             modelBuilder.Entity("GoalTracker.Models.Settings", b =>
                 {
-                    b.HasOne("GoalTracker.Models.VizType", "Type")
+                    b.HasOne("GoalTracker.Models.TrackingRecord", "Type")
                         .WithMany()
                         .HasForeignKey("TypeId");
 

@@ -27,6 +27,20 @@ namespace GoalTracker.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Kai",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Model = table.Column<string>(type: "TEXT", nullable: true),
+                    Prompt = table.Column<string>(type: "TEXT", nullable: true),
+                    Response = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Kai", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MetricType",
                 columns: table => new
                 {
@@ -269,10 +283,12 @@ namespace GoalTracker.Migrations
                     Report_Name = table.Column<string>(type: "TEXT", nullable: true),
                     Report_TypeId = table.Column<Guid>(type: "TEXT", nullable: true),
                     Report_JSONData = table.Column<string>(type: "TEXT", nullable: true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Settings_Name = table.Column<string>(type: "TEXT", nullable: true),
                     TypeId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    JSONData = table.Column<string>(type: "TEXT", nullable: true),
-                    TrackingRecordId = table.Column<Guid>(type: "TEXT", nullable: true)
+                    Settings_JSONData = table.Column<string>(type: "TEXT", nullable: true),
+                    TrackingRecordId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    JSONData = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -343,6 +359,11 @@ namespace GoalTracker.Migrations
                         principalTable: "TrackingRecord",
                         principalColumn: "Id");
                     table.ForeignKey(
+                        name: "FK_TrackingRecord_TrackingRecord_TypeId",
+                        column: x => x.TypeId,
+                        principalTable: "TrackingRecord",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_TrackingRecord_VizType_DashViz_TypeId",
                         column: x => x.DashViz_TypeId,
                         principalTable: "VizType",
@@ -350,11 +371,6 @@ namespace GoalTracker.Migrations
                     table.ForeignKey(
                         name: "FK_TrackingRecord_VizType_Report_TypeId",
                         column: x => x.Report_TypeId,
-                        principalTable: "VizType",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_TrackingRecord_VizType_TypeId",
-                        column: x => x.TypeId,
                         principalTable: "VizType",
                         principalColumn: "Id");
                 });
@@ -618,6 +634,9 @@ namespace GoalTracker.Migrations
 
             migrationBuilder.DropTable(
                 name: "Billing");
+
+            migrationBuilder.DropTable(
+                name: "Kai");
 
             migrationBuilder.DropTable(
                 name: "MetricType");

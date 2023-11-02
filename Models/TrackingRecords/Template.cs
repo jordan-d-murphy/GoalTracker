@@ -4,11 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GoalTracker.Models;
 
-public class Settings : TrackingRecord
+public class Template : TrackingRecord
 {
     public string? Name { get; set; }
-
-    public TrackingRecord? Type { get; set; }
 
     public string? JSONData { get; set; }
 }

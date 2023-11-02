@@ -1,0 +1,19 @@
+@model IEnumerable<GoalTracker.Models.Kai>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="row m-5">
+    <div class="col text-center p-5">
+
+        <h1 class="brand-logo-font">Hey, I'm kai - koala's AI interface.</h1>
+
+        <p>
+            @await Html.PartialAsync("~/Views/Kai/_Chat.cshtml", new Kai())
+        </p>
+
+    </div>
+</div>
+

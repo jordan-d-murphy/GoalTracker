@@ -106,5 +106,9 @@ namespace GoalTracker.Data
         public DbSet<GoalTracker.Models.Team> Team { get; set; } = default!;
 
         public DbSet<GoalTracker.Models.Calendar> Calendar { get; set; } = default!;
+
+        public DbSet<GoalTracker.Models.Template> Template { get; set; } = default!;
+
+        public DbSet<GoalTracker.Models.Kai> Kai { get; set; } = default!;
     }
 }
