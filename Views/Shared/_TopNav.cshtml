@@ -15,36 +15,7 @@
                 
                 <li class="nav-item me-auto">
                     <a class="px-4 brand-logo-font" asp-area="" asp-controller="Home" asp-action="Index">koala</a>
-                </li>
-
-                @*
-                @if (SignInManager.IsSignedIn(User))
-                {
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Goal" asp-action="Index">Goals</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Milestone" asp-action="Index">Milestones</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="ActivityEntry" asp-action="Index">Activities</a>
-                    </li>
-
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
-                        </li>
-                    }
-                }
-                <li class="nav-item me-auto">
-                    
-                </li>
-                *@
+                </li>              
 
                 <partial name="_LoginPartial" />
                 <partial name="_ThemeToggle" />
