@@ -147,3 +147,7 @@ div.card {
 .progress-bar {
   background-color: #0077cc !important;
 }
+
+.modal-dialog {
+  transform: translate(16.6%)!important;
+}

@@ -7,7 +7,7 @@
 
 
 <div class="modal fade" id="kaiModal_@Model.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg  offset-md-2">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">kai model: @Model.Model</h1>
@@ -20,7 +20,7 @@
           <input class="form-control p-3" autocomplete="off" id="kaiModalFormPromptInput_@Model.Id" asp-for="Prompt" />
 
           <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-outline-primary" />
+            <input type="submit" value="Create" class="btn btn-outline-primary m-3" />
           </div>
 
         </form>
