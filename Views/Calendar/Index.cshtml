@@ -6,96 +6,138 @@
 
 <h1>Calendar Index</h1>
 
-<p>
-    <a asp-action="Create">Create New Calendar</a>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
+
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            selectable: true
+
+        });
+        calendar.render();
+
+        calendar.on('dateClick', function (info) {
+            var name = prompt('Create new event for ' + info.dateStr);
+            calendar.addEvent({
+                title: name,
+                start: info.dateStr,
+                color: 'yellow',   
+                textColor: 'black',
+                borderColor: 'black',
+                editable: true 
+            });
+        });
+
+        calendar.on('eventClick', function(info) {
+            alert('Event: ' + info.event.title);
+            alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+            alert('View: ' + info.view.type);
+
+            // change the border color just for fun
+            info.el.style.borderColor = 'red';
+        });
+
+    });
+
+
+</script>
+<div id='calendar'></div>
+
+
+@* <p>
+<a asp-action="Create">Create New Calendar</a>
 </p>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ParentId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TargetDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CompletedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Completed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Favorited)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Icon)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+<thead>
+<tr>
+<th>
+@Html.DisplayNameFor(model => model.ParentId)
+</th>
+<th>
+@Html.DisplayNameFor(model => model.Title)
+</th>
+<th>
+@Html.DisplayNameFor(model => model.Description)
+</th>
+<th>
+@Html.DisplayNameFor(model => model.CreatedDate)
+</th>
+<th>
+@Html.DisplayNameFor(model => model.StartedDate)
+</th>
+<th>
+@Html.DisplayNameFor(model => model.TargetDate)
+</th>
+<th>
+@Html.DisplayNameFor(model => model.CompletedDate)
+</th>
+<th>
+@Html.DisplayNameFor(model => model.Completed)
+</th>
+<th>
+@Html.DisplayNameFor(model => model.Favorited)
+</th>
+<th>
+@Html.DisplayNameFor(model => model.Category)
+</th>
+<th>
+@Html.DisplayNameFor(model => model.Icon)
+</th>
+<th>
+@Html.DisplayNameFor(model => model.Color)
+</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
 @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParentId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TargetDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompletedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Completed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Favorited)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Icon)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+<tr>
+<td>
+@Html.DisplayFor(modelItem => item.ParentId)
+</td>
+<td>
+@Html.DisplayFor(modelItem => item.Title)
+</td>
+<td>
+@Html.DisplayFor(modelItem => item.Description)
+</td>
+<td>
+@Html.DisplayFor(modelItem => item.CreatedDate)
+</td>
+<td>
+@Html.DisplayFor(modelItem => item.StartedDate)
+</td>
+<td>
+@Html.DisplayFor(modelItem => item.TargetDate)
+</td>
+<td>
+@Html.DisplayFor(modelItem => item.CompletedDate)
+</td>
+<td>
+@Html.DisplayFor(modelItem => item.Completed)
+</td>
+<td>
+@Html.DisplayFor(modelItem => item.Favorited)
+</td>
+<td>
+@Html.DisplayFor(modelItem => item.Category)
+</td>
+<td>
+@Html.DisplayFor(modelItem => item.Icon)
+</td>
+<td>
+@Html.DisplayFor(modelItem => item.Color)
+</td>
+<td>
+<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+</td>
+</tr>
 }
-    </tbody>
-</table>
+</tbody>
+</table> *@
