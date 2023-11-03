@@ -1,4 +1,7 @@
-@model IEnumerable<GoalTracker.Models.Team>
+@* @model IEnumerable<GoalTracker.Models.Team> *@
+
+@model TeamViewModel
+
 
 @{
     ViewData["Title"] = "Index";
@@ -6,96 +9,113 @@
 
 <h1>Team Index</h1>
 
+
+
 <p>
-    <a asp-action="Create">Create New Team</a>
+    <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_TeamCreate">
+        <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Create New Team
+    </a>
+    @await Html.PartialAsync("~/Views/Team/OffCanvas/_TeamCreate.cshtml", new Team() { })
+
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ParentId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TargetDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CompletedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Completed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Favorited)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Icon)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParentId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TargetDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompletedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Completed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Favorited)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Icon)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+
+
+
+@if (!String.IsNullOrEmpty(@Model.TeamVMMessage))
+{
+    <div class="alert alert-@Model.TeamVMMessageType alert-dismissible fade show" role="alert">
+    <strong>@Model.TeamVMMessage</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 }
-    </tbody>
-</table>
+
+
+
+@if (Model.Teams is not null)
+{
+    @foreach (var team in Model.Teams)
+    {
+        <div class="row">
+
+            <div class="card mb-3 col-md-10 offset-md-1">
+                <div class="card-body">
+                    <h5 class="card-title">@team.Title</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@team.Category</h6>
+                    <p class="card-text">@team.Description</p>
+                    <div class="row">
+
+
+                        <div class="col-md-4">
+                            <ul>
+                                <li class="list-group-item d-flex justify-content-start align-items-start">
+                                    <div>
+                                        <a class="" data-bs-toggle="modal" data-bs-target="#addMemberTeamModal_@team.Id" href="">
+                                            <i class="bi-person-plus" style="font-size: 1rem; color: #0077cc;"></i> Add Team Member
+                                        </a>
+                                        @await Html.PartialAsync("~/Views/Team/OffCanvas/_AddMember.cshtml", 
+                                            new TeamViewModel { AddTeam = team, AllUsers = Model.AllUsers, })
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-start align-items-start">
+                                    <div>
+                                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_TeamDetails_@team.Id">
+                                            <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
+                                        </a>
+                                        @await Html.PartialAsync("~/Views/Team/OffCanvas/_TeamDetails.cshtml", @team)
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-start align-items-start">
+                                    <div>
+                                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_TeamEdit_@team.Id">
+                                            <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
+                                        </a>
+                                        @await Html.PartialAsync("~/Views/Team/OffCanvas/_TeamEdit.cshtml", @team)
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-start align-items-start">
+                                    <div>
+                                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_TeamDelete_@team.Id">
+                                            <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
+                                        </a>
+                                        @await Html.PartialAsync("~/Views/Team/OffCanvas/_TeamDelete.cshtml", @team)
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card" style="">
+                                <ul class="list-group list-group-flush">
+
+                                    @if (team.TeamMembers is not null)
+                                    {
+                                        @foreach (var member in team.TeamMembers)
+                                        {
+                                            <li class="list-group-item">@member.Email 
+                                                @await Html.PartialAsync("~/Views/Team/OffCanvas/_RemoveMember.cshtml", 
+                                                new TeamViewModel() 
+                                                {
+                                                    AllUsers = Model.AllUsers,
+                                                    RemoveTeam = team,
+                                                    RemoveUser = member
+                                                })
+                                            </li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <li class="list-group-item">This team has no members yet.</li>
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    }
+}
+

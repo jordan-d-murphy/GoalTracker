@@ -1,0 +1,38 @@
+@model TeamViewModel
+
+
+<div class="modal fade" id="addMemberTeamModal_@Model!.AddTeam!.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Team Member</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        @*
+        <form asp-controller="Team" asp-action="AddTeamMember" id="addTeamMemberForm">
+        @Html.DropDownListFor(model => model.AddUser, Model.AllUsers)
+        <a class="nav-link float-end pt-3" href="javascript:$('#addTeamMemberForm').submit();">Create</a>
+        </form> *@
+
+
+
+        <form asp-controller="Team" asp-action="AddTeamMember" id="addTeamMemberForm">
+          <input type="hidden" asp-for="AddTeam!.Id" />
+          @Html.DropDownListFor(model => model!.AddUser!.Id, Model.AllUsers)
+          <div class="form-group mb-3 float-end">
+            <input type="submit" value="Save" class="btn btn-outline-primary" />
+          </div>
+        </form>
+
+
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

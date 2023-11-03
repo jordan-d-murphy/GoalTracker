@@ -1,0 +1,11 @@
+@model TeamViewModel
+
+<form asp-controller="Team" asp-action="RemoveTeamMember"
+  id="removeTeamMember_@Model?.RemoveUser?.Id@Model?.RemoveTeam!.Id">
+  <input type="hidden" asp-for="RemoveTeam!.Id" />
+  <input type="hidden" asp-for="RemoveUser!.Id" />
+  <input type="hidden" asp-for="AllUsers" />
+  <div class="form-group mb-3 float-end">
+    <input type="submit" value="Remove" class="btn btn-outline-primary" />
+  </div>
+</form>

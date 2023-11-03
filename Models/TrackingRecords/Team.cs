@@ -8,5 +8,5 @@ namespace GoalTracker.Models;
 public class Team : TrackingRecord
 {
     [Display(Name = "Members")]
-    public List<ApplicationUser>? TeamMembers { get; set; }
+    public virtual List<ApplicationUser>? TeamMembers { get; set; }
 }
