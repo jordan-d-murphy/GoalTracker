@@ -5,7 +5,5 @@
   <input type="hidden" asp-for="RemoveTeam!.Id" />
   <input type="hidden" asp-for="RemoveUser!.Id" />
   <input type="hidden" asp-for="AllUsers" />
-  <div class="form-group mb-3 float-end">
-    <input type="submit" value="Remove" class="btn btn-outline-primary" />
-  </div>
+    <a class="nav-link" href="javascript:$('#removeTeamMember_@Model?.RemoveUser?.Id@Model?.RemoveTeam!.Id').submit();">Remove</a>
 </form>

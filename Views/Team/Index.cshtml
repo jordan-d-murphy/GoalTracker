@@ -37,9 +37,9 @@
     {
         <div class="row">
 
-            <div class="card mb-3 col-md-10 offset-md-1">
-                <div class="card-body">
-                    <h5 class="card-title">@team.Title</h5>
+    <div class="card mb-3 col-md-10 offset-md-1">
+        <div class="card-body">
+            <h5 class="card-title">@team.Title</h5>
                     <h6 class="card-subtitle mb-2 text-muted">@team.Category</h6>
                     <p class="card-text">@team.Description</p>
                     <div class="row">
@@ -49,11 +49,13 @@
                             <ul>
                                 <li class="list-group-item d-flex justify-content-start align-items-start">
                                     <div>
-                                        <a class="" data-bs-toggle="modal" data-bs-target="#addMemberTeamModal_@team.Id" href="">
-                                            <i class="bi-person-plus" style="font-size: 1rem; color: #0077cc;"></i> Add Team Member
+                                        <a class="" data-bs-toggle="modal" data-bs-target="#addMemberTeamModal_@team.Id"
+                                            href="">
+                                            <i class="bi-person-plus" style="font-size: 1rem; color: #0077cc;"></i> Add Team
+                                            Member
                                         </a>
-                                        @await Html.PartialAsync("~/Views/Team/OffCanvas/_AddMember.cshtml", 
-                                            new TeamViewModel { AddTeam = team, AllUsers = Model.AllUsers, })
+                                        @await Html.PartialAsync("~/Views/Team/OffCanvas/_AddMember.cshtml",
+                                                 new TeamViewModel { AddTeam = team, AllUsers = Model.AllUsers, })
                                     </div>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-start align-items-start">
@@ -86,24 +88,31 @@
                             <div class="card" style="">
                                 <ul class="list-group list-group-flush">
 
-                                    @if (team.TeamMembers is not null)
+                                    @if (team.TeamMembers is not null && team.TeamMembers.Count > 0)
                                     {
                                         @foreach (var member in team.TeamMembers)
                                         {
-                                            <li class="list-group-item">@member.Email 
-                                                @await Html.PartialAsync("~/Views/Team/OffCanvas/_RemoveMember.cshtml", 
-                                                new TeamViewModel() 
-                                                {
-                                                    AllUsers = Model.AllUsers,
-                                                    RemoveTeam = team,
-                                                    RemoveUser = member
-                                                })
+                                            <li class="list-group-item">
+                                                <div class="row">
+                                                    <div class="col-8">
+                                                        @member.Email
+                                                    </div>
+                                                    <div class="col-4 text-end">
+                                                        @await Html.PartialAsync("~/Views/Team/OffCanvas/_RemoveMember.cshtml",
+                                                            new TeamViewModel()
+                                                            {
+                                                                AllUsers = Model.AllUsers,
+                                                                RemoveTeam = team,
+                                                                RemoveUser = member
+                                                            })
+                                                    </div>
+                                                </div>
                                             </li>
                                         }
                                     }
                                     else
                                     {
-                                        <li class="list-group-item">This team has no members yet.</li>
+                                        <li class="list-group-item">This team has no members at this time.</li>
                                     }
 
                                 </ul>
@@ -118,4 +127,3 @@
 
     }
 }
-
