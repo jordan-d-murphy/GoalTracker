@@ -6,96 +6,132 @@
 
 <h1>Support Request Index</h1>
 
+
 <p>
-    <a asp-action="Create">Create New Support Request</a>
+    <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_SupportRequestCreate">
+        <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Open a New Support Request
+    </a>
+    @await Html.PartialAsync("~/Views/SupportRequest/OffCanvas/_SupportRequestCreate.cshtml", new SupportRequest() { })
+
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ParentId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TargetDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CompletedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Completed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Favorited)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Icon)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParentId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TargetDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompletedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Completed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Favorited)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Icon)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+
+
+
+<div class="row">
+    @foreach (var supportRequest in Model)
+    {
+
+        <div class="card mb-3 col-md-10 offset-md-1">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @Html.DisplayFor(modelItem => supportRequest.Title)
+
+                        </h5>
+                        <p class="card-text">
+                            @Html.DisplayFor(modelItem => supportRequest.Description)
+                        </p>
+                        <div class="fw-bold">
+                            @Html.DisplayNameFor(model => supportRequest.Category)
+                        </div>
+                        <a href="#" class="card-link">Card link</a>
+                        <a href="#" class="card-link">Another link</a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <ul class="list-group m-3">
+
+                        @if (!String.IsNullOrEmpty(supportRequest.Color))
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-start"
+                                style="background-color: @supportRequest.Color; color: @supportRequest!.GetTextColor();">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">
+                                        @Html.DisplayNameFor(model => supportRequest.Color)
+                                    </div>
+                                    @Html.DisplayFor(modelItem => supportRequest.Color)
+                                </div>
+                            </li>
+                        }
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">
+                                    @Html.DisplayNameFor(model => supportRequest.CreatedDate)
+                                </div>
+                                @Html.DisplayFor(modelItem => supportRequest.CreatedDate)
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">
+                                    @Html.DisplayNameFor(model => supportRequest.TargetDate)
+                                </div>
+                                @Html.DisplayFor(modelItem => supportRequest.TargetDate)
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">
+                                    @Html.DisplayNameFor(model => supportRequest.StartedDate)
+                                </div>
+                                @Html.DisplayFor(modelItem => supportRequest.StartedDate)
+                            </div>
+                        </li>
+                        @if (supportRequest.Completed)
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">
+                                        @Html.DisplayNameFor(model => supportRequest.Completed)
+                                    </div>
+                                    @Html.DisplayFor(modelItem => supportRequest.CompletedDate)
+                                </div>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <ul class="list-group m-3">
+
+
+                        <li class="list-group-item d-flex justify-content-start align-items-start">
+                            <div>
+                                <a class="" data-bs-toggle="offcanvas"
+                                    href="#offCanvas_SupportRequestDetails_@supportRequest.Id">
+                                    <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
+                                </a>
+                                @await Html.PartialAsync("~/Views/SupportRequest/OffCanvas/_SupportRequestDetails.cshtml",
+                                         supportRequest)
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-start align-items-start">
+                            <div>
+                                <a class="" data-bs-toggle="offcanvas"
+                                    href="#offCanvas_SupportRequestEdit_@supportRequest.Id">
+                                    <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
+                                </a>
+                                @await Html.PartialAsync("~/Views/SupportRequest/OffCanvas/_SupportRequestEdit.cshtml",
+                                         supportRequest)
+                            </div>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-start align-items-start">
+                            <div>
+                                <a class="" data-bs-toggle="offcanvas"
+                                    href="#offCanvas_SupportRequestDelete_@supportRequest.Id">
+                                    <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
+                                </a>
+                                @await Html.PartialAsync("~/Views/SupportRequest/OffCanvas/_SupportRequestDelete.cshtml",
+                                         supportRequest)
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    }
+</div>
