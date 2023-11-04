@@ -17,20 +17,22 @@
 
 
 
-@foreach (var milestone in Model)
-{
-    <div class="row">
-    <div class="col">
+<div class="row">
+
+    @foreach (var milestone in Model)
+    {
+
+        <div class="col-md-10 offset-md-1">
 
 
-        <div class="card m-3 p-3">
-            <div class="row">
+            <div class="card m-3 p-3">
+                <div class="row">
 
 
-                <div class="col-md-9">
+                    <div class="col-md-9">
 
-                    <div class="card-body">
-                        <h5 class="card-title">@milestone.Title
+                        <div class="card-body">
+                            <h5 class="card-title">@milestone.Title
                                 @if (@milestone.Favorited)
                                 {
                                     <i class="bi-star-fill" style="font-size: 1rem; color: #0077cc;"></i>
@@ -45,7 +47,7 @@
 
 
 
-                            <div class="row p-3">
+                            <div class="row mb-3">
 
                                 <div class="col-sm-4">
                                     <div class="card">
@@ -57,8 +59,7 @@
                                                 the
                                                 bulk of
                                                 the card's content.</p>
-                                            <a href="#" class="card-link">Card link</a>
-                                            <a href="#" class="card-link">Another link</a>
+                                            <a href="#" class="card-link">Card link</a>                                            
                                         </div>
                                     </div>
                                 </div>
@@ -72,8 +73,7 @@
                                                 the
                                                 bulk of
                                                 the card's content.</p>
-                                            <a href="#" class="card-link">Card link</a>
-                                            <a href="#" class="card-link">Another link</a>
+                                            <a href="#" class="card-link">Card link</a>                                            
                                         </div>
                                     </div>
                                 </div>
@@ -87,8 +87,7 @@
                                                 the
                                                 bulk of
                                                 the card's content.</p>
-                                            <a href="#" class="card-link">Card link</a>
-                                            <a href="#" class="card-link">Another link</a>
+                                            <a href="#" class="card-link">Card link</a>                                            
                                         </div>
                                     </div>
                                 </div>
@@ -116,7 +115,7 @@
 
                     </div>
                     <div class="col-md-3">
-                        <div class="card-body">
+                        <div class="card">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item"><strong>@Html.DisplayNameFor(model =>
                                     model.CreatedDate)</strong> @milestone.CreatedDate</li>
@@ -133,5 +132,6 @@
 
             </div>
         </div>
-    </div>
-}
+
+    }
+</div>
