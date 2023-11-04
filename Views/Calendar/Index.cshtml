@@ -6,8 +6,15 @@
 
 <h1>Calendar Index</h1>
 
-<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
+<p>
+    <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_CalendarCreate">
+        <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Create New Calendar
+    </a>
+    @await Html.PartialAsync("~/Views/Calendar/OffCanvas/_CalendarCreate.cshtml", new Calendar() { })
 
+</p>
+
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
 
 <script>
 
@@ -25,14 +32,14 @@
             calendar.addEvent({
                 title: name,
                 start: info.dateStr,
-                color: 'yellow',   
+                color: 'yellow',
                 textColor: 'black',
                 borderColor: 'black',
-                editable: true 
+                editable: true
             });
         });
 
-        calendar.on('eventClick', function(info) {
+        calendar.on('eventClick', function (info) {
             alert('Event: ' + info.event.title);
             alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
             alert('View: ' + info.view.type);
@@ -43,101 +50,21 @@
 
     });
 
-
 </script>
-<div id='calendar'></div>
 
 
-@* <p>
-<a asp-action="Create">Create New Calendar</a>
-</p>
-<table class="table">
-<thead>
-<tr>
-<th>
-@Html.DisplayNameFor(model => model.ParentId)
-</th>
-<th>
-@Html.DisplayNameFor(model => model.Title)
-</th>
-<th>
-@Html.DisplayNameFor(model => model.Description)
-</th>
-<th>
-@Html.DisplayNameFor(model => model.CreatedDate)
-</th>
-<th>
-@Html.DisplayNameFor(model => model.StartedDate)
-</th>
-<th>
-@Html.DisplayNameFor(model => model.TargetDate)
-</th>
-<th>
-@Html.DisplayNameFor(model => model.CompletedDate)
-</th>
-<th>
-@Html.DisplayNameFor(model => model.Completed)
-</th>
-<th>
-@Html.DisplayNameFor(model => model.Favorited)
-</th>
-<th>
-@Html.DisplayNameFor(model => model.Category)
-</th>
-<th>
-@Html.DisplayNameFor(model => model.Icon)
-</th>
-<th>
-@Html.DisplayNameFor(model => model.Color)
-</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-@foreach (var item in Model) {
-<tr>
-<td>
-@Html.DisplayFor(modelItem => item.ParentId)
-</td>
-<td>
-@Html.DisplayFor(modelItem => item.Title)
-</td>
-<td>
-@Html.DisplayFor(modelItem => item.Description)
-</td>
-<td>
-@Html.DisplayFor(modelItem => item.CreatedDate)
-</td>
-<td>
-@Html.DisplayFor(modelItem => item.StartedDate)
-</td>
-<td>
-@Html.DisplayFor(modelItem => item.TargetDate)
-</td>
-<td>
-@Html.DisplayFor(modelItem => item.CompletedDate)
-</td>
-<td>
-@Html.DisplayFor(modelItem => item.Completed)
-</td>
-<td>
-@Html.DisplayFor(modelItem => item.Favorited)
-</td>
-<td>
-@Html.DisplayFor(modelItem => item.Category)
-</td>
-<td>
-@Html.DisplayFor(modelItem => item.Icon)
-</td>
-<td>
-@Html.DisplayFor(modelItem => item.Color)
-</td>
-<td>
-<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-<a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-<a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-</td>
-</tr>
-}
-</tbody>
-</table> *@
+
+
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <div class="card m-3 p-3">
+            <div class="row">
+                <div id='calendar'></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+ 
