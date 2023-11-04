@@ -1,15 +1,33 @@
-<div class="row m-5 text-center">
-    <div class="col-md-4">
+@using Microsoft.AspNetCore.Identity
+@using GoalTracker.Areas.Identity.Data
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+
+
+<div class="row my-5 text-center container-fluid">
+    @if (!SignInManager.IsSignedIn(User))
+    {
+        <div class="col">
+
+            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+
+        </div>
+    }
+
+    <div class="col">
 
         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Demo">Demo</a>
 
     </div>
-    <div class="col-md-4">
+    <div class="col">
 
         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Pricing">Pricing</a>
 
     </div>
-    <div class="col-md-4">
+    <div class="col">
 
         <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">Get in Touch!</a>
 
