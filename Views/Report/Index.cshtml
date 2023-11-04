@@ -21,80 +21,103 @@
 
 
 <div class="row">
+
     @foreach (var item in Model)
     {
 
-        <div class="card mb-3 col-md-10 offset-md-1">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            @Html.DisplayFor(modelItem => item.Title)
-                            @if (@item.Favorited)
-                            {
-                                <i class="bi-star-fill" style="font-size: 1rem; color: #0077cc;"></i>
-                            }
-                            else
-                            {
-                                <i class="bi-star" style="font-size: 1rem; color: #0077cc;"></i>
-                            }
-                        </h5>
-                        <p class="card-text">
-                            @Html.DisplayFor(modelItem => item.Description)
-                        </p>
+        <div class="col-md-10 offset-md-1">
 
-                        <p>                            
-                            <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReport_@item.Id">
-                                Preview Report
-                            </button>
-                        </p>
-                        <div class="collapse" id="collapseReport_@item.Id">
-                            <div class="card card-body">
-                                <h3>Daily Report</h3>
-                                <hr />
-                                <h5>Summary</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel ante ac orci condimentum lacinia vitae vel massa. Nunc congue nibh turpis, nec volutpat quam eleifend eu. Cras vehicula ligula sed risus luctus, vel commodo enim ultricies. Sed in sodales lorem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis quis dignissim elit. Aliquam felis mauris, dapibus non risus et, feugiat consequat tellus. Maecenas quis rhoncus dui, nec ultrices lacus. Proin laoreet tortor vitae lacus interdum, id efficitur purus suscipit.</p>
-                                <hr />
-                                <h5>Findings</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel ante ac orci condimentum lacinia vitae vel massa. Nunc congue nibh turpis, nec volutpat quam eleifend eu. Cras vehicula ligula sed risus luctus, vel commodo enim ultricies. Sed in sodales lorem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis quis dignissim elit. Aliquam felis mauris, dapibus non risus et, feugiat consequat tellus. Maecenas quis rhoncus dui, nec ultrices lacus. Proin laoreet tortor vitae lacus interdum, id efficitur purus suscipit.</p>
-                                <hr />
-                                <h5>Conclusion</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel ante ac orci condimentum lacinia vitae vel massa. Nunc congue nibh turpis, nec volutpat quam eleifend eu. Cras vehicula ligula sed risus luctus, vel commodo enim ultricies. Sed in sodales lorem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Duis quis dignissim elit. Aliquam felis mauris, dapibus non risus et, feugiat consequat tellus. Maecenas quis rhoncus dui, nec ultrices lacus. Proin laoreet tortor vitae lacus interdum, id efficitur purus suscipit.</p>
+            <div class="card m-3 p-3" style="min-height: 10rem;">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                @Html.DisplayFor(modelItem => item.Title)
+                                @if (@item.Favorited)
+                                {
+                                    <i class="bi-star-fill" style="font-size: 1rem; color: #0077cc;"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi-star" style="font-size: 1rem; color: #0077cc;"></i>
+                                }
+                            </h5>
+                            <p class="card-text">
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </p>
+
+                            <p>
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseReport_@item.Id">
+                                    Preview Report
+                                </button>
+                            </p>
+                            <div class="collapse" id="collapseReport_@item.Id">
+                                <div class="card card-body">
+                                    <h3>Daily Report</h3>
+                                    <hr />
+                                    <h5>Summary</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel ante ac orci
+                                        condimentum lacinia vitae vel massa. Nunc congue nibh turpis, nec volutpat quam
+                                        eleifend eu. Cras vehicula ligula sed risus luctus, vel commodo enim ultricies. Sed
+                                        in sodales lorem. Orci varius natoque penatibus et magnis dis parturient montes,
+                                        nascetur ridiculus mus. Duis quis dignissim elit. Aliquam felis mauris, dapibus non
+                                        risus et, feugiat consequat tellus. Maecenas quis rhoncus dui, nec ultrices lacus.
+                                        Proin laoreet tortor vitae lacus interdum, id efficitur purus suscipit.</p>
+                                    <hr />
+                                    <h5>Findings</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel ante ac orci
+                                        condimentum lacinia vitae vel massa. Nunc congue nibh turpis, nec volutpat quam
+                                        eleifend eu. Cras vehicula ligula sed risus luctus, vel commodo enim ultricies. Sed
+                                        in sodales lorem. Orci varius natoque penatibus et magnis dis parturient montes,
+                                        nascetur ridiculus mus. Duis quis dignissim elit. Aliquam felis mauris, dapibus non
+                                        risus et, feugiat consequat tellus. Maecenas quis rhoncus dui, nec ultrices lacus.
+                                        Proin laoreet tortor vitae lacus interdum, id efficitur purus suscipit.</p>
+                                    <hr />
+                                    <h5>Conclusion</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel ante ac orci
+                                        condimentum lacinia vitae vel massa. Nunc congue nibh turpis, nec volutpat quam
+                                        eleifend eu. Cras vehicula ligula sed risus luctus, vel commodo enim ultricies. Sed
+                                        in sodales lorem. Orci varius natoque penatibus et magnis dis parturient montes,
+                                        nascetur ridiculus mus. Duis quis dignissim elit. Aliquam felis mauris, dapibus non
+                                        risus et, feugiat consequat tellus. Maecenas quis rhoncus dui, nec ultrices lacus.
+                                        Proin laoreet tortor vitae lacus interdum, id efficitur purus suscipit.</p>
+                                </div>
                             </div>
+
                         </div>
-
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <ul class="list-group m-3">
+                    <div class="col-md-4">
+                        <ul class="list-group m-3">
 
-                        <li class="list-group-item d-flex justify-content-start align-items-start">
-                            <div>
-                                <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ReportDetails_@item.Id">
-                                    <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
-                                </a>
-                                @await Html.PartialAsync("~/Views/Report/OffCanvas/_ReportDetails.cshtml", @item)
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-start align-items-start">
-                            <div>
-                                <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ReportEdit_@item.Id">
-                                    <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
-                                </a>
-                                @await Html.PartialAsync("~/Views/Report/OffCanvas/_ReportEdit.cshtml", @item)
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-start align-items-start">
-                            <div>
-                                <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ReportDelete_@item.Id">
-                                    <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
-                                </a>
-                                @await Html.PartialAsync("~/Views/Report/OffCanvas/_ReportDelete.cshtml", @item)
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                                <div>
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ReportDetails_@item.Id">
+                                        <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
+                                    </a>
+                                    @await Html.PartialAsync("~/Views/Report/OffCanvas/_ReportDetails.cshtml", @item)
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                                <div>
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ReportEdit_@item.Id">
+                                        <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
+                                    </a>
+                                    @await Html.PartialAsync("~/Views/Report/OffCanvas/_ReportEdit.cshtml", @item)
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                                <div>
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ReportDelete_@item.Id">
+                                        <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
+                                    </a>
+                                    @await Html.PartialAsync("~/Views/Report/OffCanvas/_ReportDelete.cshtml", @item)
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
 
+                </div>
             </div>
         </div>
 
