@@ -17,83 +17,93 @@
 
 
 
+<div class="row">
 
-@foreach (var item in Model)
-{
-    <div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-10 offset-md-1">
 
-    <div class="card mb-3 col-md-10 offset-md-1">
-        <div class="card-body">
-            <h5 class="card-title">@item.Title</h5>
-                <h6 class="card-subtitle mb-2 text-muted">@item.Category</h6>
-                <p class="card-text">@item.Description</p>
+            <div class="card m-3 p-3">
 
-                <div class="row position-relative p-3 m-3" style="width: 100%;">
+                <div class="row">
 
-                    @for (int i = 1, y = new Random().Next(1, 7); i < 8; i++)
-                    {
-                        <div class="progress position-absolute start-0" style="top: 45% !important; height: 4px; width: 90%;">
-                            <div class="progress-bar" role="progressbar" style="width: @((int)((y/7m)*100))%"></div>
-                        </div>
-                        if (i < y)
-                        {
-                            <div class="col z-1k">
-                                <div class="roadmap roadmap-complete px-3 py-4 mb-2 bg-body-secondary text-center rounded">
-                                    <i class="bi-check2-square" style="font-size: 2rem; color: #0077cc;"></i>
+
+
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@item.Category</h6>
+                        <p class="card-text">@item.Description</p>
+
+                        <div class="row position-relative p-3 m-3" style="width: 100%;">
+
+                            @for (int i = 1, y = new Random().Next(1, 6); i < 7; i++)
+                            {
+                                <div class="progress position-absolute start-0"
+                                    style="top: 45% !important; height: 4px; width: 90%;">
+                                    <div class="progress-bar" role="progressbar" style="width: @((int)((y/6m)*100))%"></div>
                                 </div>
-                            </div>
-                        }
-                        else if (i == y)
-                        {
-                            <div class="col z-1k">
-                                <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_RoadmapCreate">
-                                    <div class="roadmap roadmap-create px-3 py-4 mb-2 bg-body-secondary text-center rounded">
-                                        <i class="bi-plus-square" style="font-size: 2rem; color: #0077cc;"></i>
+                                if (i < y)
+                                {
+                                    <div class="col z-1k">
+                                        <div class="roadmap roadmap-complete px-3 py-4 mb-2 bg-body-secondary text-center rounded">
+                                            <i class="bi-check2-square" style="font-size: 2rem; color: #0077cc;"></i>
+                                        </div>
                                     </div>
-                                </a>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="col z-1k">
-                                <div class="roadmap px-3 py-4 mb-2 bg-body-secondary text-center rounded">
-                                    <i class="bi-square" style="font-size: 2rem; color: #0077cc; visibility: hidden;"></i>
-                                </div>
-                            </div>
-                        }
-                    }
-                </div>
+                                }
+                                else if (i == y)
+                                {
+                                    <div class="col z-1k">
+                                        <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_RoadmapCreate">
+                                            <div
+                                                class="roadmap roadmap-create px-3 py-4 mb-2 bg-body-secondary text-center rounded">
+                                                <i class="bi-plus-square" style="font-size: 2rem; color: #0077cc;"></i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col z-1k">
+                                        <div class="roadmap px-3 py-4 mb-2 bg-body-secondary text-center rounded">
+                                            <i class="bi-square" style="font-size: 2rem; color: #0077cc; visibility: hidden;"></i>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
 
-                <ul>
-                    <li class="list-group-item d-flex justify-content-start align-items-start">
-                        <div>
-                            <a class="" data-bs-toggle="offcanvas" href="#offCanvas_RoadmapDetails_@item.Id">
-                                <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
-                            </a>
-                            @await Html.PartialAsync("~/Views/Roadmap/OffCanvas/_RoadmapDetails.cshtml", @item)
-                        </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-start align-items-start">
-                        <div>
-                            <a class="" data-bs-toggle="offcanvas" href="#offCanvas_RoadmapEdit_@item.Id">
-                                <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
-                            </a>
-                            @await Html.PartialAsync("~/Views/Roadmap/OffCanvas/_RoadmapEdit.cshtml", @item)
-                        </div>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-start align-items-start">
-                        <div>
-                            <a class="" data-bs-toggle="offcanvas" href="#offCanvas_RoadmapDelete_@item.Id">
-                                <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
-                            </a>
-                            @await Html.PartialAsync("~/Views/Roadmap/OffCanvas/_RoadmapDelete.cshtml", @item)
-                        </div>
-                    </li>
-                </ul>
-                
+                        <ul>
+                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                                <div>
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_RoadmapDetails_@item.Id">
+                                        <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
+                                    </a>
+                                    @await Html.PartialAsync("~/Views/Roadmap/OffCanvas/_RoadmapDetails.cshtml", @item)
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                                <div>
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_RoadmapEdit_@item.Id">
+                                        <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
+                                    </a>
+                                    @await Html.PartialAsync("~/Views/Roadmap/OffCanvas/_RoadmapEdit.cshtml", @item)
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                                <div>
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_RoadmapDelete_@item.Id">
+                                        <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
+                                    </a>
+                                    @await Html.PartialAsync("~/Views/Roadmap/OffCanvas/_RoadmapDelete.cshtml", @item)
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
             </div>
         </div>
 
-    </div>
 
-}
+    }
+</div>
