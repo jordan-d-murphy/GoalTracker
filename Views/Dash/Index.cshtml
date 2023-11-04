@@ -6,13 +6,20 @@
 
 <h1>Dashboards</h1>
 
-<p>
-    <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_DashCreate">
-        <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Create New Dashboard
-    </a>
-    @await Html.PartialAsync("~/Views/Dash/OffCanvas/_DashCreate.cshtml", new Dash() { })
+<ul class="nav">
 
-</p>
+    <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_DashCreate">
+            <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Create New Dashboard
+        </a>
+        @await Html.PartialAsync("~/Views/Dash/OffCanvas/_DashCreate.cshtml", new Dash() { })
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="DashViz" asp-action="Index">
+            <i class="bi-graph-up" style="font-size: 1rem; color: #0077cc;"></i>DashViz
+        </a>
+    </li>
+</ul>
 
 <div class="row">
     @foreach (var item in Model)
@@ -43,16 +50,16 @@
 
 
                     <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_DashDetails_@item.Id">
-                        <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Details                        
+                        <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Details
                     </a>
                     @await Html.PartialAsync("~/Views/Dash/OffCanvas/_DashDetails.cshtml", @item)
 
 
                     <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_DashEdit_@item.Id">
-                        <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i>Edit                        
+                        <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i>Edit
                     </a>
                     @await Html.PartialAsync("~/Views/Dash/OffCanvas/_DashEdit.cshtml", @item)
-                                                
+
 
                     <a class="" data-bs-toggle="offcanvas" href="#offCanvas_DashDelete_@item.Id">
                         <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
