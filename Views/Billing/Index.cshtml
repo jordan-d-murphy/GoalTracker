@@ -6,48 +6,88 @@
 
 <h1>Billing Index</h1>
 
-<p>
-    <a asp-action="Create">Create New Billing</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.BillingDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DueDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PaidDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Paid)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BillingDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DueDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaidDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Paid)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<ul class="nav">
+    <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_BillingCreate">
+            <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Create New Billing
+        </a>
+        @await Html.PartialAsync("~/Views/Billing/OffCanvas/_BillingCreate.cshtml", new Billing() { })
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Subscription" asp-action="Index">
+            <i class="bi-cart3" style="font-size: 1rem; color: #0077cc;"></i>Subscriptions
+        </a>
+    </li>    
+</ul>
+
+
+<div class="row">
+
+    @foreach (var billing in Model)
+    {
+        <div class="col-md-10 offset-md-1">
+
+
+            <div class="card m-3 p-3" style="min-height: 10rem;">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="card-body">
+                            <h5 class="card-title">@billing.Id</h5>
+                            <p class="card-text">@billing.User?.Email</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="card-body">
+                            <h5 class="card-title">@billing.Subscription</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <strong>@Html.DisplayNameFor(model => model.BillingDate)</strong> @billing.BillingDate
+                            </li>
+                            <li class="list-group-item">
+                                <strong>@Html.DisplayNameFor(model => model.DueDate)</strong> @billing.DueDate
+                            </li>
+                            <li class="list-group-item">
+                                <strong>@Html.DisplayNameFor(model => model.PaidDate)</strong> @billing.PaidDate
+                                @if (@billing.Paid)
+                                {
+                                    <i class="bi-check2-circle" style="font-size: 1rem; color: #0077cc;"></i><span>Paid</span>
+                                }
+                            </li>
+                             
+                           
+                        </ul>
+                        <div class="card-body">
+                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                                <div>
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_BillingDetails_@billing.Id">
+                                        <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
+                                    </a>
+                                    @await Html.PartialAsync("~/Views/Billing/OffCanvas/_BillingDetails.cshtml", billing)
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                                <div>
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_BillingEdit_@billing.Id">
+                                        <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
+                                    </a>
+                                    @await Html.PartialAsync("~/Views/Billing/OffCanvas/_BillingEdit.cshtml", billing)
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                                <div>
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_BillingDelete_@billing.Id">
+                                        <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
+                                    </a>
+                                    @await Html.PartialAsync("~/Views/Billing/OffCanvas/_BillingDelete.cshtml", billing)
+                                </div>
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+
+</div>
