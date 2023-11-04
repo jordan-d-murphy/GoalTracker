@@ -15,11 +15,14 @@
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
+            
+
             <div class="form-group mb-3">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
+           
             <div class="row">
                 <div class="col">
                     <div class="form-group mb-3">
@@ -35,6 +38,16 @@
                         <span asp-validation-for="TargetDate" class="text-danger"></span>
                     </div>
                 </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group mb-3">
+                        <label asp-for="StartedDate" class="control-label"></label>
+                        <input asp-for="StartedDate" class="form-control" />
+                        <span asp-validation-for="StartedDate" class="text-danger"></span>
+                    </div>
+                </div>
                 <div class="col">
                     <div class="form-group mb-3">
                         <label asp-for="CompletedDate" class="control-label"></label>
@@ -42,22 +55,76 @@
                         <span asp-validation-for="CompletedDate" class="text-danger"></span>
                     </div>
                 </div>
-            </div>     
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group mb-3">
+                        <label asp-for="Category" class="control-label"></label>
+                        <input asp-for="Category" class="form-control" />
+                        <span asp-validation-for="Category" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group mb-3">
+                        <label asp-for="Status" class="control-label"></label>
+                        <input asp-for="Status" class="form-control" />
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="col">
+                    <div class="form-group mb-3">
+                        <label asp-for="Priority" class="control-label"></label>
+                        <input asp-for="Priority" class="form-control" />
+                        <span asp-validation-for="Priority" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="form-group mb-3">
-                <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
-                <span asp-validation-for="Category" class="text-danger"></span>
+                <label asp-for="Links" class="control-label"></label>
+                <input asp-for="Links" class="form-control" />
+                <span asp-validation-for="Links" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="Icon" class="control-label"></label>
-                <input asp-for="Icon" class="form-control" />
-                <span asp-validation-for="Icon" class="text-danger"></span>
+                <label asp-for="FileAttachments" class="control-label"></label>
+                <input asp-for="FileAttachments" class="form-control" />
+                <span asp-validation-for="FileAttachments" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Tags" class="control-label"></label>
+                <input asp-for="Tags" class="form-control" />
+                <span asp-validation-for="Tags" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Notes" class="control-label"></label>
+                <input asp-for="Notes" class="form-control" />
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group mb-3">
+                        <label asp-for="Assignee" class="control-label"></label>
+                        <input asp-for="Assignee" class="form-control" />
+                        <span asp-validation-for="Assignee" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group mb-3">
+                        <label asp-for="Reviewer" class="control-label"></label>
+                        <input asp-for="Reviewer" class="form-control" />
+                        <span asp-validation-for="Reviewer" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-3">
                     <div class="form-group mb-3">
                         <label asp-for="Color" class="control-label">Color Picker</label>
-                        <input asp-for="Color" type="color" class="form-control form-control-color" 
+                        <input asp-for="Color" type="color" class="form-control form-control-color"
                             id="goalColorInputCreate" value="#563d7c" title="Choose your color">
                         <span asp-validation-for="Color" class="text-danger"></span>
                     </div>
@@ -66,25 +133,46 @@
                     <div class="form-group mb-3">
                         <label asp-for="ColorSuggestions" class="control-label"></label>
                         <div class="row">
-                            @if (@Model!.ColorSuggestions != null) 
+                            @if (@Model!.ColorSuggestions != null)
                             {
-                                @foreach (var c in @Model!.ColorSuggestions) 
-                                {                                            
-                                    <input asp-for="ColorSuggestions" type="color" class="form-control form-control-color d-inline mx-3 colorSuggestion" 
-                                        id="ReportColorSuggestion_@c.Value" value="@c.Value" data-value="@c.Value" data-targetId="goalColorInputCreate" title="Suggestion">                                                   
-                                } 
-                            }                    
-                        </div>    
-                    </div>       
+                                @foreach (var c in @Model!.ColorSuggestions)
+                                {
+                                    <input asp-for="ColorSuggestions" type="color"
+                                        class="form-control form-control-color d-inline mx-3 colorSuggestion"
+                                        id="DashColorSuggestion_@c.Value" value="@c.Value" data-value="@c.Value"
+                                        data-targetId="goalColorInputCreate" title="Suggestion">
+                                }
+                            }
+                        </div>
+                    </div>
                 </div>
-            </div> 
-
-            <div class="form-group form-check mb-3">
-                <label class="form-check-label">
-                    @Html.DisplayNameFor(model => model.Completed)
-                    <input class="form-check-input" asp-for="Completed" />
-                </label>
             </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group form-check mb-3">
+                        <label class="form-check-label">
+                            @Html.DisplayNameFor(model => model.Completed)
+                            <input class="form-check-input" asp-for="Completed" />
+                        </label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group form-check mb-3">
+                        <label class="form-check-label">
+                            @Html.DisplayNameFor(model => model.Favorited)
+                            <input class="form-check-input" asp-for="Favorited" />
+                        </label>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group mb-3">
+                        <label asp-for="Icon" class="control-label"></label>
+                        <input asp-for="Icon" class="form-control" />
+                        <span asp-validation-for="Icon" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
                 
             <div class="form-group mb-3 float-end">
                 <input type="submit" value="Create" class="btn btn-outline-primary" />
