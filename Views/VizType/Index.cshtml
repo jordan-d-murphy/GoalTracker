@@ -1,35 +1,73 @@
+
 @model IEnumerable<GoalTracker.Models.VizType>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>VizType Index</h1>
+<h1>VizType</h1>
 
-<p>
-    <a asp-action="Create">Create New VizType</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<ul class="nav">
+
+    <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_VizTypeCreate">
+        <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Create New VizType
+    </a>
+    @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeCreate.cshtml", new VizType() { })
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Dash" asp-action="Index">
+            <i class="bi-speedometer" style="font-size: 1rem; color: #0077cc;"></i>Dashboards
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="DashViz" asp-action="Index">
+            <i class="bi-graph-up" style="font-size: 1rem; color: #0077cc;"></i>DashViz
+        </a>
+    </li>
+</ul>
+
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mt-3 mr-3" style="height: 14rem;">
+                <div class="card-header">
+                    <h5 class="card-title">
+                        @Html.DisplayFor(modelItem => item.Name)                        
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(modelItem => item.Name)</h6>
+                    <p class="card-text">
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </p>
+
+                </div>
+                <div class="card-footer">
+
+
+                    <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_VizTypeDetails_@item.Id">
+                        <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Details                        
+                    </a>
+                    @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeDetails.cshtml", @item)
+
+
+                    <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_VizTypeEdit_@item.Id">
+                        <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i>Edit                        
+                    </a>
+                    @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeEdit.cshtml", @item)
+                                                
+
+                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_VizTypeDelete_@item.Id">
+                        <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
+                    </a>
+                    @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeDelete.cshtml", @item)
+
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
