@@ -19,117 +19,117 @@
 
 
 <div class="row">
+
     @foreach (var supportRequest in Model)
     {
 
-        <div class="card mb-3 col-md-10 offset-md-1">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            @Html.DisplayFor(modelItem => supportRequest.Title)
+        <div class="col-md-10 offset-md-1">
+            <div class="card m-3 p-3" style="min-height: 10rem;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                @Html.DisplayFor(modelItem => supportRequest.Title)
 
-                        </h5>
-                        <p class="card-text">
-                            @Html.DisplayFor(modelItem => supportRequest.Description)
-                        </p>
-                        <div class="fw-bold">
-                            @Html.DisplayNameFor(model => supportRequest.Category)
+                            </h5>
+                            <p class="card-text">
+                                @Html.DisplayFor(modelItem => supportRequest.Description)
+                            </p>
+                            <div class="fw-bold">
+                                @Html.DisplayNameFor(model => supportRequest.Category)
+                            </div>
+                            <a href="#" class="card-link">Card link</a>
+                            <a href="#" class="card-link">Another link</a>
                         </div>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <ul class="list-group m-3">
+                    <div class="col-md-3">
+                        <ul class="list-group m-3">
 
-                        @if (!String.IsNullOrEmpty(supportRequest.Color))
-                        {
-                            <li class="list-group-item d-flex justify-content-between align-items-start"
-                                style="background-color: @supportRequest.Color; color: @supportRequest!.GetTextColor();">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold">
-                                        @Html.DisplayNameFor(model => supportRequest.Color)
+                            @if (!String.IsNullOrEmpty(supportRequest.Color))
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-start"
+                                    style="background-color: @supportRequest.Color; color: @supportRequest!.GetTextColor();">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">
+                                            @Html.DisplayNameFor(model => supportRequest.Color)
+                                        </div>
+                                        @Html.DisplayFor(modelItem => supportRequest.Color)
                                     </div>
-                                    @Html.DisplayFor(modelItem => supportRequest.Color)
-                                </div>
-                            </li>
-                        }
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">
-                                    @Html.DisplayNameFor(model => supportRequest.CreatedDate)
-                                </div>
-                                @Html.DisplayFor(modelItem => supportRequest.CreatedDate)
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">
-                                    @Html.DisplayNameFor(model => supportRequest.TargetDate)
-                                </div>
-                                @Html.DisplayFor(modelItem => supportRequest.TargetDate)
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">
-                                    @Html.DisplayNameFor(model => supportRequest.StartedDate)
-                                </div>
-                                @Html.DisplayFor(modelItem => supportRequest.StartedDate)
-                            </div>
-                        </li>
-                        @if (supportRequest.Completed)
-                        {
+                                </li>
+                            }
                             <li class="list-group-item d-flex justify-content-between align-items-start">
                                 <div class="ms-2 me-auto">
                                     <div class="fw-bold">
-                                        @Html.DisplayNameFor(model => supportRequest.Completed)
+                                        @Html.DisplayNameFor(model => supportRequest.CreatedDate)
                                     </div>
-                                    @Html.DisplayFor(modelItem => supportRequest.CompletedDate)
+                                    @Html.DisplayFor(modelItem => supportRequest.CreatedDate)
                                 </div>
                             </li>
-                        }
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">
+                                        @Html.DisplayNameFor(model => supportRequest.TargetDate)
+                                    </div>
+                                    @Html.DisplayFor(modelItem => supportRequest.TargetDate)
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">
+                                        @Html.DisplayNameFor(model => supportRequest.StartedDate)
+                                    </div>
+                                    @Html.DisplayFor(modelItem => supportRequest.StartedDate)
+                                </div>
+                            </li>
+                            @if (supportRequest.Completed)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">
+                                            @Html.DisplayNameFor(model => supportRequest.Completed)
+                                        </div>
+                                        @Html.DisplayFor(modelItem => supportRequest.CompletedDate)
+                                    </div>
+                                </li>
+                            }
 
-                    </ul>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <ul class="list-group m-3">
+
+
+                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                                <div>
+                                    <a class="" data-bs-toggle="offcanvas"
+                                        href="#offCanvas_SupportRequestDetails_@supportRequest.Id">
+                                        <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
+                                    </a>
+                                    @await Html.PartialAsync("~/Views/SupportRequest/OffCanvas/_SupportRequestDetails.cshtml", supportRequest)
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                                <div>
+                                    <a class="" data-bs-toggle="offcanvas"
+                                        href="#offCanvas_SupportRequestEdit_@supportRequest.Id">
+                                        <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
+                                    </a>
+                                    @await Html.PartialAsync("~/Views/SupportRequest/OffCanvas/_SupportRequestEdit.cshtml", supportRequest)
+                                </div>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-start align-items-start">
+                                <div>
+                                    <a class="" data-bs-toggle="offcanvas"
+                                        href="#offCanvas_SupportRequestDelete_@supportRequest.Id">
+                                        <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
+                                    </a>
+                                    @await Html.PartialAsync("~/Views/SupportRequest/OffCanvas/_SupportRequestDelete.cshtml", supportRequest)
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
-                <div class="col-md-3">
-                    <ul class="list-group m-3">
-
-
-                        <li class="list-group-item d-flex justify-content-start align-items-start">
-                            <div>
-                                <a class="" data-bs-toggle="offcanvas"
-                                    href="#offCanvas_SupportRequestDetails_@supportRequest.Id">
-                                    <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
-                                </a>
-                                @await Html.PartialAsync("~/Views/SupportRequest/OffCanvas/_SupportRequestDetails.cshtml",
-                                         supportRequest)
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-start align-items-start">
-                            <div>
-                                <a class="" data-bs-toggle="offcanvas"
-                                    href="#offCanvas_SupportRequestEdit_@supportRequest.Id">
-                                    <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
-                                </a>
-                                @await Html.PartialAsync("~/Views/SupportRequest/OffCanvas/_SupportRequestEdit.cshtml",
-                                         supportRequest)
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-start align-items-start">
-                            <div>
-                                <a class="" data-bs-toggle="offcanvas"
-                                    href="#offCanvas_SupportRequestDelete_@supportRequest.Id">
-                                    <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
-                                </a>
-                                @await Html.PartialAsync("~/Views/SupportRequest/OffCanvas/_SupportRequestDelete.cshtml",
-                                         supportRequest)
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-
             </div>
         </div>
 
