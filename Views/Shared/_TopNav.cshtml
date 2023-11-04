@@ -5,24 +5,24 @@
 @inject UserManager<ApplicationUser> UserManager
 
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm z-10k fixed-top" id="top-navbar" style="padding-bottom: 0;">
-    <div class="container-fluid">       
+    <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar-collapse collapse d-sm-inline-flex d-flex align-items-center">
             <ul class="navbar-nav d-flex flex-grow-1">
-                
+
                 <li class="nav-item me-auto">
                     <a class="px-4 brand-logo-font" asp-area="" asp-controller="Home" asp-action="Index">koala</a>
-                </li>              
+                </li>
+                               
+                    
 
                 <partial name="_LoginPartial" />
                 <partial name="_ThemeToggle" />
 
             </ul>
-
-            
 
         </div>
 

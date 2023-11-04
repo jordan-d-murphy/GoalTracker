@@ -35,6 +35,17 @@ $(document).ready(function () {
 
     })
 
+    $('#kaiChatStart').on('click', function() {
+        var kaiChatContainer = $('#kaiChatContainer')
+        var kaiChatStartButton = $('#kaiChatStart')
+        kaiChatContainer.removeClass("p-5")    
+        kaiChatContainer.removeClass("d-flex")    
+        kaiChatContainer.removeClass("justify-content-center")    
+        kaiChatContainer.removeClass("align-items-center")    
+        kaiChatStartButton.hide()
+          
+      })
+
 
 
 
