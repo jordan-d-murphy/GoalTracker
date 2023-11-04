@@ -1,5 +1,8 @@
 # GoalTracker (Koala)
-## C# ASP.NET 7 MVC Web App 
+## C# ASP.NET Core 7 MVC Web App 
+
+### ASP.NET Core Docs
+https://learn.microsoft.com/en-us/aspnet/core/?view=aspnetcore-7.0
 
 ### Bootstrap 5 Docs 
 https://getbootstrap.com/docs/5.2/getting-started/introduction/
