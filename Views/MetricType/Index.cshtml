@@ -1,35 +1,68 @@
+
 @model IEnumerable<GoalTracker.Models.MetricType>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Metric Type Index</h1>
+<h1>MetricType</h1>
 
-<p>
-    <a asp-action="Create">Create New Metric Type</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<ul class="nav">
+
+    <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_MetricTypeCreate">
+        <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Create New MetricType
+    </a>
+    @await Html.PartialAsync("~/Views/MetricType/OffCanvas/_MetricTypeCreate.cshtml", new MetricType() { })
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Metric" asp-action="Index">
+            <i class="bi-database-dash" style="font-size: 1rem; color: #0077cc;"></i>Metrics
+        </a>
+    </li>   
+</ul>
+
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mt-3 mr-3" style="height: 14rem;">
+                <div class="card-header">
+                    <h5 class="card-title">
+                        @Html.DisplayFor(modelItem => item.Name)                        
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(modelItem => item.Name)</h6>
+                    <p class="card-text">
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </p>
+
+                </div>
+                <div class="card-footer">
+
+
+                    <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_MetricTypeDetails_@item.Id">
+                        <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Details                        
+                    </a>
+                    @await Html.PartialAsync("~/Views/MetricType/OffCanvas/_MetricTypeDetails.cshtml", @item)
+
+
+                    <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_MetricTypeEdit_@item.Id">
+                        <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i>Edit                        
+                    </a>
+                    @await Html.PartialAsync("~/Views/MetricType/OffCanvas/_MetricTypeEdit.cshtml", @item)
+                                                
+
+                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_MetricTypeDelete_@item.Id">
+                        <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
+                    </a>
+                    @await Html.PartialAsync("~/Views/MetricType/OffCanvas/_MetricTypeDelete.cshtml", @item)
+
+
+                </div>
+            </div>
+        </div>
+    }
+</div>

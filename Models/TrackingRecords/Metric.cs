@@ -8,7 +8,7 @@ public class Metric : TrackingRecord
 {
     public string? Name { get; set; }
 
-    public string? MetricType { get; set; }
+    public MetricType? Type { get; set; }
 
     public string? JSONData { get; set; }
 }

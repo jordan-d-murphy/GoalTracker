@@ -4,116 +4,73 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Metric Index</h1>
+<h1>Metric</h1>
 
-<p>
-    <a asp-action="Create">Create New Metric</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MetricType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JSONData)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParentId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TargetDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CompletedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Completed)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Favorited)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Icon)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Color)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MetricType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JSONData)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParentId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TargetDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompletedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Completed)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Favorited)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Icon)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<ul class="nav">
+
+    <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_MetricCreate">
+            <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Create New Metric
+        </a>
+        @await Html.PartialAsync("~/Views/Metric/OffCanvas/_MetricCreate.cshtml", new Metric() { })
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="MetricType" asp-action="Index">
+            <i class="bi-calculator" style="font-size: 1rem; color: #0077cc;"></i>MetricType
+        </a>
+    </li>    
+</ul>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mt-3 mr-3" style="height: 14rem;">
+                <div class="card-header">
+                    <h5 class="card-title">
+                        @Html.DisplayFor(modelItem => item.Title)
+                        @if (@item.Favorited)
+                        {
+                            <i class="bi-star-fill" style="font-size: 1rem; color: #0077cc;"></i>
+                        }
+                        else
+                        {
+                            <i class="bi-star" style="font-size: 1rem; color: #0077cc;"></i>
+                        }
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(modelItem => item.Name)</h6>
+                    <p class="card-text">
+                        @Html.DisplayFor(modelItem => item.Description)
+                        @Html.DisplayFor(modelItem => item.Type)
+                        @Html.DisplayFor(modelItem => item.JSONData)
+                    </p>
+
+                </div>
+                <div class="card-footer">
+
+
+                    <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_MetricDetails_@item.Id">
+                        <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Details
+                    </a>
+                    @await Html.PartialAsync("~/Views/Metric/OffCanvas/_MetricDetails.cshtml", @item)
+
+
+                    <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_MetricEdit_@item.Id">
+                        <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i>Edit
+                    </a>
+                    @await Html.PartialAsync("~/Views/Metric/OffCanvas/_MetricEdit.cshtml", @item)
+
+
+                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_MetricDelete_@item.Id">
+                        <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
+                    </a>
+                    @await Html.PartialAsync("~/Views/Metric/OffCanvas/_MetricDelete.cshtml", @item)
+
+
+                </div>
+            </div>
+        </div>
+    }
+</div>

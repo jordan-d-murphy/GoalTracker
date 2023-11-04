@@ -1,33 +1,12 @@
 @model Kai
 
-<button type="button" class="btn btn-outline-success" href="" data-bs-toggle="modal" data-bs-target="#kaiModal_@Model.Id">
+<button type="button" class="btn btn-outline-success" data-bs-toggle="collapse" href="#kaiChat">
   Let's get started
 </button>
 
 
-
-<div class="modal fade" id="kaiModal_@Model.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">kai model: @Model.Model</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form asp-controller="Kai" asp-action="Create" id="kaiModalForm_@Model.Id">
-          <input type="hidden" asp-for="Id" />
-
-          <input class="form-control p-3" autocomplete="off" id="kaiModalFormPromptInput_@Model.Id" asp-for="Prompt" />
-
-          <div class="form-group">
-            <input type="submit" value="Create" class="btn btn-outline-primary m-3" />
-          </div>
-
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class=" btn btn-outline-primary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
+<div class="collapse" id="kaiChat">
+  <div class="card card-body" style="width: 100%; height: 100%; overflow-y: scroll;">
+    Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
   </div>
 </div>

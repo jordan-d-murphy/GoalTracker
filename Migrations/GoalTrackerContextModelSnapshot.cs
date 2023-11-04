@@ -622,11 +622,13 @@ namespace GoalTracker.Migrations
                     b.Property<string>("JSONData")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("MetricType")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("TypeId")
+                        .HasColumnType("TEXT");
+
+                    b.HasIndex("TypeId");
 
                     b.ToTable("TrackingRecord", t =>
                         {
@@ -635,6 +637,9 @@ namespace GoalTracker.Migrations
 
                             t.Property("Name")
                                 .HasColumnName("Metric_Name");
+
+                            t.Property("TypeId")
+                                .HasColumnName("Metric_TypeId");
                         });
 
                     b.HasDiscriminator().HasValue("Metric");
@@ -983,6 +988,15 @@ namespace GoalTracker.Migrations
                     b.HasOne("GoalTracker.Models.TrackingRecord", null)
                         .WithMany("Links")
                         .HasForeignKey("TrackingRecordId");
+                });
+
+            modelBuilder.Entity("GoalTracker.Models.Metric", b =>
+                {
+                    b.HasOne("GoalTracker.Models.MetricType", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId");
+
+                    b.Navigation("Type");
                 });
 
             modelBuilder.Entity("GoalTracker.Models.Note", b =>

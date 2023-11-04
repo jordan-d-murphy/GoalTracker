@@ -274,7 +274,7 @@ namespace GoalTracker.Migrations
                     Url = table.Column<string>(type: "TEXT", nullable: true),
                     Link_TrackingRecordId = table.Column<Guid>(type: "TEXT", nullable: true),
                     Metric_Name = table.Column<string>(type: "TEXT", nullable: true),
-                    MetricType = table.Column<string>(type: "TEXT", nullable: true),
+                    Metric_TypeId = table.Column<Guid>(type: "TEXT", nullable: true),
                     Metric_JSONData = table.Column<string>(type: "TEXT", nullable: true),
                     Text = table.Column<string>(type: "TEXT", nullable: true),
                     Note_TrackingRecordId = table.Column<Guid>(type: "TEXT", nullable: true),
@@ -307,6 +307,11 @@ namespace GoalTracker.Migrations
                         name: "FK_TrackingRecord_AspNetUsers_ReviewerId",
                         column: x => x.ReviewerId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_TrackingRecord_MetricType_Metric_TypeId",
+                        column: x => x.Metric_TypeId,
+                        principalTable: "MetricType",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TrackingRecord_TrackingRecord_DashId",
@@ -512,6 +517,11 @@ namespace GoalTracker.Migrations
                 column: "Link_TrackingRecordId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TrackingRecord_Metric_TypeId",
+                table: "TrackingRecord",
+                column: "Metric_TypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TrackingRecord_Note_TrackingRecordId",
                 table: "TrackingRecord",
                 column: "Note_TrackingRecordId");
@@ -639,9 +649,6 @@ namespace GoalTracker.Migrations
                 name: "Kai");
 
             migrationBuilder.DropTable(
-                name: "MetricType");
-
-            migrationBuilder.DropTable(
                 name: "ReactionEmoji");
 
             migrationBuilder.DropTable(
@@ -655,6 +662,9 @@ namespace GoalTracker.Migrations
 
             migrationBuilder.DropTable(
                 name: "TrackingRecord");
+
+            migrationBuilder.DropTable(
+                name: "MetricType");
 
             migrationBuilder.DropTable(
                 name: "VizType");

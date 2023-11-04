@@ -10,6 +10,7 @@
              
         
         <dl>
+
             <dt>
                 @Html.DisplayNameFor(model => model.Title)
             </dt>
@@ -17,11 +18,39 @@
                 @Html.DisplayFor(model => model.Title)
             </dd>
             <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt>
                 @Html.DisplayNameFor(model => model.Description)
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Description)
             </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ParentId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ParentId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Type)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Type)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.JSONData)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.JSONData)
+            </dd>
+
+
 
             <div class="row">
                 <div class="col">
@@ -39,6 +68,19 @@
                     <dd>
                         @Html.DisplayFor(model => model.TargetDate)
                     </dd>
+
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.StartedDate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.StartedDate)
+                    </dd>
                 </div>
                 <div class="col">
                     <dt>
@@ -52,32 +94,142 @@
 
 
 
+           
+
+
+            <div class="row">
+                <div class="col">
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Category)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Category)
+                    </dd>
+                </div>
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Status)
+                    </dd>
+                </div>
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Priority)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Priority)
+                    </dd>
+
+                </div>
+            </div>
+
+
+
 
             <dt>
-                @Html.DisplayNameFor(model => model.Completed)
+                @Html.DisplayNameFor(model => model.Links)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Completed)
+                @Html.DisplayFor(model => model.Links)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Category)
+                @Html.DisplayNameFor(model => model.FileAttachments)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Category)
+                @Html.DisplayFor(model => model.FileAttachments)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Icon)
+                @Html.DisplayNameFor(model => model.Tags)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Icon)
+                @Html.DisplayFor(model => model.Tags)
             </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Notes)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Notes)
+            </dd>
+
+
+
+
+
+
+            <div class="row">
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Assignee)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Assignee)
+                    </dd>
+                </div>
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Reviewer)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Reviewer)
+                    </dd>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
             <dt>
                 @Html.DisplayNameFor(model => model.Color)
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Color)
             </dd>
+
+
+
+
+            <div class="row">
+                <div class="col">
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Completed)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Completed)
+                    </dd>
+                </div>
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Favorited)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Favorited)
+                    </dd>
+                </div>
+                <div class="col">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Icon)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Icon)
+                    </dd>
+                </div>
+            </div>
+
+
+
+
         </dl>
+
 
 
     </div>

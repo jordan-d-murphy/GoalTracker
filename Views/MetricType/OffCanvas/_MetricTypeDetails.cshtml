@@ -1,6 +1,6 @@
-@model GoalTracker.Models.Metric
+@model GoalTracker.Models.MetricType
 
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvas_MetricDetails_@Model.Id" aria-labelledby="offcanvasRightLabel">
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvas_MetricTypeDetails_@Model.Id" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header">
                 <h1 class="offcanvas-title" id="offcanvasRightLabel">Metric Type Details</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -11,71 +11,16 @@
         
         <dl>
             <dt>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.Name)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Title)
+                @Html.DisplayFor(model => model.Name)
             </dd>
             <dt>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.Id)
             </dt>
             <dd>
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-
-            <div class="row">
-                <div class="col">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.CreatedDate)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.CreatedDate)
-                    </dd>
-                </div>
-                <div class="col">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.TargetDate)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.TargetDate)
-                    </dd>
-                </div>
-                <div class="col">
-                    <dt>
-                        @Html.DisplayNameFor(model => model.CompletedDate)
-                    </dt>
-                    <dd>
-                        @Html.DisplayFor(model => model.CompletedDate)
-                    </dd>
-                </div>
-            </div>
-
-
-
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Completed)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Completed)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Category)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Category)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Icon)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Icon)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Color)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Color)
+                @Html.DisplayFor(model => model.Id)
             </dd>
         </dl>
 
