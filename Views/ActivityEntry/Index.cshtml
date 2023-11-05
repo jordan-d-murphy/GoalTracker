@@ -7,13 +7,14 @@
 <h1>Activity Entry Index</h1>
 
 
-<p>
+<ul class="nav">
+
     <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_ActivityEntryCreate">
         <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Create New ActivityEntry
     </a>
     @await Html.PartialAsync("~/Views/ActivityEntry/OffCanvas/_ActivityEntryCreate.cshtml", new ActivityEntry() { })
 
-</p>
+</ul>
 
 
 

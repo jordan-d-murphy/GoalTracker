@@ -6,13 +6,14 @@
 
 <h1>Calendar Index</h1>
 
-<p>
+<ul class="nav">
+    
     <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_CalendarCreate">
         <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Create New Calendar
     </a>
     @await Html.PartialAsync("~/Views/Calendar/OffCanvas/_CalendarCreate.cshtml", new Calendar() { })
 
-</p>
+</ul>
 
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
 
