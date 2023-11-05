@@ -4,10 +4,8 @@
     ViewData["Title"] = "Admin Portal";
 }
 
-<div>
+
     <h1>Admin Portal</h1>
-    <hr />
-</div>
 
 @if (!String.IsNullOrEmpty(@Model.AdminVMMessage))
 {
@@ -17,99 +15,103 @@
     </div>
 }
 
-<div class="row">
-    <div class="col-md-6">
 
-        <h2>Users</h2>
+<div class="col-md-10 offset-md-1">
+    <div class="row g-0">
 
-        @foreach (var uvm in @Model.AllUsers)
-        {
+        <div class="col-md-6 pt-1 mt-1 pe-3">
 
-            <div class="card mb-3">
-                <h5 class="card-header">User: @uvm?.User?.Email</h5>
+            <h2>Users</h2>
+
+            @foreach (var uvm in @Model.AllUsers)
+            {
+
+                <div class="card mb-3">
+                    <h5 class="card-header">User: @uvm?.User?.Email</h5>
+                    <div class="card-body">
+                        <h5 class="card-title">Roles:</h5>
+                        <ul class="list-group">
+
+                            @if (uvm is not null)
+                            {
+                                @foreach (var role in uvm.UserRoles.OrderBy(r => r))
+                                {
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-8">
+                                                @role
+                                            </div>
+                                            <div class="col-4 text-end">
+                                                @if (role != "Admin")
+                                                {
+                                                    @if (@uvm?.User?.Id is not null)
+                                                    {
+                                                        @await Html.PartialAsync("~/Views/Admin/_Unassign.cshtml",
+                                                                new AdminUnassign
+                                                        {
+                                                            Role = @role,
+                                                            UserId = (Guid)@uvm!.User!.Id
+                                                        })
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            }
+
+                        </ul>
+
+                        @if (@uvm?.User?.Id is not null && @uvm?.User?.Email is not null)
+                        {
+                            @await Html.PartialAsync("~/Views/Admin/_Assign.cshtml",
+                                    new AdminAssign
+                            {
+                                UserId = (Guid)@uvm!.User!.Id,
+                                UserEmail = @uvm!.User!.Email
+                            })
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-6 pt-1 mt-1 pe-3">
+
+            <h2>Roles</h2>
+
+            <div class="card">
+                <h5 class="card-header">All Application Roles</h5>
                 <div class="card-body">
-                    <h5 class="card-title">Roles:</h5>
                     <ul class="list-group">
 
-                        @if (uvm is not null)
+                        @foreach (var role in @Model.AllRoles)
                         {
-                            @foreach (var role in uvm.UserRoles.OrderBy(r => r))
-                            {
-                                <li class="list-group-item">
-                                    <div class="row">
-                                        <div class="col-8">
-                                            @role
-                                        </div>
-                                        <div class="col-4 text-end">
-                                            @if (role != "Admin")
-                                            {
-                                                @if (@uvm?.User?.Id is not null)
-                                                {
-                                                    @await Html.PartialAsync("~/Views/Admin/_Unassign.cshtml",
-                                                             new AdminUnassign
-                                                    {
-                                                        Role = @role,
-                                                        UserId = (Guid)@uvm!.User!.Id
-                                                    })
-                                                }
-                                            }
-                                        </div>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <span class="roleName">@role</span>
                                     </div>
-                                </li>
-                            }
+                                    <div class="col-4">
+                                        @if (@role.Name is not null && @role.Name != "Admin" && @role.Name != "ConfirmedAccount" )                                    
+                                        {                                       
+                                            @await Html.PartialAsync("~/Views/Admin/_Delete.cshtml",
+                                                new AdminDelete
+                                                {
+                                                    Role = @role.Name
+                                                })                                        
+                                        }
+                                    </div>
+                                </div>
+                            </li>
                         }
-
                     </ul>
 
-                    @if (@uvm?.User?.Id is not null && @uvm?.User?.Email is not null)
-                    {
-                        @await Html.PartialAsync("~/Views/Admin/_Assign.cshtml",
-                                 new AdminAssign
-                        {
-                            UserId = (Guid)@uvm!.User!.Id,
-                            UserEmail = @uvm!.User!.Email
-                        })
-                    }
+
+                    @await Html.PartialAsync("~/Views/Admin/_Create.cshtml", new AdminCreate())
+
                 </div>
             </div>
-        }
-    </div>
-    <div class="col-md-6">
 
-        <h2>Roles</h2>
-
-        <div class="card">
-            <h5 class="card-header">All Application Roles</h5>
-            <div class="card-body">
-                <ul class="list-group">
-
-                    @foreach (var role in @Model.AllRoles)
-                    {
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-8">
-                                    <span class="roleName">@role</span>
-                                </div>
-                                <div class="col-4">
-                                    @if (@role.Name is not null && @role.Name != "Admin" && @role.Name != "ConfirmedAccount" )                                    
-                                    {                                       
-                                        @await Html.PartialAsync("~/Views/Admin/_Delete.cshtml",
-                                            new AdminDelete
-                                            {
-                                                Role = @role.Name
-                                            })                                        
-                                    }
-                                </div>
-                            </div>
-                        </li>
-                    }
-                </ul>
-
-
-                @await Html.PartialAsync("~/Views/Admin/_Create.cshtml", new AdminCreate())
-
-            </div>
         </div>
-
     </div>
 </div>
