@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using GoalTracker.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Controllers
 {
@@ -16,17 +18,19 @@ namespace GoalTracker.Controllers
     {
         private readonly GoalTrackerContext _context;
 
-        public MetricController(GoalTrackerContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public MetricController(GoalTrackerContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Metric
         public async Task<IActionResult> Index()
         {
-              return _context.Metric != null ? 
-                          View(await _context.Metric.ToListAsync()) :
-                          Problem("Entity set 'GoalTrackerContext.Metric'  is null.");
+            var metrics = _context.Metric.Include(t => t.Parent).Include(t => t.CreatedBy);
+            return View(await metrics.ToListAsync());
         }
 
         // GET: Metric/Details/5
@@ -60,12 +64,19 @@ namespace GoalTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,MetricType,JSONData,Id,ParentId,Title,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color")] Metric metric)
         {
-            if (ModelState.IsValid)
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (user is not null)
             {
-                metric.Id = Guid.NewGuid();
-                _context.Add(metric);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    metric.Id = Guid.NewGuid();
+                    metric.CreatedBy = user;
+                    metric.CreatedDate = DateTime.Now;
+                    _context.Add(metric);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(metric);
         }

@@ -34,6 +34,10 @@
                         <div class="card-body">
                             <h5 class="card-title">@billing.Id</h5>
                             <p class="card-text">@billing.User?.Email</p>
+                            <hr />
+                            <p class="card-text">@billing.CreatedBy?.Email</p>
+                            <p class="card-text">@billing.CreatedBy?.Id</p>
+                            <p class="card-text">@billing.CreatedDate</p>
                         </div>
                     </div>
                     <div class="col-sm-8">

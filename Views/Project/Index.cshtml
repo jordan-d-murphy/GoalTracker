@@ -21,7 +21,7 @@
 
 <div class="row g-0">
 
-    @foreach (var item in Model)
+    @foreach (var project in Model)
     {
         <div class="col-md-10 offset-md-1">
 
@@ -33,72 +33,72 @@
                             <li class="list-group-item d-flex justify-content-between align-items-start">
                                 <div class="ms-2 me-auto">
                                     <div class="fw-bold">
-                                        @Html.DisplayNameFor(model => item.Category)
+                                        @Html.DisplayNameFor(model => project.Category)
                                     </div>
-                                    @Html.DisplayFor(modelItem => item.Category)
+                                    @Html.DisplayFor(modelItem => project.Category)
                                 </div>
                             </li>
-                            @if (!String.IsNullOrEmpty(item.Color))
+                            @if (!String.IsNullOrEmpty(project.Color))
                             {
                                 <li class="list-group-item d-flex justify-content-between align-items-start"
-                                    style="background-color: @item.Color; color: @item!.GetTextColor();">
+                                    style="background-color: @project.Color; color: @project!.GetTextColor();">
                                     <div class="ms-2 me-auto">
                                         <div class="fw-bold">
-                                            @Html.DisplayNameFor(model => item.Color)
+                                            @Html.DisplayNameFor(model => project.Color)
                                         </div>
-                                        @Html.DisplayFor(modelItem => item.Color)
+                                        @Html.DisplayFor(modelItem => project.Color)
                                     </div>
                                 </li>
                             }
                             <li class="list-group-item d-flex justify-content-between align-items-start">
                                 <div class="ms-2 me-auto">
                                     <div class="fw-bold">
-                                        @Html.DisplayNameFor(model => item.CreatedDate)
+                                        @Html.DisplayNameFor(model => project.CreatedDate)
                                     </div>
-                                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                                    @Html.DisplayFor(modelItem => project.CreatedDate)
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-start">
                                 <div class="ms-2 me-auto">
                                     <div class="fw-bold">
-                                        @Html.DisplayNameFor(model => item.TargetDate)
+                                        @Html.DisplayNameFor(model => project.TargetDate)
                                     </div>
-                                    @Html.DisplayFor(modelItem => item.TargetDate)
+                                    @Html.DisplayFor(modelItem => project.TargetDate)
                                 </div>
                             </li>
-                            @if (item.Completed)
+                            @if (project.Completed)
                             {
                                 <li class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="ms-2 me-auto">
                                         <div class="fw-bold">
-                                            @Html.DisplayNameFor(model => item.Completed)
+                                            @Html.DisplayNameFor(model => project.Completed)
                                         </div>
-                                        @Html.DisplayFor(modelItem => item.CompletedDate)
+                                        @Html.DisplayFor(modelItem => project.CompletedDate)
                                     </div>
                                 </li>
                             }
                             <li class="list-group-item d-flex justify-content-start align-items-start">
                                 <div>
-                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ProjectDetails_@item.Id">
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ProjectDetails_@project.Id">
                                         <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
                                     </a>
-                                    @await Html.PartialAsync("~/Views/Project/OffCanvas/_ProjectDetails.cshtml", @item)
+                                    @await Html.PartialAsync("~/Views/Project/OffCanvas/_ProjectDetails.cshtml", project)
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-start align-items-start">
                                 <div>
-                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ProjectEdit_@item.Id">
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ProjectEdit_@project.Id">
                                         <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
                                     </a>
-                                    @await Html.PartialAsync("~/Views/Project/OffCanvas/_ProjectEdit.cshtml", @item)
+                                    @await Html.PartialAsync("~/Views/Project/OffCanvas/_ProjectEdit.cshtml", project)
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-start align-items-start">
                                 <div>
-                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ProjectDelete_@item.Id">
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ProjectDelete_@project.Id">
                                         <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
                                     </a>
-                                    @await Html.PartialAsync("~/Views/Project/OffCanvas/_ProjectDelete.cshtml", @item)
+                                    @await Html.PartialAsync("~/Views/Project/OffCanvas/_ProjectDelete.cshtml", project)
                                 </div>
                             </li>
                         </ul>
@@ -106,8 +106,8 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">
-                                @Html.DisplayFor(modelItem => item.Title)
-                                @if (@item.Favorited)
+                                @Html.DisplayFor(modelItem => project.Title)
+                                @if (project.Favorited)
                                 {
                                     <i class="bi-star-fill" style="font-size: 1rem; color: #0077cc;"></i>
                                 }
@@ -116,10 +116,14 @@
                                     <i class="bi-star" style="font-size: 1rem; color: #0077cc;"></i>
                                 }
                             </h5>
-                            <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => item.Team)</h6>
+                            <h6 class="card-subtitle mb-2 text-muted">@Html.DisplayFor(modelItem => project.Team)</h6>
                             <p class="card-text">
-                                @Html.DisplayFor(modelItem => item.Description)
+                                @Html.DisplayFor(modelItem => project.Description)
                             </p>
+                            <p class="card-text">@project.Description</p>
+                            <p class="card-text">@project.CreatedBy?.Email</p>
+                            <p class="card-text">@project.CreatedBy?.Id</p>
+                            <p class="card-text">@project.CreatedDate</p>
                             <a href="#" class="card-link">Card link</a>
                             <a href="#" class="card-link">Another link</a>
                         </div>

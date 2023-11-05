@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using GoalTracker.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Controllers
 {
@@ -16,17 +18,19 @@ namespace GoalTracker.Controllers
     {
         private readonly GoalTrackerContext _context;
 
-        public SubscriptionController(GoalTrackerContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public SubscriptionController(GoalTrackerContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Subscription
         public async Task<IActionResult> Index()
         {
-              return _context.Subscription != null ? 
-                          View(await _context.Subscription.ToListAsync()) :
-                          Problem("Entity set 'GoalTrackerContext.Subscription'  is null.");
+            var subscriptions = _context.Subscription.Include(t => t.CreatedBy);
+            return View(await subscriptions.ToListAsync());
         }
 
         // GET: Subscription/Details/5
@@ -60,12 +64,19 @@ namespace GoalTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Tier,Name,Price,Details,BillingFrequency")] Subscription subscription)
         {
-            if (ModelState.IsValid)
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (user is not null)
             {
-                subscription.Id = Guid.NewGuid();
-                _context.Add(subscription);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    subscription.Id = Guid.NewGuid();
+                    subscription.CreatedBy = user;
+                    subscription.CreatedDate = DateTime.Now;
+                    _context.Add(subscription);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(subscription);
         }

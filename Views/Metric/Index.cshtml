@@ -26,7 +26,7 @@
 <div class="col-md-10 offset-md-1">
     <div class="row g-0">
 
-        @foreach (var item in Model)
+        @foreach (var metric in Model)
         {
 
 
@@ -36,8 +36,8 @@
                 <div class="card" style="height: 18rem;">
                     <div class="card-header">
                         <h5 class="card-title">
-                            @Html.DisplayFor(modelItem => item.Title)
-                            @if (@item.Favorited)
+                            @Html.DisplayFor(modelItem => metric.Title)
+                            @if (metric.Favorited)
                             {
                                 <i class="bi-star-fill" style="font-size: 1rem; color: #0077cc;"></i>
                             }
@@ -48,34 +48,39 @@
                         </h5>
                     </div>
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(modelItem => item.Name)</h6>
-                        <p class="card-text">
-                            @Html.DisplayFor(modelItem => item.Description)
-                            @Html.DisplayFor(modelItem => item.Type)
-                            @Html.DisplayFor(modelItem => item.JSONData)
-                        </p>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(modelItem => metric.Name)</h6>
+                        
+                        <p class="card-text">@Html.DisplayFor(modelItem => metric.Description)</p>
+
+                        <p class="card-text">@metric.CreatedBy?.Email</p>
+                        <p class="card-text">@metric.CreatedBy?.Id</p>
+                        <p class="card-text">@metric.CreatedDate</p>
+
+                        <p class="card-text">@Html.DisplayFor(modelItem => metric.Type)</p>
+                        <p class="card-text">@Html.DisplayFor(modelItem => metric.JSONData)</p>
+                        
 
                     </div>
                     <div class="card-footer">
 
 
                         <a class="card-link align-bottom" data-bs-toggle="offcanvas"
-                            href="#offCanvas_MetricDetails_@item.Id">
+                            href="#offCanvas_MetricDetails_@metric.Id">
                             <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Details
                         </a>
-                        @await Html.PartialAsync("~/Views/Metric/OffCanvas/_MetricDetails.cshtml", @item)
+                        @await Html.PartialAsync("~/Views/Metric/OffCanvas/_MetricDetails.cshtml", metric)
 
 
-                        <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_MetricEdit_@item.Id">
+                        <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_MetricEdit_@metric.Id">
                             <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i>Edit
                         </a>
-                        @await Html.PartialAsync("~/Views/Metric/OffCanvas/_MetricEdit.cshtml", @item)
+                        @await Html.PartialAsync("~/Views/Metric/OffCanvas/_MetricEdit.cshtml", metric)
 
 
-                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_MetricDelete_@item.Id">
+                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_MetricDelete_@metric.Id">
                             <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
                         </a>
-                        @await Html.PartialAsync("~/Views/Metric/OffCanvas/_MetricDelete.cshtml", @item)
+                        @await Html.PartialAsync("~/Views/Metric/OffCanvas/_MetricDelete.cshtml", metric)
 
 
                     </div>

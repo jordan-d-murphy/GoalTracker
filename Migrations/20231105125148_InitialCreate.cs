@@ -41,22 +41,6 @@ namespace GoalTracker.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Subscription",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Tier = table.Column<string>(type: "TEXT", nullable: true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Price = table.Column<string>(type: "TEXT", nullable: true),
-                    Details = table.Column<string>(type: "TEXT", nullable: true),
-                    BillingFrequency = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Subscription", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -185,29 +169,25 @@ namespace GoalTracker.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Billing",
+                name: "Subscription",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    UserId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    SubscriptionId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    BillingDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    DueDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    PaidDate = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    Paid = table.Column<bool>(type: "INTEGER", nullable: false)
+                    CreatedById = table.Column<Guid>(type: "TEXT", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Tier = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Price = table.Column<string>(type: "TEXT", nullable: true),
+                    Details = table.Column<string>(type: "TEXT", nullable: true),
+                    BillingFrequency = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Billing", x => x.Id);
+                    table.PrimaryKey("PK_Subscription", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Billing_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_Subscription_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Billing_Subscription_SubscriptionId",
-                        column: x => x.SubscriptionId,
-                        principalTable: "Subscription",
                         principalColumn: "Id");
                 });
 
@@ -361,6 +341,40 @@ namespace GoalTracker.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Billing",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    UserId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    CreatedById = table.Column<Guid>(type: "TEXT", nullable: true),
+                    SubscriptionId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    BillingDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    DueDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    PaidDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Paid = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Billing", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Billing_AspNetUsers_CreatedById",
+                        column: x => x.CreatedById,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Billing_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Billing_Subscription_SubscriptionId",
+                        column: x => x.SubscriptionId,
+                        principalTable: "Subscription",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ReactionEmoji",
                 columns: table => new
                 {
@@ -442,6 +456,11 @@ namespace GoalTracker.Migrations
                 column: "UserId1");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Billing_CreatedById",
+                table: "Billing",
+                column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Billing_SubscriptionId",
                 table: "Billing",
                 column: "SubscriptionId");
@@ -460,6 +479,11 @@ namespace GoalTracker.Migrations
                 name: "IX_ReactionEmoji_TrackingRecordId",
                 table: "ReactionEmoji",
                 column: "TrackingRecordId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Subscription_CreatedById",
+                table: "Subscription",
+                column: "CreatedById");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TrackingRecord_AssigneeId",

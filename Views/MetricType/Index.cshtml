@@ -26,7 +26,7 @@
 <div class="col-md-10 offset-md-1">
     <div class="row g-0">
 
-        @foreach (var item in Model)
+        @foreach (var metricType in Model)
         {
 
 
@@ -36,35 +36,35 @@
                 <div class="card" style="height: 18rem;">
                     <div class="card-header">
                         <h5 class="card-title">
-                            @Html.DisplayFor(modelItem => item.Name)                        
+                            @Html.DisplayFor(modelItem => metricType.Title)                        
                         </h5>
                     </div>
                     <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(modelItem => item.Name)</h6>
-                        <p class="card-text">
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </p>
-
+                        <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(modelItem => metricType.Description)</h6>
+                                            
+                        <p class="card-text">@metricType.CreatedBy?.Email</p>
+                        <p class="card-text">@metricType.CreatedBy?.Id</p>
+                        <p class="card-text">@metricType.CreatedDate</p>
                     </div>
                     <div class="card-footer">
 
 
-                        <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_MetricTypeDetails_@item.Id">
+                        <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_MetricTypeDetails_@metricType.Id">
                             <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Details                        
                         </a>
-                        @await Html.PartialAsync("~/Views/MetricType/OffCanvas/_MetricTypeDetails.cshtml", @item)
+                        @await Html.PartialAsync("~/Views/MetricType/OffCanvas/_MetricTypeDetails.cshtml", metricType)
 
 
-                        <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_MetricTypeEdit_@item.Id">
+                        <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_MetricTypeEdit_@metricType.Id">
                             <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i>Edit                        
                         </a>
-                        @await Html.PartialAsync("~/Views/MetricType/OffCanvas/_MetricTypeEdit.cshtml", @item)
+                        @await Html.PartialAsync("~/Views/MetricType/OffCanvas/_MetricTypeEdit.cshtml", metricType)
                                                     
 
-                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_MetricTypeDelete_@item.Id">
+                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_MetricTypeDelete_@metricType.Id">
                             <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
                         </a>
-                        @await Html.PartialAsync("~/Views/MetricType/OffCanvas/_MetricTypeDelete.cshtml", @item)
+                        @await Html.PartialAsync("~/Views/MetricType/OffCanvas/_MetricTypeDelete.cshtml", metricType)
 
 
                     </div>

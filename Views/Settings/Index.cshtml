@@ -21,7 +21,7 @@
 
 <div class="row g-0">
 
-    @foreach (var item in Model)
+    @foreach (var setting in Model)
     {
         <div class="col-md-10 offset-md-1">
 
@@ -30,8 +30,8 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">
-                                @Html.DisplayFor(modelItem => item.Title)
-                                @if (@item.Favorited)
+                                @Html.DisplayFor(modelItem => setting.Title)
+                                @if (setting.Favorited)
                                 {
                                     <i class="bi-star-fill" style="font-size: 1rem; color: #0077cc;"></i>
                                 }
@@ -41,32 +41,32 @@
                                 }
                             </h5>
                             <p class="card-text">
-                                @Html.DisplayFor(modelItem => item.Description)
+                                @Html.DisplayFor(modelItem => setting.Description)
                             </p>
+                            
+                            <p class="card-text">@setting.CreatedBy?.Email</p>
+                            <p class="card-text">@setting.CreatedBy?.Id</p>
+                            <p class="card-text">@setting.CreatedDate</p>
 
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox
-                                    input</label>
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
                             </div>
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
                                     checked>
-                                <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox
-                                    input</label>
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
                             </div>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDisabled"
-                                    disabled>
-                                <label class="form-check-label" for="flexSwitchCheckDisabled">Disabled switch checkbox
-                                    input</label>
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
                             </div>
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch"
-                                    id="flexSwitchCheckCheckedDisabled" checked disabled>
-                                <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Disabled checked switch
-                                    checkbox input</label>
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
+                                    checked>
+                                <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
                             </div>
+                           
 
 
 
@@ -77,26 +77,26 @@
 
                             <li class="list-group-item d-flex justify-content-start align-items-start">
                                 <div>
-                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_SettingsDetails_@item.Id">
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_SettingsDetails_@setting.Id">
                                         <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
                                     </a>
-                                    @await Html.PartialAsync("~/Views/Settings/OffCanvas/_SettingsDetails.cshtml", @item)
+                                    @await Html.PartialAsync("~/Views/Settings/OffCanvas/_SettingsDetails.cshtml", setting)
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-start align-items-start">
                                 <div>
-                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_SettingsEdit_@item.Id">
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_SettingsEdit_@setting.Id">
                                         <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
                                     </a>
-                                    @await Html.PartialAsync("~/Views/Settings/OffCanvas/_SettingsEdit.cshtml", @item)
+                                    @await Html.PartialAsync("~/Views/Settings/OffCanvas/_SettingsEdit.cshtml", setting)
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-start align-items-start">
                                 <div>
-                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_SettingsDelete_@item.Id">
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_SettingsDelete_@setting.Id">
                                         <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
                                     </a>
-                                    @await Html.PartialAsync("~/Views/Settings/OffCanvas/_SettingsDelete.cshtml", @item)
+                                    @await Html.PartialAsync("~/Views/Settings/OffCanvas/_SettingsDelete.cshtml", setting)
                                 </div>
                             </li>
                         </ul>

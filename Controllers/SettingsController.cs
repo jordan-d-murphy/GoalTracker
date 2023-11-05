@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using GoalTracker.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Controllers
 {
@@ -16,17 +18,19 @@ namespace GoalTracker.Controllers
     {
         private readonly GoalTrackerContext _context;
 
-        public SettingsController(GoalTrackerContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public SettingsController(GoalTrackerContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Settings
         public async Task<IActionResult> Index()
         {
-              return _context.Settings != null ? 
-                          View(await _context.Settings.ToListAsync()) :
-                          Problem("Entity set 'GoalTrackerContext.Settings'  is null.");
+            var settings = _context.Settings.Include(t => t.Parent).Include(t => t.CreatedBy);
+            return View(await settings.ToListAsync());
         }
 
         // GET: Settings/Details/5
@@ -60,12 +64,19 @@ namespace GoalTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,JSONData,Id,ParentId,Title,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color")] Settings settings)
         {
-            if (ModelState.IsValid)
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (user is not null)
             {
-                settings.Id = Guid.NewGuid();
-                _context.Add(settings);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    settings.Id = Guid.NewGuid();
+                    settings.CreatedBy = user;
+                    settings.CreatedDate = DateTime.Now;
+                    _context.Add(settings);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(settings);
         }

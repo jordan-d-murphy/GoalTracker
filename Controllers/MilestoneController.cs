@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using GoalTracker.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Controllers
 {
@@ -16,17 +18,19 @@ namespace GoalTracker.Controllers
     {
         private readonly GoalTrackerContext _context;
 
-        public MilestoneController(GoalTrackerContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public MilestoneController(GoalTrackerContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Milestone
         public async Task<IActionResult> Index()
         {
-              return _context.Milestone != null ? 
-                          View(await _context.Milestone.ToListAsync()) :
-                          Problem("Entity set 'GoalTrackerContext.Milestone'  is null.");
+            var milestones = _context.Milestone.Include(t => t.Parent).Include(t => t.CreatedBy);
+            return View(await milestones.ToListAsync());
         }
 
         // GET: Milestone/Details/5
@@ -60,12 +64,19 @@ namespace GoalTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ParentId,Title,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color")] Milestone milestone)
         {
-            if (ModelState.IsValid)
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (user is not null)
             {
-                milestone.Id = Guid.NewGuid();
-                _context.Add(milestone);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    milestone.Id = Guid.NewGuid();
+                    milestone.CreatedBy = user;
+                    milestone.CreatedDate = DateTime.Now;
+                    _context.Add(milestone);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(milestone);
         }

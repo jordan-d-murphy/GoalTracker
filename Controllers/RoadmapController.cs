@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using GoalTracker.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Controllers
 {
@@ -16,17 +18,19 @@ namespace GoalTracker.Controllers
     {
         private readonly GoalTrackerContext _context;
 
-        public RoadmapController(GoalTrackerContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public RoadmapController(GoalTrackerContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Roadmap
         public async Task<IActionResult> Index()
         {
-              return _context.Roadmap != null ? 
-                          View(await _context.Roadmap.ToListAsync()) :
-                          Problem("Entity set 'GoalTrackerContext.Roadmap'  is null.");
+            var roadmaps = _context.Roadmap.Include(t => t.Parent).Include(t => t.CreatedBy);
+            return View(await roadmaps.ToListAsync());
         }
 
         // GET: Roadmap/Details/5
@@ -60,12 +64,19 @@ namespace GoalTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ParentId,Title,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color")] Roadmap roadmap)
         {
-            if (ModelState.IsValid)
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (user is not null)
             {
-                roadmap.Id = Guid.NewGuid();
-                _context.Add(roadmap);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    roadmap.Id = Guid.NewGuid();
+                    roadmap.CreatedBy = user;
+                    roadmap.CreatedDate = DateTime.Now;
+                    _context.Add(roadmap);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(roadmap);
         }
@@ -153,14 +164,14 @@ namespace GoalTracker.Controllers
             {
                 _context.Roadmap.Remove(roadmap);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool RoadmapExists(Guid id)
         {
-          return (_context.Roadmap?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Roadmap?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

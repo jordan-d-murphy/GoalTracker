@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using GoalTracker.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Controllers
 {
@@ -16,17 +18,19 @@ namespace GoalTracker.Controllers
     {
         private readonly GoalTrackerContext _context;
 
-        public BillingController(GoalTrackerContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public BillingController(GoalTrackerContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Billing
         public async Task<IActionResult> Index()
         {
-              return _context.Billing != null ? 
-                          View(await _context.Billing.ToListAsync()) :
-                          Problem("Entity set 'GoalTrackerContext.Billing'  is null.");
+            var billing = _context.Billing.Include(t => t.CreatedBy);
+            return View(await billing.ToListAsync());
         }
 
         // GET: Billing/Details/5
@@ -60,12 +64,19 @@ namespace GoalTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,BillingDate,DueDate,PaidDate,Paid")] Billing billing)
         {
-            if (ModelState.IsValid)
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (user is not null)
             {
-                billing.Id = Guid.NewGuid();
-                _context.Add(billing);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    billing.Id = Guid.NewGuid();
+                    billing.CreatedBy = user;
+                    billing.CreatedDate = DateTime.Now;
+                    _context.Add(billing);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(billing);
         }

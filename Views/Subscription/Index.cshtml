@@ -69,6 +69,10 @@
                     <div class="col-sm-8">
                         <div class="card-body">
                             <h5 class="card-title">@subscription.Details</h5>
+                            <hr />
+                            <p class="card-text">@subscription.CreatedBy?.Email</p>
+                            <p class="card-text">@subscription.CreatedBy?.Id</p>
+                            <p class="card-text">@subscription.CreatedDate</p>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">

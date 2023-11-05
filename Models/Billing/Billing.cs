@@ -13,9 +13,13 @@ public class Billing
     
     public ApplicationUser? User { get; set; }
 
+    public ApplicationUser? CreatedBy { get; set; }
+
     public Subscription? Subscription { get; set; }
 
     public DateTime? BillingDate { get; set; }
+
+    public DateTime? CreatedDate { get; set; }
 
     public DateTime? DueDate { get; set; }
 

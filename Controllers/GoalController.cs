@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using GoalTracker.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Controllers
 {
@@ -16,17 +18,19 @@ namespace GoalTracker.Controllers
     {
         private readonly GoalTrackerContext _context;
 
-        public GoalController(GoalTrackerContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public GoalController(GoalTrackerContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Goal
         public async Task<IActionResult> Index()
         {
-              return _context.Goal != null ? 
-                          View(await _context.Goal.ToListAsync()) :
-                          Problem("Entity set 'GoalTrackerContext.Goal'  is null.");
+            var goals = _context.Goal.Include(t => t.Parent).Include(t => t.CreatedBy);
+            return View(await goals.ToListAsync());
         }
 
         // GET: Goal/Details/5
@@ -60,12 +64,19 @@ namespace GoalTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ParentId,Title,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color")] Goal goal)
         {
-            if (ModelState.IsValid)
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (user is not null)
             {
-                goal.Id = Guid.NewGuid();
-                _context.Add(goal);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    goal.Id = Guid.NewGuid();
+                    goal.CreatedBy = user;
+                    goal.CreatedDate = DateTime.Now;
+                    _context.Add(goal);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(goal);
         }

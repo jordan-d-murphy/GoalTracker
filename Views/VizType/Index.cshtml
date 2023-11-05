@@ -33,51 +33,52 @@
 
         @foreach (var vizType in Model)
         {
-           
-
-                <div class=" pt-3 pe-3 col-md-6">
-
-                    <div class="card" style="height: 18rem;">
-                        <div class="card-header">
-                            <h5 class="card-title">
-                                @Html.DisplayFor(modelItem => vizType.Name)
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(modelItem => vizType.Name)</h6>
-                            
-                            <p class="card-text">@vizType.Description</p>                                
-                            <p class="card-text">@vizType.CreatedBy?.Email</p>
-                            <p class="card-text">@vizType.CreatedBy?.Id</p>                                
-                            <p class="card-text">@vizType.CreatedDate</p>
-
-                        </div>
-                        <div class="card-footer">
 
 
-                            <a class="card-link align-bottom" data-bs-toggle="offcanvas"
-                                href="#offCanvas_VizTypeDetails_@vizType.Id">
-                                <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Details
-                            </a>
-                            @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeDetails.cshtml", @vizType)
+            <div class=" pt-3 pe-3 col-md-6">
+
+                <div class="card" style="height: 18rem;">
+                    <div class="card-header">
+                        <h5 class="card-title">
+                            @Html.DisplayFor(modelItem => vizType.Title)
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(modelItem => vizType.Name)</h6>
+
+                        <p class="card-text">@vizType.Description</p>
+                        <p class="card-text">@vizType.CreatedBy?.Email</p>
+                        <p class="card-text">@vizType.CreatedBy?.Id</p>
+                        <p class="card-text">@vizType.CreatedDate</p>
+
+                    </div>
+                    <div class="card-footer">
 
 
-                            <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_VizTypeEdit_@vizType.Id">
-                                <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i>Edit
-                            </a>
-                            @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeEdit.cshtml", @vizType)
+                        <a class="card-link align-bottom" data-bs-toggle="offcanvas"
+                            href="#offCanvas_VizTypeDetails_@vizType.Id">
+                            <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Details
+                        </a>
+                        @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeDetails.cshtml", @vizType)
 
 
-                            <a class="" data-bs-toggle="offcanvas" href="#offCanvas_VizTypeDelete_@vizType.Id">
-                                <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
-                            </a>
-                            @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeDelete.cshtml", @vizType)
+                        <a class="card-link align-bottom" data-bs-toggle="offcanvas"
+                            href="#offCanvas_VizTypeEdit_@vizType.Id">
+                            <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i>Edit
+                        </a>
+                        @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeEdit.cshtml", @vizType)
 
 
-                        </div>
+                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_VizTypeDelete_@vizType.Id">
+                            <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
+                        </a>
+                        @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeDelete.cshtml", @vizType)
+
+
                     </div>
                 </div>
-            }
+            </div>
+
         }
     </div>
 </div>

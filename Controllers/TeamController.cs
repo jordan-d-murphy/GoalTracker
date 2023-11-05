@@ -35,9 +35,9 @@ namespace GoalTracker.Controllers
         {
             if (_userManager.Users != null && _context.Team != null)
             {
-                var teams = await _context.Team.ToListAsync();
+                var teams = await _context.Team.Include(t => t.Parent).Include(t => t.CreatedBy).ToListAsync();
                 var users = await _userManager.Users.ToListAsync();
-                var roles = await _roleManager.Roles.ToListAsync();               
+                // var roles = await _roleManager.Roles.ToListAsync();               
 
                 var userSelectList = new List<SelectListItem> { };
 
@@ -108,12 +108,19 @@ namespace GoalTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ParentId,Title,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color")] Team team)
         {
-            if (ModelState.IsValid)
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (user is not null)
             {
-                team.Id = Guid.NewGuid();
-                _context.Add(team);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    team.Id = Guid.NewGuid();
+                    team.CreatedBy = user;
+                    team.CreatedDate = DateTime.Now;
+                    _context.Add(team);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(team);
         }

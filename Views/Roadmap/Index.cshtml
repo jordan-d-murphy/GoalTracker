@@ -20,7 +20,7 @@
 
 <div class="row g-0">
 
-    @foreach (var item in Model)
+    @foreach (var roadmap in Model)
     {
         <div class="col-md-10 offset-md-1">
 
@@ -31,9 +31,48 @@
 
 
                     <div class="card-body">
-                        <h5 class="card-title">@item.Title</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">@item.Category</h6>
-                        <p class="card-text">@item.Description</p>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h5 class="card-title">@roadmap.Title</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">@roadmap.Category</h6>
+                                <p class="card-text">@roadmap.Description</p>                        
+                                <p class="card-text">@roadmap.CreatedBy?.Email</p>
+                                <p class="card-text">@roadmap.CreatedBy?.Id</p>
+                                <p class="card-text">@roadmap.CreatedDate</p>
+                            </div>
+                            <div class="col-md-3">
+                                <ul>
+                                    <li class="list-group-item d-flex justify-content-start align-items-start">
+                                        <div>
+                                            <a class="" data-bs-toggle="offcanvas" href="#offCanvas_RoadmapDetails_@roadmap.Id">
+                                                <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
+                                            </a>
+                                            @await Html.PartialAsync("~/Views/Roadmap/OffCanvas/_RoadmapDetails.cshtml", roadmap)
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-start align-items-start">
+                                        <div>
+                                            <a class="" data-bs-toggle="offcanvas" href="#offCanvas_RoadmapEdit_@roadmap.Id">
+                                                <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
+                                            </a>
+                                            @await Html.PartialAsync("~/Views/Roadmap/OffCanvas/_RoadmapEdit.cshtml", roadmap)
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-start align-items-start">
+                                        <div>
+                                            <a class="" data-bs-toggle="offcanvas" href="#offCanvas_RoadmapDelete_@roadmap.Id">
+                                                <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
+                                            </a>
+                                            @await Html.PartialAsync("~/Views/Roadmap/OffCanvas/_RoadmapDelete.cshtml", roadmap)
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        
+
+                       
 
                         <div class="row position-relative p-3 m-3" style="width: 100%;">
 
@@ -73,32 +112,7 @@
                             }
                         </div>
 
-                        <ul>
-                            <li class="list-group-item d-flex justify-content-start align-items-start">
-                                <div>
-                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_RoadmapDetails_@item.Id">
-                                        <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
-                                    </a>
-                                    @await Html.PartialAsync("~/Views/Roadmap/OffCanvas/_RoadmapDetails.cshtml", @item)
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-start align-items-start">
-                                <div>
-                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_RoadmapEdit_@item.Id">
-                                        <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
-                                    </a>
-                                    @await Html.PartialAsync("~/Views/Roadmap/OffCanvas/_RoadmapEdit.cshtml", @item)
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-start align-items-start">
-                                <div>
-                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_RoadmapDelete_@item.Id">
-                                        <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
-                                    </a>
-                                    @await Html.PartialAsync("~/Views/Roadmap/OffCanvas/_RoadmapDelete.cshtml", @item)
-                                </div>
-                            </li>
-                        </ul>
+                        
 
                     </div>
                 </div>

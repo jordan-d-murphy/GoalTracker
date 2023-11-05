@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using GoalTracker.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Controllers
 {
@@ -16,17 +18,19 @@ namespace GoalTracker.Controllers
     {
         private readonly GoalTrackerContext _context;
 
-        public ReportController(GoalTrackerContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public ReportController(GoalTrackerContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Report
         public async Task<IActionResult> Index()
         {
-              return _context.Report != null ? 
-                          View(await _context.Report.ToListAsync()) :
-                          Problem("Entity set 'GoalTrackerContext.Report'  is null.");
+            var reports = _context.Report.Include(t => t.Parent).Include(t => t.CreatedBy);
+            return View(await reports.ToListAsync());
         }
 
         // GET: Report/Details/5
@@ -60,12 +64,19 @@ namespace GoalTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,JSONData,Id,ParentId,Title,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color")] Report report)
         {
-            if (ModelState.IsValid)
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (user is not null)
             {
-                report.Id = Guid.NewGuid();
-                _context.Add(report);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    report.Id = Guid.NewGuid();
+                    report.CreatedBy = user;
+                    report.CreatedDate = DateTime.Now;
+                    _context.Add(report);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(report);
         }

@@ -37,8 +37,16 @@
                                 @Html.DisplayFor(modelItem => supportRequest.Description)
                             </p>
                             <div class="fw-bold">
-                                @Html.DisplayNameFor(model => supportRequest.Category)
+                                @Html.DisplayNameFor(model => supportRequest.Category)                            
                             </div>
+                            @Html.DisplayFor(model => supportRequest.Category)
+
+                            <hr />
+
+                            <p class="card-text">@supportRequest.CreatedBy?.Email</p>
+                            <p class="card-text">@supportRequest.CreatedBy?.Id</p>
+                            <p class="card-text">@supportRequest.CreatedDate</p>
+
                             <a href="#" class="card-link">Card link</a>
                             <a href="#" class="card-link">Another link</a>
                         </div>

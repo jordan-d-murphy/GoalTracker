@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoalTracker.Migrations
 {
     [DbContext(typeof(GoalTrackerContext))]
-    [Migration("20231105110511_InitialCreate")]
+    [Migration("20231105125148_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -261,6 +261,12 @@ namespace GoalTracker.Migrations
                     b.Property<DateTime?>("BillingDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime?>("DueDate")
                         .HasColumnType("TEXT");
 
@@ -277,6 +283,8 @@ namespace GoalTracker.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
 
                     b.HasIndex("SubscriptionId");
 
@@ -338,6 +346,12 @@ namespace GoalTracker.Migrations
                     b.Property<string>("BillingFrequency")
                         .HasColumnType("TEXT");
 
+                    b.Property<Guid?>("CreatedById")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Details")
                         .HasColumnType("TEXT");
 
@@ -351,6 +365,8 @@ namespace GoalTracker.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
 
                     b.ToTable("Subscription");
                 });
@@ -908,6 +924,10 @@ namespace GoalTracker.Migrations
 
             modelBuilder.Entity("GoalTracker.Models.Billing", b =>
                 {
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
+
                     b.HasOne("GoalTracker.Models.Subscription", "Subscription")
                         .WithMany()
                         .HasForeignKey("SubscriptionId");
@@ -915,6 +935,8 @@ namespace GoalTracker.Migrations
                     b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("CreatedBy");
 
                     b.Navigation("Subscription");
 
@@ -930,6 +952,15 @@ namespace GoalTracker.Migrations
                     b.HasOne("GoalTracker.Models.TrackingRecord", null)
                         .WithMany("ReactionEmojis")
                         .HasForeignKey("TrackingRecordId");
+
+                    b.Navigation("CreatedBy");
+                });
+
+            modelBuilder.Entity("GoalTracker.Models.Subscription", b =>
+                {
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById");
 
                     b.Navigation("CreatedBy");
                 });

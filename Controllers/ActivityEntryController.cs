@@ -79,7 +79,6 @@ namespace GoalTracker.Controllers
                     return RedirectToAction(nameof(Index));
                 }
             }
-
             return View(activityEntry);
         }
 

@@ -33,59 +33,59 @@
 
         @foreach (var dashViz in Model)
         {
-           
-                <div class="pt-3 pe-3 col-md-6">
 
-                    <div class="card" style="height: 18rem;">
-                        <div class="card-header">
-                            <h5 class="card-title">
-                                @Html.DisplayFor(modelItem => dashViz.Title)
-                                @if (dashViz.Favorited)
-                                {
-                                    <i class="bi-star-fill" style="font-size: 1rem; color: #0077cc;"></i>
-                                }
-                                else
-                                {
-                                    <i class="bi-star" style="font-size: 1rem; color: #0077cc;"></i>
-                                }
-                            </h5>
-                        </div>
-                        <div class="card-body">
-                            <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(modelItem => dashViz.Name)
-                            </h6>
-                            <p class="card-text">@dashViz.Description</p>                                
-                            <p class="card-text">@dashViz.CreatedBy?.Email</p>
-                            <p class="card-text">@dashViz.CreatedBy?.Id</p>                                
-                            <p class="card-text">@dashViz.CreatedDate</p>
+            <div class="pt-3 pe-3 col-md-6">
 
-                        </div>
-                        <div class="card-footer">
+                <div class="card" style="height: 18rem;">
+                    <div class="card-header">
+                        <h5 class="card-title">
+                            @Html.DisplayFor(modelItem => dashViz.Title)
+                            @if (dashViz.Favorited)
+                            {
+                                <i class="bi-star-fill" style="font-size: 1rem; color: #0077cc;"></i>
+                            }
+                            else
+                            {
+                                <i class="bi-star" style="font-size: 1rem; color: #0077cc;"></i>
+                            }
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(modelItem => dashViz.Name)
+                        </h6>
+                        <p class="card-text">@dashViz.Description</p>
+                        <p class="card-text">@dashViz.CreatedBy?.Email</p>
+                        <p class="card-text">@dashViz.CreatedBy?.Id</p>
+                        <p class="card-text">@dashViz.CreatedDate</p>
 
-
-                            <a class="card-link align-bottom" data-bs-toggle="offcanvas"
-                                href="#offCanvas_DashVizDetails_@dashViz.Id">
-                                <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Details
-                            </a>
-                            @await Html.PartialAsync("~/Views/DashViz/OffCanvas/_DashVizDetails.cshtml", dashViz)
+                    </div>
+                    <div class="card-footer">
 
 
-                            <a class="card-link align-bottom" data-bs-toggle="offcanvas"
-                                href="#offCanvas_DashVizEdit_@dashViz.Id">
-                                <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i>Edit
-                            </a>
-                            @await Html.PartialAsync("~/Views/DashViz/OffCanvas/_DashVizEdit.cshtml", dashViz)
+                        <a class="card-link align-bottom" data-bs-toggle="offcanvas"
+                            href="#offCanvas_DashVizDetails_@dashViz.Id">
+                            <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Details
+                        </a>
+                        @await Html.PartialAsync("~/Views/DashViz/OffCanvas/_DashVizDetails.cshtml", dashViz)
 
 
-                            <a class="" data-bs-toggle="offcanvas" href="#offCanvas_DashVizDelete_@dashViz.Id">
-                                <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
-                            </a>
-                            @await Html.PartialAsync("~/Views/DashViz/OffCanvas/_DashVizDelete.cshtml", dashViz)
+                        <a class="card-link align-bottom" data-bs-toggle="offcanvas"
+                            href="#offCanvas_DashVizEdit_@dashViz.Id">
+                            <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i>Edit
+                        </a>
+                        @await Html.PartialAsync("~/Views/DashViz/OffCanvas/_DashVizEdit.cshtml", dashViz)
 
 
-                        </div>
+                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_DashVizDelete_@dashViz.Id">
+                            <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
+                        </a>
+                        @await Html.PartialAsync("~/Views/DashViz/OffCanvas/_DashVizDelete.cshtml", dashViz)
+
+
                     </div>
                 </div>
-            }
+            </div>
+
 
         }
     </div>

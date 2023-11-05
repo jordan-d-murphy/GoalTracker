@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using GoalTracker.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Controllers
 {
@@ -16,17 +18,19 @@ namespace GoalTracker.Controllers
     {
         private readonly GoalTrackerContext _context;
 
-        public ProjectController(GoalTrackerContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public ProjectController(GoalTrackerContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Project
         public async Task<IActionResult> Index()
         {
-              return _context.Project != null ? 
-                          View(await _context.Project.ToListAsync()) :
-                          Problem("Entity set 'GoalTrackerContext.Project'  is null.");
+            var projects = _context.Project.Include(t => t.Parent).Include(t => t.CreatedBy);
+            return View(await projects.ToListAsync());
         }
 
         // GET: Project/Details/5
@@ -60,12 +64,19 @@ namespace GoalTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ParentId,Title,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color")] Project project)
         {
-            if (ModelState.IsValid)
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (user is not null)
             {
-                project.Id = Guid.NewGuid();
-                _context.Add(project);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    project.Id = Guid.NewGuid();
+                    project.CreatedBy = user;
+                    project.CreatedDate = DateTime.Now;
+                    _context.Add(project);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }                
             }
             return View(project);
         }

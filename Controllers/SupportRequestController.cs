@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using GoalTracker.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Controllers
 {
@@ -16,17 +18,19 @@ namespace GoalTracker.Controllers
     {
         private readonly GoalTrackerContext _context;
 
-        public SupportRequestController(GoalTrackerContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public SupportRequestController(GoalTrackerContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: SupportRequest
         public async Task<IActionResult> Index()
         {
-              return _context.SupportRequest != null ? 
-                          View(await _context.SupportRequest.ToListAsync()) :
-                          Problem("Entity set 'GoalTrackerContext.SupportRequest'  is null.");
+            var supportRequests = _context.SupportRequest.Include(t => t.Parent).Include(t => t.CreatedBy);
+            return View(await supportRequests.ToListAsync());
         }
 
         // GET: SupportRequest/Details/5
@@ -60,12 +64,19 @@ namespace GoalTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ParentId,Title,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color")] SupportRequest supportRequest)
         {
-            if (ModelState.IsValid)
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (user is not null)
             {
-                supportRequest.Id = Guid.NewGuid();
-                _context.Add(supportRequest);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    supportRequest.Id = Guid.NewGuid();
+                    supportRequest.CreatedBy = user;
+                    supportRequest.CreatedDate = DateTime.Now;
+                    _context.Add(supportRequest);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(supportRequest);
         }

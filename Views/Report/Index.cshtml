@@ -23,7 +23,7 @@
 
 <div class="row g-0">
 
-    @foreach (var item in Model)
+    @foreach (var report in Model)
     {
 
         <div class="col-md-10 offset-md-1">
@@ -33,8 +33,8 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">
-                                @Html.DisplayFor(modelItem => item.Title)
-                                @if (@item.Favorited)
+                                @Html.DisplayFor(modelItem => report.Title)
+                                @if (report.Favorited)
                                 {
                                     <i class="bi-star-fill" style="font-size: 1rem; color: #0077cc;"></i>
                                 }
@@ -44,16 +44,19 @@
                                 }
                             </h5>
                             <p class="card-text">
-                                @Html.DisplayFor(modelItem => item.Description)
+                                @Html.DisplayFor(modelItem => report.Description)
                             </p>
+                            <p class="card-text">@report.CreatedBy?.Email</p>
+                            <p class="card-text">@report.CreatedBy?.Id</p>
+                            <p class="card-text">@report.CreatedDate</p>
 
                             <p>
                                 <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseReport_@item.Id">
+                                    data-bs-target="#collapseReport_@report.Id">
                                     Preview Report
                                 </button>
                             </p>
-                            <div class="collapse" id="collapseReport_@item.Id">
+                            <div class="collapse" id="collapseReport_@report.Id">
                                 <div class="card card-body">
                                     <h3>Daily Report</h3>
                                     <hr />
@@ -93,26 +96,26 @@
 
                             <li class="list-group-item d-flex justify-content-start align-items-start">
                                 <div>
-                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ReportDetails_@item.Id">
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ReportDetails_@report.Id">
                                         <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
                                     </a>
-                                    @await Html.PartialAsync("~/Views/Report/OffCanvas/_ReportDetails.cshtml", @item)
+                                    @await Html.PartialAsync("~/Views/Report/OffCanvas/_ReportDetails.cshtml", report)
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-start align-items-start">
                                 <div>
-                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ReportEdit_@item.Id">
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ReportEdit_@report.Id">
                                         <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
                                     </a>
-                                    @await Html.PartialAsync("~/Views/Report/OffCanvas/_ReportEdit.cshtml", @item)
+                                    @await Html.PartialAsync("~/Views/Report/OffCanvas/_ReportEdit.cshtml", report)
                                 </div>
                             </li>
                             <li class="list-group-item d-flex justify-content-start align-items-start">
                                 <div>
-                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ReportDelete_@item.Id">
+                                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ReportDelete_@report.Id">
                                         <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
                                     </a>
-                                    @await Html.PartialAsync("~/Views/Report/OffCanvas/_ReportDelete.cshtml", @item)
+                                    @await Html.PartialAsync("~/Views/Report/OffCanvas/_ReportDelete.cshtml", report)
                                 </div>
                             </li>
                         </ul>
