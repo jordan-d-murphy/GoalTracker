@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using GoalTracker.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Controllers
 {
@@ -16,17 +18,31 @@ namespace GoalTracker.Controllers
     {
         private readonly GoalTrackerContext _context;
 
-        public DashController(GoalTrackerContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public DashController(GoalTrackerContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Dash
         public async Task<IActionResult> Index()
         {
-              return _context.Dash != null ? 
-                          View(await _context.Dash.ToListAsync()) :
-                          Problem("Entity set 'GoalTrackerContext.Dash'  is null.");
+            //   return _context.Dash != null ? 
+            //               View(await _context.Dash.ToListAsync()) :
+            //               Problem("Entity set 'GoalTrackerContext.Dash'  is null.");
+
+             var dashes = _context.Dash
+                .Join(_userManager.Users, 
+                dash => dash.CreatedBy, 
+                user => user, 
+                (dash, user) => new DashIndexViewModel 
+                { 
+                    Dashboard = dash,
+                    CreatedUser = user 
+                });
+            return View(await dashes.ToListAsync());
         }
 
         // GET: Dash/Details/5
@@ -63,6 +79,8 @@ namespace GoalTracker.Controllers
             if (ModelState.IsValid)
             {
                 dash.Id = Guid.NewGuid();
+                dash.CreatedBy = _userManager.GetUserAsync(User).Result;
+                dash.CreatedDate = DateTime.Now;
                 _context.Add(dash);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
