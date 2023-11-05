@@ -8,6 +8,7 @@ using GoalTracker.Areas.Identity.Data;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Configuration;
+using GoalTracker.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,6 +56,7 @@ using (var scope = app.Services.CreateScope())
         }
     }
 
+    // Create Admin user if does not exist
     var adminUserName = builder.Configuration["AdminUserName"];
     var adminEmail = builder.Configuration["AdminEmail"];
     var adminPassword = builder.Configuration["AdminPassword"];
@@ -66,35 +68,22 @@ using (var scope = app.Services.CreateScope())
     }
     else
     {
-        var adminUser = new ApplicationUser
-        {
-            UserName = adminUserName,
-            Email = adminEmail
-        };
+        var success = await Utils.CreateUser(adminUserName, adminEmail, adminPassword, roles, userManager);
+    }
 
+    // Create Test user if does not exist
+    var testUserUserName = builder.Configuration["TestUserUserName"];
+    var testUserEmail = builder.Configuration["TestUserEmail"];
+    var testUserPassword = builder.Configuration["TestUserPassword"];
 
-
-        var _user = await userManager.FindByEmailAsync(adminEmail);
-
-        if (_user == null)
-        {
-            var createAdminUser = await userManager.CreateAsync(adminUser, adminPassword);
-
-            if (createAdminUser.Succeeded)
-            {
-
-                var code = await userManager.GenerateEmailConfirmationTokenAsync(adminUser);
-                var result = await userManager.ConfirmEmailAsync(adminUser, code);
-                
-                if (result.Succeeded)
-                {
-                    await userManager.AddToRolesAsync(adminUser, roles);
-                }
-                
-            }
-
-            
-        }
+    if (String.IsNullOrEmpty(testUserUserName) || String.IsNullOrEmpty(testUserEmail) || String.IsNullOrEmpty(testUserPassword))
+    {
+        // unable to fetch config 
+        throw new ConfigurationErrorsException("Unable to read AppSettings.json");
+    }
+    else
+    {
+        var success = await Utils.CreateUser(testUserUserName, testUserEmail, testUserPassword, roles, userManager);
     }
 
 }
