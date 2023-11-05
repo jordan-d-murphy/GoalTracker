@@ -36,61 +36,71 @@
         @foreach (var divm in Model)
         {
 
+            @if (divm.Dashboard is not null && divm.CreatedUser is not null)
+            {
 
 
-            <div class="pt-3 pe-3 col-md-6">
 
-                <div class="card" style="height: 14rem;">
-                    <div class="card-header">
-                        <h5 class="card-title">
-                            @Html.DisplayFor(modelItem => divm.Dashboard.Title)
-                            @if (@divm.Dashboard.Favorited)
-                            {
-                                <i class="bi-star-fill" style="font-size: 1rem; color: #0077cc;"></i>
-                            }
-                            else
-                            {
-                                <i class="bi-star" style="font-size: 1rem; color: #0077cc;"></i>
-                            }
-                        </h5>
+                <div class="pt-3 pe-3 col-md-6">
+
+                    <div class="card" style="height: 14rem;">
+                        <div class="card-header">
+                            <h5 class="card-title">
+
+
+                                @Html.DisplayFor(modelItem => divm.Dashboard.Title)
+                                @if (@divm.Dashboard.Favorited)
+                                {
+                                    <i class="bi-star-fill" style="font-size: 1rem; color: #0077cc;"></i>
+                                }
+                                else
+                                {
+                                    <i class="bi-star" style="font-size: 1rem; color: #0077cc;"></i>
+                                }
+
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(modelItem =>
+                        divm.Dashboard.Name)</h6>
+                            <p class="card-text">
+                                @Html.DisplayFor(modelItem => divm.Dashboard.Description)
+                                @Html.DisplayFor(modelItem => divm.CreatedUser.Email)
+                                @Html.DisplayFor(modelItem => divm.CreatedUser.Id)
+                                @Html.DisplayFor(modelItem => divm.Dashboard.CreatedDate)
+
+                            </p>
+
+
+                        </div>
+                        <div class="card-footer">
+
+
+                            <a class="card-link align-bottom" data-bs-toggle="offcanvas"
+                                href="#offCanvas_DashDetails_@divm.Dashboard.Id">
+                                <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Details
+                            </a>
+                            @await Html.PartialAsync("~/Views/Dash/OffCanvas/_DashDetails.cshtml", @divm.Dashboard)
+
+
+                            <a class="card-link align-bottom" data-bs-toggle="offcanvas"
+                                href="#offCanvas_DashEdit_@divm.Dashboard.Id">
+                                <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i>Edit
+                            </a>
+                            @await Html.PartialAsync("~/Views/Dash/OffCanvas/_DashEdit.cshtml", @divm.Dashboard)
+
+
+                            <a class="" data-bs-toggle="offcanvas" href="#offCanvas_DashDelete_@divm.Dashboard.Id">
+                                <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
+                            </a>
+                            @await Html.PartialAsync("~/Views/Dash/OffCanvas/_DashDelete.cshtml", @divm.Dashboard)
+
+
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(modelItem => divm.Dashboard.Name)</h6>
-                        <p class="card-text">
-                            @Html.DisplayFor(modelItem => divm.Dashboard.Description)
-                            @Html.DisplayFor(modelItem => divm.CreatedUser.Email)
-                            @Html.DisplayFor(modelItem => divm.CreatedUser.Id)
-                            @Html.DisplayFor(modelItem => divm.Dashboard.CreatedDate)
 
-                        </p>
-                        
-
-                    </div>
-                    <div class="card-footer">
-
-
-                        <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_DashDetails_@divm.Dashboard.Id">
-                            <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Details
-                        </a>
-                        @await Html.PartialAsync("~/Views/Dash/OffCanvas/_DashDetails.cshtml", @divm.Dashboard)
-
-
-                        <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_DashEdit_@divm.Dashboard.Id">
-                            <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i>Edit
-                        </a>
-                        @await Html.PartialAsync("~/Views/Dash/OffCanvas/_DashEdit.cshtml", @divm.Dashboard)
-
-
-                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_DashDelete_@divm.Dashboard.Id">
-                            <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
-                        </a>
-                        @await Html.PartialAsync("~/Views/Dash/OffCanvas/_DashDelete.cshtml", @divm.Dashboard)
-
-
-                    </div>
                 </div>
-
-            </div>
+            }
 
         }
     </div>
