@@ -28,16 +28,8 @@ namespace GoalTracker.Controllers
 
         // GET: VizType
         public async Task<IActionResult> Index()
-        {
-            var vizTypes = _context.VizType
-                .Join(_userManager.Users,
-                vizType => vizType.CreatedBy,
-                user => user,
-                (vizType, user) => new VizTypeIndexViewModel
-                {
-                    VizType = vizType,
-                    CreatedUser = user
-                });
+        {           
+            var vizTypes = _context.VizType.Include(t => t.Parent).Include(t => t.CreatedBy);
             return View(await vizTypes.ToListAsync());
         }
 

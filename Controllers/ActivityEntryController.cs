@@ -29,20 +29,9 @@ namespace GoalTracker.Controllers
 
         // GET: ActivityEntry
         public async Task<IActionResult> Index()
-        {            
-
-            var activities = _context.ActivityEntry
-                .Join(_userManager.Users,
-                activity => activity.CreatedBy,
-                user => user,
-                (activity, user) => new ActivityIndexViewModel
-                {
-                    Activity = activity,
-                    CreatedUser = user
-                });
-
+        {                       
+            var activities = _context.ActivityEntry.Include(t => t.Parent).Include(t => t.CreatedBy);
             return View(await activities.ToListAsync());
-
         }
 
         // GET: ActivityEntry/Details/5

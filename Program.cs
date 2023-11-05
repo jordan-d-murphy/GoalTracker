@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Configuration;
 using GoalTracker.Utils;
+using Microsoft.Extensions.ObjectPool;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,7 +46,7 @@ using (var scope = app.Services.CreateScope())
     var roleManager = services.GetRequiredService<RoleManager<ApplicationRole>>();
     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
 
-    string[] roles = { "ConfirmedAccount", "Admin" };
+    string[] roles = { "Admin", "ConfirmedAccount" };
 
     foreach (var role in roles)
     {
@@ -74,7 +75,7 @@ using (var scope = app.Services.CreateScope())
     // Create Test user if does not exist
     var testUserUserName = builder.Configuration["TestUserUserName"];
     var testUserEmail = builder.Configuration["TestUserEmail"];
-    var testUserPassword = builder.Configuration["TestUserPassword"];
+    var testUserPassword = builder.Configuration["TestUserPassword"];    
 
     if (String.IsNullOrEmpty(testUserUserName) || String.IsNullOrEmpty(testUserEmail) || String.IsNullOrEmpty(testUserPassword))
     {
@@ -83,7 +84,7 @@ using (var scope = app.Services.CreateScope())
     }
     else
     {
-        var success = await Utils.CreateUser(testUserUserName, testUserEmail, testUserPassword, roles, userManager);
+        var success = await Utils.CreateUser(testUserUserName, testUserEmail, testUserPassword, new string[] { "ConfirmedAccount" }, userManager);
     }
 
 }

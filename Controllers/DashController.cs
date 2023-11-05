@@ -29,15 +29,7 @@ namespace GoalTracker.Controllers
         // GET: Dash
         public async Task<IActionResult> Index()
         {
-            var dashes = _context.Dash
-                .Join(_userManager.Users,
-                dash => dash.CreatedBy,
-                user => user,
-                (dash, user) => new DashIndexViewModel
-                {
-                    Dashboard = dash,
-                    CreatedUser = user
-                });
+            var dashes = _context.Dash.Include(t => t.Parent).Include(t => t.CreatedBy);
             return View(await dashes.ToListAsync());
         }
 

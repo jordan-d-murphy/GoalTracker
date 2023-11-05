@@ -34,7 +34,10 @@
                             <div class="card-body">
                                 <h5 class="card-title">@template.Title</h5>
                                 <h6 class="card-text">@template.Category</h6>
-                                <p class="card-text">@template.Description</p>
+                                <p class="card-text">@template.Description</p>                                
+                                <p class="card-text">@template.CreatedBy?.Email</p>
+                                <p class="card-text">@template.CreatedBy?.Id</p>                                
+                                <p class="card-text">@template.CreatedDate</p>
 
                                 <button type="button" class=" btn btn-outline-primary">Create from Template</button>
                             </div>

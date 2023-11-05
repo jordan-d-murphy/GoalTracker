@@ -1,6 +1,4 @@
-@* @model IEnumerable<GoalTracker.Models.Dash> *@
-@model IEnumerable<GoalTracker.Models.DashIndexViewModel>
-
+@model IEnumerable<GoalTracker.Models.Dash>
 
 @{
     ViewData["Title"] = "Index";
@@ -33,14 +31,10 @@
 <div class="col-md-10 offset-md-1">
     <div class="row g-0">
 
-        @foreach (var divm in Model)
+        @foreach (var dash in Model)
         {
 
-            @if (divm.Dashboard is not null && divm.CreatedUser is not null)
-            {
-
-
-
+         
                 <div class="pt-3 pe-3 col-md-6">
 
                     <div class="card" style="height: 18rem;">
@@ -48,8 +42,8 @@
                             <h5 class="card-title">
 
 
-                                @Html.DisplayFor(modelItem => divm.Dashboard.Title)
-                                @if (@divm.Dashboard.Favorited)
+                                @Html.DisplayFor(modelItem => dash.Title)
+                                @if (dash.Favorited)
                                 {
                                     <i class="bi-star-fill" style="font-size: 1rem; color: #0077cc;"></i>
                                 }
@@ -61,41 +55,33 @@
                             </h5>
                         </div>
                         <div class="card-body">
-                            <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(modelItem => divm.Dashboard.Name)</h6>
-                            <p class="card-text">
-                                @Html.DisplayFor(modelItem => divm.Dashboard.Description)
-                            </p>
-                            <p class="card-text">
-                                @Html.DisplayFor(modelItem => divm.CreatedUser.Email)
-                            </p>
-                            <p class="card-text">
-                                @Html.DisplayFor(modelItem => divm.CreatedUser.Id)
-                            </p>
-                            <p class="card-text">
-                                @Html.DisplayFor(modelItem => divm.Dashboard.CreatedDate)
-                            </p>
+                            <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(modelItem => dash.Name)</h6>
+                            <p class="card-text">@dash.Description</p>                                
+                            <p class="card-text">@dash.CreatedBy?.Email</p>
+                            <p class="card-text">@dash.CreatedBy?.Id</p>                                
+                            <p class="card-text">@dash.CreatedDate</p>
 
 
                         </div>
                         <div class="card-footer">
 
 
-                            <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_DashDetails_@divm.Dashboard.Id">
+                            <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_DashDetails_@dash.Id">
                                 <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Details
                             </a>
-                            @await Html.PartialAsync("~/Views/Dash/OffCanvas/_DashDetails.cshtml", @divm.Dashboard)
+                            @await Html.PartialAsync("~/Views/Dash/OffCanvas/_DashDetails.cshtml", dash)
 
 
-                            <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_DashEdit_@divm.Dashboard.Id">
+                            <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_DashEdit_@dash.Id">
                                 <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i>Edit
                             </a>
-                            @await Html.PartialAsync("~/Views/Dash/OffCanvas/_DashEdit.cshtml", @divm.Dashboard)
+                            @await Html.PartialAsync("~/Views/Dash/OffCanvas/_DashEdit.cshtml", dash)
 
 
-                            <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_DashDelete_@divm.Dashboard.Id">
+                            <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_DashDelete_@dash.Id">
                                 <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
                             </a>
-                            @await Html.PartialAsync("~/Views/Dash/OffCanvas/_DashDelete.cshtml", @divm.Dashboard)
+                            @await Html.PartialAsync("~/Views/Dash/OffCanvas/_DashDelete.cshtml", dash)
 
 
                         </div>

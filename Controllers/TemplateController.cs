@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using GoalTracker.Models;
+using Microsoft.AspNetCore.Identity;
+using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Controllers
 {
@@ -14,16 +16,19 @@ namespace GoalTracker.Controllers
     {
         private readonly GoalTrackerContext _context;
 
-        public TemplateController(GoalTrackerContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public TemplateController(GoalTrackerContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Template
         public async Task<IActionResult> Index()
         {
-            var goalTrackerContext = _context.Template.Include(t => t.Parent);
-            return View(await goalTrackerContext.ToListAsync());
+            var templates = _context.Template.Include(t => t.Parent).Include(t => t.CreatedBy);
+            return View(await templates.ToListAsync());
         }
 
         // GET: Template/Details/5
@@ -59,12 +64,19 @@ namespace GoalTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,JSONData,Id,ParentId,Title,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color")] Template template)
         {
-            if (ModelState.IsValid)
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (user is not null)
             {
-                template.Id = Guid.NewGuid();
-                _context.Add(template);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    template.Id = Guid.NewGuid();
+                    template.CreatedBy = user;
+                    template.CreatedDate = DateTime.Now;
+                    _context.Add(template);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }                
             }
             ViewData["ParentId"] = new SelectList(_context.Set<TrackingRecord>(), "Id", "Discriminator", template.ParentId);
             return View(template);

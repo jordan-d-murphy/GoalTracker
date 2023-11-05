@@ -28,17 +28,8 @@ namespace GoalTracker.Controllers
 
         // GET: DashViz
         public async Task<IActionResult> Index()
-        {
-            var dashVizs = _context.DashViz
-                .Join(_userManager.Users,
-                dashViz => dashViz.CreatedBy,
-                user => user,
-                (dashViz, user) => new DashVizIndexViewModel
-                {
-                    DashViz = dashViz,
-                    CreatedUser = user
-                });
-
+        {          
+            var dashVizs = _context.DashViz.Include(t => t.Parent).Include(t => t.CreatedBy);
             return View(await dashVizs.ToListAsync());
         }
 
