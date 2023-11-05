@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using GoalTracker.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using GoalTracker.Areas.Identity.Data;
+using System.Collections.Immutable;
 
 namespace GoalTracker.Controllers
 {
@@ -16,17 +19,57 @@ namespace GoalTracker.Controllers
     {
         private readonly GoalTrackerContext _context;
 
-        public ActivityEntryController(GoalTrackerContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public ActivityEntryController(GoalTrackerContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: ActivityEntry
         public async Task<IActionResult> Index()
         {
-              return _context.ActivityEntry != null ? 
-                          View(await _context.ActivityEntry.ToListAsync()) :
-                          Problem("Entity set 'GoalTrackerContext.ActivityEntry'  is null.");
+            //   return _context.ActivityEntry != null ? 
+            //               View(await _context.ActivityEntry.ToListAsync()) :
+            //               Problem("Entity set 'GoalTrackerContext.ActivityEntry'  is null.");
+
+
+
+
+            // var activities = _context.ActivityEntry
+            //     .Join(_userManager.Users, 
+            //     activity => activity.CreatedBy, 
+            //     user => user, 
+            //     (activity, user) => new ActivityEntry 
+            //     { 
+            //         Id = activity.Id,
+            //         Title = activity.Title,
+            //         Description = activity.Description,
+            //         CreatedDate = activity.CreatedDate,
+            //         StartedDate = activity.StartedDate,
+            //         TargetDate = activity.TargetDate,
+            //         CompletedDate = activity.CompletedDate,
+            //         Completed = activity.Completed,
+            //         Favorited = activity.Favorited,
+            //         Category = activity.Category,
+            //         Icon = activity.Icon,
+            //         Color = activity.Color,
+            //         CreatedBy = user 
+            //     });
+            // return View(await activities.ToListAsync());
+
+            var activities = _context.ActivityEntry
+                .Join(_userManager.Users, 
+                activity => activity.CreatedBy, 
+                user => user, 
+                (activity, user) => new ActivityIndexViewModel 
+                { 
+                    Activity = activity,
+                    CreatedUser = user 
+                });
+            return View(await activities.ToListAsync());
+            
         }
 
         // GET: ActivityEntry/Details/5
@@ -63,6 +106,8 @@ namespace GoalTracker.Controllers
             if (ModelState.IsValid)
             {
                 activityEntry.Id = Guid.NewGuid();
+                activityEntry.CreatedBy = _userManager.GetUserAsync(User).Result;
+                activityEntry.CreatedDate = DateTime.Now;
                 _context.Add(activityEntry);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

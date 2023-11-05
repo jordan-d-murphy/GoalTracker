@@ -1,4 +1,5 @@
-@model IEnumerable<GoalTracker.Models.ActivityEntry>
+@* @model IEnumerable<GoalTracker.Models.ActivityEntry> *@
+@model IEnumerable<GoalTracker.Models.ActivityIndexViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -20,7 +21,7 @@
 
 <div class="row g-0">
 
-    @foreach (var activity in Model)
+    @foreach (var aivm in Model)
     {
         <div class="col-md-10 offset-md-1">
             <div class="card p-3 mt-3">
@@ -30,28 +31,31 @@
                     <div class="col-md-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">@activity.Title</h5>
-                                <h6 class="card-subtitle mb-2 text-muted">@activity.Category</h6>
-                                <p class="card-text">@activity.Description</p>
+                                <h5 class="card-title">@aivm.Activity?.Title</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">@aivm.Activity?.Category</h6>
+                                <p class="card-text">@aivm.Activity?.Description</p>
+                                <p class="card-text">@aivm.CreatedUser?.Email</p>
+                                <p class="card-text">@aivm.CreatedUser?.Id</p>
+                                <p class="card-text">@aivm.Activity?.CreatedDate</p>
 
                                 <ul>
                                     <li class="list-group-item">
-                                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ActivityEntryDetails_@activity.Id">
+                                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ActivityEntryDetails_@aivm.Activity?.Id">
                                             <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i> Details
                                         </a>
-                                        @await Html.PartialAsync("~/Views/ActivityEntry/OffCanvas/_ActivityEntryDetails.cshtml", @activity)
+                                        @await Html.PartialAsync("~/Views/ActivityEntry/OffCanvas/_ActivityEntryDetails.cshtml", @aivm.Activity)
                                     </li>
                                     <li class="list-group-item">
-                                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ActivityEntryEdit_@activity.Id">
+                                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ActivityEntryEdit_@aivm.Activity?.Id">
                                             <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i> Edit
                                         </a>
-                                        @await Html.PartialAsync("~/Views/ActivityEntry/OffCanvas/_ActivityEntryEdit.cshtml", @activity)
+                                        @await Html.PartialAsync("~/Views/ActivityEntry/OffCanvas/_ActivityEntryEdit.cshtml", @aivm.Activity)
                                     </li>
                                     <li class="list-group-item">
-                                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ActivityEntryDelete_@activity.Id">
+                                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_ActivityEntryDelete_@aivm.Activity?.Id">
                                             <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
                                         </a>
-                                        @await Html.PartialAsync("~/Views/ActivityEntry/OffCanvas/_ActivityEntryDelete.cshtml", @activity)
+                                        @await Html.PartialAsync("~/Views/ActivityEntry/OffCanvas/_ActivityEntryDelete.cshtml", @aivm.Activity)
                                     </li>
                                 </ul>
 
