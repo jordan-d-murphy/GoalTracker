@@ -7,13 +7,14 @@
 <h1>Support Request Index</h1>
 
 
-<p>
+<ul class="nav">
+
     <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_SupportRequestCreate">
         <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Open a New Support Request
     </a>
     @await Html.PartialAsync("~/Views/SupportRequest/OffCanvas/_SupportRequestCreate.cshtml", new SupportRequest() { })
 
-</p>
+</ul>
 
 
 

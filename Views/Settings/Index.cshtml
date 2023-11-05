@@ -6,13 +6,14 @@
 
 <h1>Settings Index</h1>
 
-<p>
+<ul class="nav">
+
     <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_SettingsCreate">
         <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Create New Settings
     </a>
     @await Html.PartialAsync("~/Views/Settings/OffCanvas/_SettingsCreate.cshtml", new Settings() { })
 
-</p>
+</ul>
 
 
 
