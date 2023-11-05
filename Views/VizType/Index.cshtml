@@ -1,4 +1,3 @@
-
 @model IEnumerable<GoalTracker.Models.VizType>
 
 @{
@@ -11,9 +10,9 @@
 
     <li class="nav-item">
         <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_VizTypeCreate">
-        <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Create New VizType
-    </a>
-    @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeCreate.cshtml", new VizType() { })
+            <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Create New VizType
+        </a>
+        @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeCreate.cshtml", new VizType() { })
     </li>
     <li class="nav-item">
         <a class="nav-link" asp-controller="Dash" asp-action="Index">
@@ -28,46 +27,55 @@
 </ul>
 
 
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-4">
-            <div class="card mt-3 mr-3" style="height: 14rem;">
-                <div class="card-header">
-                    <h5 class="card-title">
-                        @Html.DisplayFor(modelItem => item.Name)                        
-                    </h5>
-                </div>
-                <div class="card-body">
-                    <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(modelItem => item.Name)</h6>
-                    <p class="card-text">
-                        @Html.DisplayFor(modelItem => item.Id)
-                    </p>
 
-                </div>
-                <div class="card-footer">
+<div class="col-md-10 offset-md-1">
+    <div class="row g-0">
+
+        @foreach (var item in Model)
+        {
 
 
-                    <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_VizTypeDetails_@item.Id">
-                        <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Details                        
-                    </a>
-                    @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeDetails.cshtml", @item)
+            <div class=" pt-3 pe-3 col-md-4">
+
+                <div class="card" style="height: 14rem;">
+                    <div class="card-header">
+                        <h5 class="card-title">
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-body-secondary">@Html.DisplayFor(modelItem => item.Name)</h6>
+                        <p class="card-text">
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </p>
+
+                    </div>
+                    <div class="card-footer">
 
 
-                    <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_VizTypeEdit_@item.Id">
-                        <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i>Edit                        
-                    </a>
-                    @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeEdit.cshtml", @item)
-                                                
-
-                    <a class="" data-bs-toggle="offcanvas" href="#offCanvas_VizTypeDelete_@item.Id">
-                        <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
-                    </a>
-                    @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeDelete.cshtml", @item)
+                        <a class="card-link align-bottom" data-bs-toggle="offcanvas"
+                            href="#offCanvas_VizTypeDetails_@item.Id">
+                            <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Details
+                        </a>
+                        @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeDetails.cshtml", @item)
 
 
+                        <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_VizTypeEdit_@item.Id">
+                            <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i>Edit
+                        </a>
+                        @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeEdit.cshtml", @item)
+
+
+                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_VizTypeDelete_@item.Id">
+                            <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
+                        </a>
+                        @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeDelete.cshtml", @item)
+
+
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+
+        }
+    </div>
 </div>
