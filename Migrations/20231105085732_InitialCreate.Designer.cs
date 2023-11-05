@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoalTracker.Migrations
 {
     [DbContext(typeof(GoalTrackerContext))]
-    [Migration("20231105071452_InitialCreate")]
+    [Migration("20231105085732_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -305,20 +305,6 @@ namespace GoalTracker.Migrations
                     b.ToTable("Kai");
                 });
 
-            modelBuilder.Entity("GoalTracker.Models.MetricType", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MetricType");
-                });
-
             modelBuilder.Entity("GoalTracker.Models.ReactionEmoji", b =>
                 {
                     b.Property<Guid>("Id")
@@ -449,20 +435,6 @@ namespace GoalTracker.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("TrackingRecord");
 
                     b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("GoalTracker.Models.VizType", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("VizType");
                 });
 
             modelBuilder.Entity("GoalTracker.Models.ActivityEntry", b =>
@@ -648,6 +620,28 @@ namespace GoalTracker.Migrations
                     b.HasDiscriminator().HasValue("Metric");
                 });
 
+            modelBuilder.Entity("GoalTracker.Models.MetricType", b =>
+                {
+                    b.HasBaseType("GoalTracker.Models.TrackingRecord");
+
+                    b.Property<string>("JSONData")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.ToTable("TrackingRecord", t =>
+                        {
+                            t.Property("JSONData")
+                                .HasColumnName("MetricType_JSONData");
+
+                            t.Property("Name")
+                                .HasColumnName("MetricType_Name");
+                        });
+
+                    b.HasDiscriminator().HasValue("MetricType");
+                });
+
             modelBuilder.Entity("GoalTracker.Models.Milestone", b =>
                 {
                     b.HasBaseType("GoalTracker.Models.TrackingRecord");
@@ -806,6 +800,28 @@ namespace GoalTracker.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasDiscriminator().HasValue("Template");
+                });
+
+            modelBuilder.Entity("GoalTracker.Models.VizType", b =>
+                {
+                    b.HasBaseType("GoalTracker.Models.TrackingRecord");
+
+                    b.Property<string>("JSONData")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.ToTable("TrackingRecord", t =>
+                        {
+                            t.Property("JSONData")
+                                .HasColumnName("VizType_JSONData");
+
+                            t.Property("Name")
+                                .HasColumnName("VizType_Name");
+                        });
+
+                    b.HasDiscriminator().HasValue("VizType");
                 });
 
             modelBuilder.Entity("GoalTracker.Areas.Identity.Data.ApplicationRoleClaim", b =>

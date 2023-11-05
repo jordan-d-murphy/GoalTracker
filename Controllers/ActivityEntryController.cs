@@ -29,47 +29,20 @@ namespace GoalTracker.Controllers
 
         // GET: ActivityEntry
         public async Task<IActionResult> Index()
-        {
-            //   return _context.ActivityEntry != null ? 
-            //               View(await _context.ActivityEntry.ToListAsync()) :
-            //               Problem("Entity set 'GoalTrackerContext.ActivityEntry'  is null.");
-
-
-
-
-            // var activities = _context.ActivityEntry
-            //     .Join(_userManager.Users, 
-            //     activity => activity.CreatedBy, 
-            //     user => user, 
-            //     (activity, user) => new ActivityEntry 
-            //     { 
-            //         Id = activity.Id,
-            //         Title = activity.Title,
-            //         Description = activity.Description,
-            //         CreatedDate = activity.CreatedDate,
-            //         StartedDate = activity.StartedDate,
-            //         TargetDate = activity.TargetDate,
-            //         CompletedDate = activity.CompletedDate,
-            //         Completed = activity.Completed,
-            //         Favorited = activity.Favorited,
-            //         Category = activity.Category,
-            //         Icon = activity.Icon,
-            //         Color = activity.Color,
-            //         CreatedBy = user 
-            //     });
-            // return View(await activities.ToListAsync());
+        {            
 
             var activities = _context.ActivityEntry
-                .Join(_userManager.Users, 
-                activity => activity.CreatedBy, 
-                user => user, 
-                (activity, user) => new ActivityIndexViewModel 
-                { 
+                .Join(_userManager.Users,
+                activity => activity.CreatedBy,
+                user => user,
+                (activity, user) => new ActivityIndexViewModel
+                {
                     Activity = activity,
-                    CreatedUser = user 
+                    CreatedUser = user
                 });
+
             return View(await activities.ToListAsync());
-            
+
         }
 
         // GET: ActivityEntry/Details/5
@@ -103,15 +76,21 @@ namespace GoalTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ParentId,Title,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color")] ActivityEntry activityEntry)
         {
-            if (ModelState.IsValid)
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (user is not null)
             {
-                activityEntry.Id = Guid.NewGuid();
-                activityEntry.CreatedBy = _userManager.GetUserAsync(User).Result;
-                activityEntry.CreatedDate = DateTime.Now;
-                _context.Add(activityEntry);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    activityEntry.Id = Guid.NewGuid();
+                    activityEntry.CreatedBy = user;
+                    activityEntry.CreatedDate = DateTime.Now;
+                    _context.Add(activityEntry);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
+
             return View(activityEntry);
         }
 
@@ -198,14 +177,14 @@ namespace GoalTracker.Controllers
             {
                 _context.ActivityEntry.Remove(activityEntry);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ActivityEntryExists(Guid id)
         {
-          return (_context.ActivityEntry?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.ActivityEntry?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

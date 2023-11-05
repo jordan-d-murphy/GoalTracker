@@ -58,7 +58,7 @@ namespace GoalTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] MetricType metricType)
+        public async Task<IActionResult> Create([Bind("Id,ParentId,Title,Name,JSONData,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color")] MetricType metricType)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace GoalTracker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name")] MetricType metricType)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,ParentId,Title,Name,JSONData,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color")] MetricType metricType)
         {
             if (id != metricType.Id)
             {

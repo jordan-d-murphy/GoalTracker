@@ -41,18 +41,6 @@ namespace GoalTracker.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MetricType",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MetricType", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Subscription",
                 columns: table => new
                 {
@@ -66,18 +54,6 @@ namespace GoalTracker.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Subscription", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "VizType",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_VizType", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -276,6 +252,8 @@ namespace GoalTracker.Migrations
                     Metric_Name = table.Column<string>(type: "TEXT", nullable: true),
                     Metric_TypeId = table.Column<Guid>(type: "TEXT", nullable: true),
                     Metric_JSONData = table.Column<string>(type: "TEXT", nullable: true),
+                    MetricType_Name = table.Column<string>(type: "TEXT", nullable: true),
+                    MetricType_JSONData = table.Column<string>(type: "TEXT", nullable: true),
                     Text = table.Column<string>(type: "TEXT", nullable: true),
                     Note_TrackingRecordId = table.Column<Guid>(type: "TEXT", nullable: true),
                     TeamId = table.Column<Guid>(type: "TEXT", nullable: true),
@@ -288,7 +266,9 @@ namespace GoalTracker.Migrations
                     Settings_JSONData = table.Column<string>(type: "TEXT", nullable: true),
                     TrackingRecordId = table.Column<Guid>(type: "TEXT", nullable: true),
                     Name = table.Column<string>(type: "TEXT", nullable: true),
-                    JSONData = table.Column<string>(type: "TEXT", nullable: true)
+                    JSONData = table.Column<string>(type: "TEXT", nullable: true),
+                    VizType_Name = table.Column<string>(type: "TEXT", nullable: true),
+                    VizType_JSONData = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -309,13 +289,13 @@ namespace GoalTracker.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_TrackingRecord_MetricType_Metric_TypeId",
-                        column: x => x.Metric_TypeId,
-                        principalTable: "MetricType",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_TrackingRecord_TrackingRecord_DashId",
                         column: x => x.DashId,
+                        principalTable: "TrackingRecord",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_TrackingRecord_TrackingRecord_DashViz_TypeId",
+                        column: x => x.DashViz_TypeId,
                         principalTable: "TrackingRecord",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -334,6 +314,11 @@ namespace GoalTracker.Migrations
                         principalTable: "TrackingRecord",
                         principalColumn: "Id");
                     table.ForeignKey(
+                        name: "FK_TrackingRecord_TrackingRecord_Metric_TypeId",
+                        column: x => x.Metric_TypeId,
+                        principalTable: "TrackingRecord",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_TrackingRecord_TrackingRecord_Note_TrackingRecordId",
                         column: x => x.Note_TrackingRecordId,
                         principalTable: "TrackingRecord",
@@ -346,6 +331,11 @@ namespace GoalTracker.Migrations
                     table.ForeignKey(
                         name: "FK_TrackingRecord_TrackingRecord_PriorityId",
                         column: x => x.PriorityId,
+                        principalTable: "TrackingRecord",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_TrackingRecord_TrackingRecord_Report_TypeId",
+                        column: x => x.Report_TypeId,
                         principalTable: "TrackingRecord",
                         principalColumn: "Id");
                     table.ForeignKey(
@@ -367,16 +357,6 @@ namespace GoalTracker.Migrations
                         name: "FK_TrackingRecord_TrackingRecord_TypeId",
                         column: x => x.TypeId,
                         principalTable: "TrackingRecord",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_TrackingRecord_VizType_DashViz_TypeId",
-                        column: x => x.DashViz_TypeId,
-                        principalTable: "VizType",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_TrackingRecord_VizType_Report_TypeId",
-                        column: x => x.Report_TypeId,
-                        principalTable: "VizType",
                         principalColumn: "Id");
                 });
 
@@ -662,12 +642,6 @@ namespace GoalTracker.Migrations
 
             migrationBuilder.DropTable(
                 name: "TrackingRecord");
-
-            migrationBuilder.DropTable(
-                name: "MetricType");
-
-            migrationBuilder.DropTable(
-                name: "VizType");
         }
     }
 }

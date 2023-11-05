@@ -29,18 +29,15 @@ namespace GoalTracker.Controllers
         // GET: Dash
         public async Task<IActionResult> Index()
         {
-            //   return _context.Dash != null ? 
-            //               View(await _context.Dash.ToListAsync()) :
-            //               Problem("Entity set 'GoalTrackerContext.Dash'  is null.");
 
-             var dashes = _context.Dash
-                .Join(_userManager.Users, 
-                dash => dash.CreatedBy, 
-                user => user, 
-                (dash, user) => new DashIndexViewModel 
-                { 
+            var dashes = _context.Dash
+                .Join(_userManager.Users,
+                dash => dash.CreatedBy,
+                user => user,
+                (dash, user) => new DashIndexViewModel
+                {
                     Dashboard = dash,
-                    CreatedUser = user 
+                    CreatedUser = user
                 });
             return View(await dashes.ToListAsync());
         }
@@ -76,14 +73,19 @@ namespace GoalTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,Id,ParentId,Title,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color")] Dash dash)
         {
-            if (ModelState.IsValid)
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (user is not null)
             {
-                dash.Id = Guid.NewGuid();
-                dash.CreatedBy = _userManager.GetUserAsync(User).Result;
-                dash.CreatedDate = DateTime.Now;
-                _context.Add(dash);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    dash.Id = Guid.NewGuid();
+                    dash.CreatedBy = user;
+                    dash.CreatedDate = DateTime.Now;
+                    _context.Add(dash);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(dash);
         }
@@ -171,14 +173,14 @@ namespace GoalTracker.Controllers
             {
                 _context.Dash.Remove(dash);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool DashExists(Guid id)
         {
-          return (_context.Dash?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Dash?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

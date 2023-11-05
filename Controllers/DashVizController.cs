@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using GoalTracker.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Controllers
 {
@@ -16,17 +18,28 @@ namespace GoalTracker.Controllers
     {
         private readonly GoalTrackerContext _context;
 
-        public DashVizController(GoalTrackerContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public DashVizController(GoalTrackerContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: DashViz
         public async Task<IActionResult> Index()
         {
-              return _context.DashViz != null ? 
-                          View(await _context.DashViz.ToListAsync()) :
-                          Problem("Entity set 'GoalTrackerContext.DashViz'  is null.");
+            var dashVizs = _context.DashViz
+                .Join(_userManager.Users,
+                dashViz => dashViz.CreatedBy,
+                user => user,
+                (dashViz, user) => new DashVizIndexViewModel
+                {
+                    DashViz = dashViz,
+                    CreatedUser = user
+                });
+
+            return View(await dashVizs.ToListAsync());
         }
 
         // GET: DashViz/Details/5
@@ -60,12 +73,19 @@ namespace GoalTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,JSONData,Id,ParentId,Title,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color")] DashViz dashViz)
         {
-            if (ModelState.IsValid)
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (user is not null)
             {
-                dashViz.Id = Guid.NewGuid();
-                _context.Add(dashViz);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    dashViz.Id = Guid.NewGuid();
+                    dashViz.CreatedBy = user;
+                    dashViz.CreatedDate = DateTime.Now;
+                    _context.Add(dashViz);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(dashViz);
         }
@@ -153,14 +173,14 @@ namespace GoalTracker.Controllers
             {
                 _context.DashViz.Remove(dashViz);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool DashVizExists(Guid id)
         {
-          return (_context.DashViz?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.DashViz?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

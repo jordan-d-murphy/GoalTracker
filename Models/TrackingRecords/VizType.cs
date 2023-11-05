@@ -1,14 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Security.Policy;
 
 namespace GoalTracker.Models;
 
-public class MetricType
+public class VizType : TrackingRecord
 {
-    public Guid Id { get; set; }
-    
     public string? Name { get; set; }
 
+    public string? JSONData { get; set; }
 }
