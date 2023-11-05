@@ -29,7 +29,6 @@ namespace GoalTracker.Controllers
         // GET: Dash
         public async Task<IActionResult> Index()
         {
-
             var dashes = _context.Dash
                 .Join(_userManager.Users,
                 dash => dash.CreatedBy,

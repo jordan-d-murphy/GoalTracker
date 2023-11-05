@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using GoalTracker.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using GoalTracker.Areas.Identity.Data;
 
 namespace GoalTracker.Controllers
 {
@@ -16,17 +18,27 @@ namespace GoalTracker.Controllers
     {
         private readonly GoalTrackerContext _context;
 
-        public VizTypeController(GoalTrackerContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public VizTypeController(GoalTrackerContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: VizType
         public async Task<IActionResult> Index()
         {
-              return _context.VizType != null ? 
-                          View(await _context.VizType.ToListAsync()) :
-                          Problem("Entity set 'GoalTrackerContext.VizType'  is null.");
+            var vizTypes = _context.VizType
+                .Join(_userManager.Users,
+                vizType => vizType.CreatedBy,
+                user => user,
+                (vizType, user) => new VizTypeIndexViewModel
+                {
+                    VizType = vizType,
+                    CreatedUser = user
+                });
+            return View(await vizTypes.ToListAsync());
         }
 
         // GET: VizType/Details/5
@@ -60,12 +72,19 @@ namespace GoalTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ParentId,Title,Name,JSONData,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color")] VizType vizType)
         {
-            if (ModelState.IsValid)
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (user is not null)
             {
-                vizType.Id = Guid.NewGuid();
-                _context.Add(vizType);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    vizType.Id = Guid.NewGuid();
+                    vizType.CreatedBy = user;
+                    vizType.CreatedDate = DateTime.Now;
+                    _context.Add(vizType);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(vizType);
         }
