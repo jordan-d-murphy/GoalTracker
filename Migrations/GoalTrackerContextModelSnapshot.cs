@@ -450,6 +450,45 @@ namespace GoalTracker.Migrations
                     b.UseTphMappingStrategy();
                 });
 
+            modelBuilder.Entity("Notification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DeliveredTimestamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("GeneratedByApplication")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("MessageBody")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("Read")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("ReadTimestamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("ReceiverId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("SenderId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("SentTimestamp")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Notification");
+                });
+
             modelBuilder.Entity("GoalTracker.Models.ActivityEntry", b =>
                 {
                     b.HasBaseType("GoalTracker.Models.TrackingRecord");
@@ -999,6 +1038,21 @@ namespace GoalTracker.Migrations
                     b.Navigation("Reviewer");
 
                     b.Navigation("Status");
+                });
+
+            modelBuilder.Entity("Notification", b =>
+                {
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "Receiver")
+                        .WithMany()
+                        .HasForeignKey("ReceiverId");
+
+                    b.HasOne("GoalTracker.Areas.Identity.Data.ApplicationUser", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId");
+
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("GoalTracker.Models.DashViz", b =>

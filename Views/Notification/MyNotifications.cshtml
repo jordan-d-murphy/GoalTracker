@@ -1,0 +1,57 @@
+@model IEnumerable<Notification>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>My notifications</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MessageBody)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SentTimestamp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveredTimestamp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReadTimestamp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Read)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GeneratedByApplication)
+            </th>            
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MessageBody)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SentTimestamp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveredTimestamp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReadTimestamp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Read)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GeneratedByApplication)
+            </td>            
+        </tr>
+}
+    </tbody>
+</table>

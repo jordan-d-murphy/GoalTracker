@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Configuration;
 using GoalTracker.Utils;
 using Microsoft.Extensions.ObjectPool;
+using Producer.RabbitMQ;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,11 +38,15 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<IMessageProducer, RabbitMQProducer>();
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+
+
 
     SeedData.Initialize(services);
 
@@ -75,7 +82,7 @@ using (var scope = app.Services.CreateScope())
     // Create Test user if does not exist
     var testUserUserName = builder.Configuration["TestUserUserName"];
     var testUserEmail = builder.Configuration["TestUserEmail"];
-    var testUserPassword = builder.Configuration["TestUserPassword"];    
+    var testUserPassword = builder.Configuration["TestUserPassword"];
 
     if (String.IsNullOrEmpty(testUserUserName) || String.IsNullOrEmpty(testUserEmail) || String.IsNullOrEmpty(testUserPassword))
     {
@@ -86,6 +93,12 @@ using (var scope = app.Services.CreateScope())
     {
         var success = await Utils.CreateUser(testUserUserName, testUserEmail, testUserPassword, new string[] { "ConfirmedAccount" }, userManager);
     }
+
+
+
+
+
+    
 
 }
 

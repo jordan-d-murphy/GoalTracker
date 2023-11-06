@@ -169,6 +169,35 @@ namespace GoalTracker.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notification",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    MessageBody = table.Column<string>(type: "TEXT", nullable: true),
+                    SenderId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    ReceiverId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    SentTimestamp = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    DeliveredTimestamp = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    ReadTimestamp = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Read = table.Column<bool>(type: "INTEGER", nullable: false),
+                    GeneratedByApplication = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notification", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Notification_AspNetUsers_ReceiverId",
+                        column: x => x.ReceiverId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Notification_AspNetUsers_SenderId",
+                        column: x => x.SenderId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Subscription",
                 columns: table => new
                 {
@@ -471,6 +500,16 @@ namespace GoalTracker.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Notification_ReceiverId",
+                table: "Notification",
+                column: "ReceiverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notification_SenderId",
+                table: "Notification",
+                column: "SenderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ReactionEmoji_CreatedById",
                 table: "ReactionEmoji",
                 column: "CreatedById");
@@ -651,6 +690,9 @@ namespace GoalTracker.Migrations
 
             migrationBuilder.DropTable(
                 name: "Kai");
+
+            migrationBuilder.DropTable(
+                name: "Notification");
 
             migrationBuilder.DropTable(
                 name: "ReactionEmoji");

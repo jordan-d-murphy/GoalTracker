@@ -110,5 +110,7 @@ namespace GoalTracker.Data
         public DbSet<GoalTracker.Models.Template> Template { get; set; } = default!;
 
         public DbSet<GoalTracker.Models.Kai> Kai { get; set; } = default!;
+
+        public DbSet<Notification> Notification { get; set; } = default!;
     }
 }
