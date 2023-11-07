@@ -15,3 +15,9 @@ https://fonts.google.com/specimen/Tajawal
 
 ### FullCalendar Docs 
 https://fullcalendar.io/docs
+
+### RabbitMQ 
+https://www.rabbitmq.com/documentation.html
+
+### SignalR
+https://learn.microsoft.com/en-us/aspnet/signalr/
