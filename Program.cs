@@ -38,7 +38,7 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddScoped<IMessageProducer, RabbitMQProducer>();
+builder.Services.AddSingleton<IMessageProducer, RabbitMQProducer>();
 
 var app = builder.Build();
 

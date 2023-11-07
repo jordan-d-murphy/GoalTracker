@@ -59,13 +59,10 @@ namespace GoalTracker.Controllers
                 var body = eventArgs.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
                 notifications.Add(new Notification() { MessageBody = message });
-                System.Diagnostics.Debug.WriteLine(message);
+                channel.BasicAck(eventArgs.DeliveryTag, false);                
             };
 
             channel.BasicConsume(queue: "ApplicationNotifications", autoAck: false, consumer: consumer);
-
-
-
 
             return View(notifications);
         }
