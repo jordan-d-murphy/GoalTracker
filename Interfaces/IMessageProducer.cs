@@ -1,4 +1,4 @@
-namespace Producer.RabbitMQ
+namespace GoalTracker.RabbitMQ
 {
     public interface IMessageProducer 
     {

@@ -1,7 +1,7 @@
 using System.Text;
 using Microsoft.Identity.Client;
 using Newtonsoft.Json;
-using Producer.RabbitMQ;
+using GoalTracker.RabbitMQ;
 using RabbitMQ.Client;
 
 namespace GoalTracker.Utils;

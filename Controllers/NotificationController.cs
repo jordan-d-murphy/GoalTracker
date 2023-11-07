@@ -9,9 +9,13 @@ using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using RabbitMQ.Client;
 using System.Runtime.CompilerServices;
-using Producer.RabbitMQ;
+using GoalTracker.RabbitMQ;
 using RabbitMQ.Client.Events;
 using GoalTracker.Models;
+using GoalTracker.Hubs;
+using Microsoft.AspNetCore.Identity;
+using GoalTracker.Areas.Identity.Data;
+using Microsoft.AspNetCore.SignalR;
 
 namespace GoalTracker.Controllers
 {
@@ -21,10 +25,17 @@ namespace GoalTracker.Controllers
 
         private readonly IMessageProducer _messagePublisher;
 
-        public NotificationController(GoalTrackerContext context, IMessageProducer messagePublisher)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        private readonly IHubContext<NotificationHub> _hubContext;
+
+
+        public NotificationController(GoalTrackerContext context, IMessageProducer messagePublisher, UserManager<ApplicationUser> userManager, IHubContext<NotificationHub> hubContext)
         {
             _context = context;
             _messagePublisher = messagePublisher;
+            _userManager = userManager;
+            _hubContext = hubContext;
         }
 
         // GET: Notification
@@ -42,7 +53,8 @@ namespace GoalTracker.Controllers
 
             var factory = new ConnectionFactory { HostName = "localhost" };
             var connection = factory.CreateConnection();
-            using var channel = connection.CreateModel();
+            // using var channel = connection.CreateModel();
+            var channel = connection.CreateModel();
 
             channel.QueueDeclare("ApplicationNotifications",
                     durable: false,
@@ -54,12 +66,18 @@ namespace GoalTracker.Controllers
 
 
             var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (model, eventArgs) =>
+            consumer.Received += async (model, eventArgs) =>
             {
                 var body = eventArgs.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
                 notifications.Add(new Notification() { MessageBody = message });
-                channel.BasicAck(eventArgs.DeliveryTag, false);                
+                channel.BasicAck(eventArgs.DeliveryTag, false);    
+                // var user = _userManager.FindByEmailAsync("");
+                // await new NotificationHub().SendMessage("testUser", message);  
+                // await _hubContext.Clients.All.SendAsync("SendMessage", $"Notification send: {DateTime.Now}, Message: {message}");
+                await _hubContext.Clients.All.SendAsync("ReceiveMessage", $"Notification send: {DateTime.Now}, Message: {message}");
+          
+          
             };
 
             channel.BasicConsume(queue: "ApplicationNotifications", autoAck: false, consumer: consumer);
@@ -105,6 +123,7 @@ namespace GoalTracker.Controllers
                 await _context.SaveChangesAsync();
 
                 _messagePublisher.SendMessage(notification);
+                // _hubContext.Clients.All.SendAsync("ReceiveMessage", $"Notification send: {DateTime.Now}, Message: {notification}");
 
                 return RedirectToAction(nameof(Index));
             }

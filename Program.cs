@@ -10,9 +10,10 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Configuration;
 using GoalTracker.Utils;
 using Microsoft.Extensions.ObjectPool;
-using Producer.RabbitMQ;
+using GoalTracker.RabbitMQ;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using GoalTracker.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,7 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<IMessageProducer, RabbitMQProducer>();
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -122,6 +124,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
-
+app.MapHub<NotificationHub>("/NotificationsHub");
 
 app.Run();
