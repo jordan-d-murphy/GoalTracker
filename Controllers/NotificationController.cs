@@ -16,6 +16,8 @@ using GoalTracker.Hubs;
 using Microsoft.AspNetCore.Identity;
 using GoalTracker.Areas.Identity.Data;
 using Microsoft.AspNetCore.SignalR;
+using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GoalTracker.Controllers
 {
@@ -42,8 +44,9 @@ namespace GoalTracker.Controllers
         public async Task<IActionResult> Index()
         {
             return _context.Notification != null ?
+                        // View(await _context.Notification.Where(n => !n.Read).ToListAsync()) :
                         View(await _context.Notification.ToListAsync()) :
-                        Problem("Entity set 'GoalTrackerContext.Notification'  is null.");
+                        Problem("Entity set 'GoalTrackerContext.Notification'  is nul.");
         }
 
         public async Task<IActionResult> MyNotifications()
@@ -53,8 +56,8 @@ namespace GoalTracker.Controllers
 
             var factory = new ConnectionFactory { HostName = "localhost" };
             var connection = factory.CreateConnection();
-            // using var channel = connection.CreateModel();
             var channel = connection.CreateModel();
+            // var channel = connection.CreateModel();
 
             channel.QueueDeclare("ApplicationNotifications",
                     durable: false,
@@ -70,14 +73,14 @@ namespace GoalTracker.Controllers
             {
                 var body = eventArgs.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
-                notifications.Add(new Notification() { MessageBody = message });
-                channel.BasicAck(eventArgs.DeliveryTag, false);    
+                notifications.Add(new Notification() { MessageBody = message, SentTimestamp = DateTime.Now });
+                channel.BasicAck(eventArgs.DeliveryTag, false);
                 // var user = _userManager.FindByEmailAsync("");
                 // await new NotificationHub().SendMessage("testUser", message);  
                 // await _hubContext.Clients.All.SendAsync("SendMessage", $"Notification send: {DateTime.Now}, Message: {message}");
-                await _hubContext.Clients.All.SendAsync("ReceiveMessage", $"Notification send: {DateTime.Now}, Message: {message}");
-          
-          
+                await _hubContext.Clients.All.SendAsync("ReceiveMessage", message);
+
+
             };
 
             channel.BasicConsume(queue: "ApplicationNotifications", autoAck: false, consumer: consumer);
@@ -119,6 +122,7 @@ namespace GoalTracker.Controllers
             if (ModelState.IsValid)
             {
                 notification.Id = Guid.NewGuid();
+                notification.SentTimestamp = DateTime.Now;
                 _context.Add(notification);
                 await _context.SaveChangesAsync();
 
@@ -179,6 +183,41 @@ namespace GoalTracker.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(notification);
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<bool> MarkAsRead(Guid id)
+        {
+            if (_context.Notification == null)
+            {
+                return false;
+            }
+
+            var notification = await _context.Notification.FindAsync(id);
+            if (notification == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                notification.Read = true;
+                _context.Update(notification);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!NotificationExists(notification.Id))
+                {
+                    return false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return true;
         }
 
         // GET: Notification/Delete/5
