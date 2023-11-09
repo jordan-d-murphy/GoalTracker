@@ -65,7 +65,7 @@ function MarkAsRead(id) {
         success: function (response) {
             var div = document.getElementById('notification_' + id);
             div.remove();
-            UpdateDisplayTimes();
+            // UpdateDisplayTimes();
            
         },
         complete: function () {
@@ -77,4 +77,5 @@ function MarkAsRead(id) {
     });
 
 }
+
 

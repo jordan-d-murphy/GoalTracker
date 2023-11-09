@@ -54,15 +54,16 @@
 
     <footer class="border-top-0 footer text-muted">
         <div class="container d-flex justify-content-end z-10k">
-            koala &copy; 2023 <a class="nav-link ms-1" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            @* 
-                @{
-                    var controller = ViewContext.RouteData.Values["controller"];
-                    var action = ViewContext.RouteData.Values["action"];
+            koala &copy; 2023 <a class="nav-link ms-1" asp-area="" asp-controller="Home"
+                asp-action="Privacy">Privacy</a>
+            @*
+            @{
+            var controller = ViewContext.RouteData.Values["controller"];
+            var action = ViewContext.RouteData.Values["action"];
 
-                    <p class="px-5">Controller: @controller</p>
-                    <p class="px-5">Action: @action</p>
-                } 
+            <p class="px-5">Controller: @controller</p>
+            <p class="px-5">Action: @action</p>
+            }
             *@
         </div>
     </footer>
@@ -71,6 +72,15 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+
+
+    <script>
+        $(document).ready(function () {
+            console.log("Page loaded, checking notifications...")
+            GetCountUnreadNotifications();
+        });
+    </script>
+
 </body>
 
 </html>

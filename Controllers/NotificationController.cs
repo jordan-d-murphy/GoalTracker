@@ -225,6 +225,18 @@ namespace GoalTracker.Controllers
             return true;
         }
 
+        [AllowAnonymous]
+        public int GetCountUnreadNotifications()
+        {
+            if (_context.Notification == null)
+            {
+                return 0;
+            }
+
+            var count = _context.Notification.Where(n => !n.Read).Count();            
+            return count;
+        }
+
         // GET: Notification/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {

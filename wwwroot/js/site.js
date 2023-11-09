@@ -53,13 +53,13 @@ $(document).ready(function () {
             var chat = $('#chat')
             var userInputDiv = $('<div class="card card-body text-start ms-auto mb-3" style="width: fit-content; max-width: 80%;">' + input.val() + '</div>')
             userInputDiv.appendTo(chat)
-            userInputDiv[0].scrollIntoView({ behavior: "smooth"})
+            userInputDiv[0].scrollIntoView({ behavior: "smooth" })
             input.val('')
 
             var kaiResponseDiv = $('<div class="card card-body text-start me-auto mb-3" style="width: fit-content; max-width: 80%; background-color: #D7F0F4; color: black !important;">'
                 + 'You asked: <strong>' + test + '</strong></div>')
             kaiResponseDiv.appendTo(chat)
-            kaiResponseDiv[0].scrollIntoView({ behavior: "smooth"})
+            kaiResponseDiv[0].scrollIntoView({ behavior: "smooth" })
 
         }
 
@@ -189,9 +189,47 @@ $(document).ready(function () {
 
 
 
+
+
+
+
 })
 
 
 
 
 
+
+function GetCountUnreadNotifications() {
+
+    console.log("Notifications count: ");
+
+    const currentUrl = window.location.href;
+    console.log(currentUrl);
+    
+    var url = 'Notification/GetCountUnreadNotifications';
+    if (currentUrl.includes("/Notification/")) {
+        url = 'GetCountUnreadNotifications';
+    }
+
+    
+
+
+    $.ajax({
+        type: "GET",
+        url: url,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            console.log(response + " unread notifications.");
+
+        },
+        complete: function () {
+
+        },
+        failure: function (jqXHR, textStatus, errorThrown) {
+            alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message  
+        }
+    });
+
+}
