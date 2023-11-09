@@ -223,6 +223,12 @@ function GetCountUnreadNotifications() {
         success: function (response) {
             console.log(response + " unread notifications.");
 
+            if (response === 0) {
+                $("#unreadNotificationIcon").attr('style','font-size: 1rem; color: white;');
+            } else {
+                $("#unreadNotificationIcon").attr('style','font-size: 1rem; color: red;');
+            }
+
         },
         complete: function () {
 

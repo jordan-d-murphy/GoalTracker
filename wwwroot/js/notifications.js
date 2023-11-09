@@ -25,6 +25,9 @@ $(document).ready(function () {
         document.getElementById("notificationsList").prepend(li);
         UpdateDisplayTimes();
 
+
+        $("#unreadNotificationIcon").attr('style','font-size: 1rem; color: red;');
+
     });
 
     connection.start();
@@ -66,6 +69,9 @@ function MarkAsRead(id) {
             var div = document.getElementById('notification_' + id);
             div.remove();
             // UpdateDisplayTimes();
+
+            GetCountUnreadNotifications();
+            
            
         },
         complete: function () {
