@@ -21,3 +21,7 @@ https://www.rabbitmq.com/documentation.html
 
 ### SignalR
 https://learn.microsoft.com/en-us/aspnet/signalr/
+
+### Day.js
+https://day.js.org/en/
+https://day.js.org/docs/en/display/from-now
