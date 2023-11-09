@@ -45,7 +45,7 @@ namespace GoalTracker.Controllers
         {
             return _context.Notification != null ?
                         // View(await _context.Notification.Where(n => !n.Read).ToListAsync()) :
-                        View(await _context.Notification.ToListAsync()) :
+                        View(await _context.Notification.Where(n => !n.Read).OrderByDescending(n => n.SentTimestamp).ToListAsync()) :
                         Problem("Entity set 'GoalTrackerContext.Notification'  is nul.");
         }
 
@@ -85,7 +85,12 @@ namespace GoalTracker.Controllers
 
             channel.BasicConsume(queue: "ApplicationNotifications", autoAck: false, consumer: consumer);
 
-            return View(notifications);
+            return _context.Notification != null ?
+                        // View(await _context.Notification.Where(n => !n.Read).ToListAsync()) :
+                        View(await _context.Notification.Where(n => !n.Read).OrderByDescending(n => n.SentTimestamp).ToListAsync()) :
+                        Problem("Entity set 'GoalTrackerContext.Notification'  is nul.");
+
+            // return View(notifications);
         }
 
         // GET: Notification/Details/5
