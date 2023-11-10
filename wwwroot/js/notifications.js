@@ -11,6 +11,9 @@ $(document).ready(function () {
 
     connection.on("ReceiveMessage", function (message) {
 
+        console.log("\n\n\nhit 'ReceiveMessage' in notifications js file...\n\n\n");
+
+
         let data = JSON.parse(message);
         let li = document.createElement('a');
         li.id = 'notification_' + data.Id;
@@ -67,7 +70,10 @@ function MarkAsRead(id) {
         dataType: "json",
         success: function (response) {
             var div = document.getElementById('notification_' + id);
-            div.remove();
+            if (div != null) {
+                div.remove();
+            }
+
             // UpdateDisplayTimes();
 
             GetCountUnreadNotifications();

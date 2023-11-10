@@ -187,6 +187,22 @@ $(document).ready(function () {
 
 
 
+    var connection = new signalR.HubConnectionBuilder().withUrl("/NotificationsHub").build();
+
+    connection.on("ReceiveMessage", function (message) {
+        console.log("\n\n\nhit 'ReceiveMessage' from '/NotificationsHub' in site.js file...\n\n\n");
+        $("#unreadNotificationIcon").attr('style','font-size: 1rem; color: red;');
+    });
+
+    connection.on("ClearNotificationIcon", function (message) {
+        console.log("\n\n\nhit 'ClearNotificationIcon' from '/NotificationsHub' in site.js file...\n\n\n");
+        $("#unreadNotificationIcon").attr('style','font-size: 1rem; color: white;');
+
+    });
+
+    connection.start();
+
+
 
 
 
@@ -225,6 +241,27 @@ function GetCountUnreadNotifications() {
 
             if (response === 0) {
                 $("#unreadNotificationIcon").attr('style','font-size: 1rem; color: white;');
+
+                $.ajax({
+                    type: "GET",
+                    url: 'ClearNotificationIcon',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        var div = document.getElementById('notification_' + id);
+                        if (div != null) {
+                            div.remove();
+                        }    
+                        GetCountUnreadNotifications();
+                        
+                    },
+                    complete: function () {
+            
+                    },
+                    failure: function (jqXHR, textStatus, errorThrown) {
+                        alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message  
+                    }
+                });
             } else {
                 $("#unreadNotificationIcon").attr('style','font-size: 1rem; color: red;');
             }
@@ -239,3 +276,4 @@ function GetCountUnreadNotifications() {
     });
 
 }
+

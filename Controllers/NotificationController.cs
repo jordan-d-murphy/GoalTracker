@@ -76,7 +76,6 @@ namespace GoalTracker.Controllers
                 notifications.Add(new Notification() { MessageBody = message, SentTimestamp = DateTime.Now });
                 channel.BasicAck(eventArgs.DeliveryTag, false);
                 // var user = _userManager.FindByEmailAsync("");
-                // await new NotificationHub().SendMessage("testUser", message);  
                 // await _hubContext.Clients.All.SendAsync("SendMessage", $"Notification send: {DateTime.Now}, Message: {message}");
                 await _hubContext.Clients.All.SendAsync("ReceiveMessage", message);
 
@@ -235,6 +234,12 @@ namespace GoalTracker.Controllers
 
             var count = _context.Notification.Where(n => !n.Read).Count();            
             return count;
+        }
+
+        [AllowAnonymous]
+        public async void ClearNotificationIcon()
+        {
+            await _hubContext.Clients.All.SendAsync("ClearNotificationIcon", true);
         }
 
         // GET: Notification/Delete/5

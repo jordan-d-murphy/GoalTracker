@@ -14,6 +14,7 @@ using GoalTracker.RabbitMQ;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using GoalTracker.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<IMessageProducer, RabbitMQProducer>();
 builder.Services.AddSignalR();
+
 
 var app = builder.Build();
 
@@ -125,5 +127,58 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 app.MapHub<NotificationHub>("/NotificationsHub");
+
+
+
+app.Use(async (context, next) =>
+{
+    var msg = " \n\n\nThis is from the middleware... howdy!\n\n\n ";
+    System.Diagnostics.Debug.WriteLine(msg);
+
+
+    var _hubContext = context.RequestServices.GetRequiredService<IHubContext<NotificationHub>>();
+
+    var factory = new ConnectionFactory { HostName = "localhost" };
+    var connection = factory.CreateConnection();
+    var channel = connection.CreateModel();
+    // var channel = connection.CreateModel();
+
+    channel.QueueDeclare("ApplicationNotifications",
+            durable: false,
+            exclusive: false,
+            autoDelete: false,
+            arguments: null);
+
+
+
+
+    var consumer = new EventingBasicConsumer(channel);
+    consumer.Received += async (model, eventArgs) =>
+    {
+
+        System.Diagnostics.Debug.WriteLine(" \n\n\nconsumer.Received += async (model, eventArgs) =>\n\n\n ");
+
+        var body = eventArgs.Body.ToArray();
+        var message = Encoding.UTF8.GetString(body);
+        channel.BasicAck(eventArgs.DeliveryTag, false);
+        // var user = _userManager.FindByEmailAsync("");
+        // await _hubContext.Clients.All.SendAsync("SendMessage", $"Notification send: {DateTime.Now}, Message: {message}");
+        await _hubContext!.Clients.All.SendAsync("ReceiveMessage", message);
+
+
+    };
+
+    channel.BasicConsume(queue: "ApplicationNotifications", autoAck: false, consumer: consumer);
+
+    await next(context);
+});
+
+// app.Run(async (context) =>
+// {   
+// });
+
+
+
+
 
 app.Run();
