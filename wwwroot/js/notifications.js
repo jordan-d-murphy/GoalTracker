@@ -19,11 +19,11 @@ $(document).ready(function () {
         li.id = 'notification_' + data.Id;
         li.className = 'list-group-item list-group-item-action';
         li.innerHTML = '<div class="d-flex w-100 justify-content-between" onclick="MarkAsRead(\'' + data.Id + '\');">\
-      <h5 class="mb-1">Notification</h5>\
-      <small class="text-muted created-sent-timestamp" id="sent_timestamp_' + data.Id + '" data-date="' + data.SentTimestamp + '">' + dayjs(data.SentTimestamp).fromNow() + '</small>\
-    </div>\
-    <p class="mb-1">' + data.MessageBody + '</p>\
-    <small class="text-muted">And some muted small print.</small>';
+        <h5 class="mb-1">Notification</h5>\
+        <small class="text-muted created-sent-timestamp" id="sent_timestamp_' + data.Id + '" data-date="' + data.SentTimestamp + '">' + dayjs(data.SentTimestamp).fromNow() + '</small>\
+        </div>\
+        <p class="mb-1">' + data.MessageBody + '</p>\
+        <small class="text-muted">And some muted small print.</small>';
 
         document.getElementById("notificationsList").prepend(li);
         UpdateDisplayTimes();

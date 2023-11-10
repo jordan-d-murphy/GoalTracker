@@ -54,7 +54,15 @@ namespace GoalTracker.Controllers
 
             List<Notification> notifications = new List<Notification>();
 
-            var factory = new ConnectionFactory { HostName = "localhost" };
+            // var factory = new ConnectionFactory { HostName = "localhost" };
+
+            var factory = new ConnectionFactory
+                {
+                    HostName = "localhost",
+                    DispatchConsumersAsync = false,
+                    ConsumerDispatchConcurrency = 1,
+                };
+
             var connection = factory.CreateConnection();
             var channel = connection.CreateModel();
             // var channel = connection.CreateModel();

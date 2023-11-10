@@ -102,7 +102,7 @@ using (var scope = app.Services.CreateScope())
 
 
 
-    
+
 
 }
 
@@ -138,7 +138,14 @@ app.Use(async (context, next) =>
 
     var _hubContext = context.RequestServices.GetRequiredService<IHubContext<NotificationHub>>();
 
-    var factory = new ConnectionFactory { HostName = "localhost" };
+    // var factory = new ConnectionFactory { HostName = "localhost" };
+
+    var factory = new ConnectionFactory
+    {
+        HostName = "localhost",
+        DispatchConsumersAsync = false,
+        ConsumerDispatchConcurrency = 1,
+    };
     var connection = factory.CreateConnection();
     var channel = connection.CreateModel();
     // var channel = connection.CreateModel();

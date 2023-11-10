@@ -10,7 +10,15 @@ public class RabbitMQProducer : IMessageProducer
 {
     public void SendMessage<T> (T message)
     {
-        var factory = new ConnectionFactory { HostName = "localhost" };
+        // var factory = new ConnectionFactory { HostName = "localhost" };
+
+        var factory = new ConnectionFactory
+                {
+                    HostName = "localhost",
+                    DispatchConsumersAsync = false,
+                    ConsumerDispatchConcurrency = 1,
+                };
+
         var connection = factory.CreateConnection();
         using var channel = connection.CreateModel();
 
