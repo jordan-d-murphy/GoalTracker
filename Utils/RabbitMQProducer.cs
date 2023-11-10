@@ -25,7 +25,7 @@ public class RabbitMQProducer : IMessageProducer
         channel.QueueDeclare("ApplicationNotifications",
                     durable: false,
                     exclusive: false,
-                    autoDelete: false,
+                    autoDelete: true,
                     arguments: null);
 
         var json = JsonConvert.SerializeObject(message);

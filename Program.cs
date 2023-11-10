@@ -146,14 +146,14 @@ app.Use(async (context, next) =>
         DispatchConsumersAsync = false,
         ConsumerDispatchConcurrency = 1,
     };
-    var connection = factory.CreateConnection();
-    var channel = connection.CreateModel();
+    using var connection = factory.CreateConnection();
+    using var channel = connection.CreateModel();
     // var channel = connection.CreateModel();
 
     channel.QueueDeclare("ApplicationNotifications",
             durable: false,
             exclusive: false,
-            autoDelete: false,
+            autoDelete: true,
             arguments: null);
 
 
