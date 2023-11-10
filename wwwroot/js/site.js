@@ -220,16 +220,12 @@ function GetCountUnreadNotifications() {
 
     console.log("Notifications count: ");
 
-    const currentUrl = window.location.href;
-    console.log(currentUrl);
+    const baseUrl = window.location.origin;
+    console.log("baseUrl: " + baseUrl);
     
-    var url = 'Notification/GetCountUnreadNotifications';
-    if (currentUrl.includes("/Notification/")) {
-        url = 'GetCountUnreadNotifications';
-    }
+    var url = baseUrl + '/Notification/GetCountUnreadNotifications';
 
-    
-
+    console.log("GetCountUnreadNotifications() url: " + url);
 
     $.ajax({
         type: "GET",
