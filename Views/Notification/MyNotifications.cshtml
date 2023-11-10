@@ -7,6 +7,17 @@
 
 <h1>My notifications</h1>
 
+
+<ul class="nav">
+
+    <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_NotificationCreate">
+        <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Create New Notification
+    </a>
+    @await Html.PartialAsync("~/Views/Notification/OffCanvas/_NotificationCreate.cshtml", new Notification() { })
+
+</ul>
+
+
 <div class="row p-1">
     <div class="col-4">
         <div id="notificationsList" class="list-group">

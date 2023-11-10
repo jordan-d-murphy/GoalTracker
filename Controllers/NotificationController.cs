@@ -50,54 +50,11 @@ namespace GoalTracker.Controllers
         }
 
         public async Task<IActionResult> MyNotifications()
-        {
-
-            List<Notification> notifications = new List<Notification>();
-
-            // var factory = new ConnectionFactory { HostName = "localhost" };
-
-            // var factory = new ConnectionFactory
-            //     {
-            //         HostName = "localhost",
-            //         DispatchConsumersAsync = false,
-            //         ConsumerDispatchConcurrency = 1,
-            //     };
-
-            // var connection = factory.CreateConnection();
-            // var channel = connection.CreateModel();
-            // // var channel = connection.CreateModel();
-
-            // channel.QueueDeclare("ApplicationNotifications",
-            //         durable: false,
-            //         exclusive: false,
-            //         autoDelete: false,
-            //         arguments: null);
-
-
-
-
-            // var consumer = new EventingBasicConsumer(channel);
-            // consumer.Received += async (model, eventArgs) =>
-            // {
-            //     var body = eventArgs.Body.ToArray();
-            //     var message = Encoding.UTF8.GetString(body);
-            //     notifications.Add(new Notification() { MessageBody = message, SentTimestamp = DateTime.Now });
-            //     channel.BasicAck(eventArgs.DeliveryTag, false);
-            //     // var user = _userManager.FindByEmailAsync("");
-            //     // await _hubContext.Clients.All.SendAsync("SendMessage", $"Notification send: {DateTime.Now}, Message: {message}");
-            //     await _hubContext.Clients.All.SendAsync("ReceiveMessage", message);
-
-
-            // };
-
-            // channel.BasicConsume(queue: "ApplicationNotifications", autoAck: false, consumer: consumer);
-
+        {           
             return _context.Notification != null ?
                         // View(await _context.Notification.Where(n => !n.Read).ToListAsync()) :
                         View(await _context.Notification.Where(n => !n.Read).OrderByDescending(n => n.SentTimestamp).ToListAsync()) :
                         Problem("Entity set 'GoalTrackerContext.Notification'  is nul.");
-
-            // return View(notifications);
         }
 
         // GET: Notification/Details/5
@@ -141,7 +98,7 @@ namespace GoalTracker.Controllers
                 _messagePublisher.SendMessage(notification);
                 // _hubContext.Clients.All.SendAsync("ReceiveMessage", $"Notification send: {DateTime.Now}, Message: {notification}");
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(MyNotifications));
             }
             return View(notification);
         }

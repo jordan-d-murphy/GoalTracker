@@ -1,0 +1,32 @@
+@model GoalTracker.Models.Notification
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offCanvas_NotificationCreate" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <h1 class="offcanvas-title" id="offcanvasRightLabel">Create Notification</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body" id="offcanvas-body">
+      
+        
+        <form asp-controller="Notification" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-3">
+                <label asp-for="MessageBody" class="control-label"></label>
+                <input asp-for="MessageBody" class="form-control" />
+                <span asp-validation-for="MessageBody" class="text-danger"></span>
+            </div>
+            
+                
+            <div class="form-group mb-3 float-end">
+                <input type="submit" value="Create" class="btn btn-outline-primary" />
+            </div>
+        </form>
+
+        @section Scripts {
+            @{
+                await Html.RenderPartialAsync("_ValidationScriptsPartial");
+            }
+        }
+
+    </div>
+</div>

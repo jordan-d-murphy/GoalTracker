@@ -1,5 +1,7 @@
 using GoalTracker.Areas.Identity.Data;
 
+namespace GoalTracker.Models;
+
 public class Notification
 {
     public Guid Id { get; set; }
