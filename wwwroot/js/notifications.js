@@ -23,7 +23,7 @@ $(document).ready(function () {
         <small class="text-muted created-sent-timestamp" id="sent_timestamp_' + data.Id + '" data-date="' + data.SentTimestamp + '">' + dayjs(data.SentTimestamp).fromNow() + '</small>\
         </div>\
         <p class="mb-1">' + data.MessageBody + '</p>\
-        <small class="text-muted">And some muted small print.</small>';
+        <small class="text-muted">From:' + data.Sender + '</small>';
 
         document.getElementById("notificationsList").prepend(li);
         UpdateDisplayTimes();

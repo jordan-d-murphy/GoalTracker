@@ -53,7 +53,7 @@ namespace GoalTracker.Controllers
         {           
             return _context.Notification != null ?
                         // View(await _context.Notification.Where(n => !n.Read).ToListAsync()) :
-                        View(await _context.Notification.Where(n => !n.Read).OrderByDescending(n => n.SentTimestamp).ToListAsync()) :
+                        View(await _context.Notification.Where(n => !n.Read).Include(n => n.Sender).OrderByDescending(n => n.SentTimestamp).ToListAsync()) :
                         Problem("Entity set 'GoalTrackerContext.Notification'  is nul.");
         }
 
@@ -88,17 +88,23 @@ namespace GoalTracker.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,MessageBody,SentTimestamp,DeliveredTimestamp,ReadTimestamp,Read,GeneratedByApplication")] Notification notification)
         {
-            if (ModelState.IsValid)
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (user is not null)
             {
-                notification.Id = Guid.NewGuid();
-                notification.SentTimestamp = DateTime.Now;
-                _context.Add(notification);
-                await _context.SaveChangesAsync();
+                if (ModelState.IsValid)
+                {
+                    notification.Id = Guid.NewGuid();
+                    notification.SentTimestamp = DateTime.Now;
+                    notification.Sender = user;
+                    _context.Add(notification);
+                    await _context.SaveChangesAsync();
 
-                _messagePublisher.SendMessage(notification);
-                // _hubContext.Clients.All.SendAsync("ReceiveMessage", $"Notification send: {DateTime.Now}, Message: {notification}");
+                    _messagePublisher.SendMessage(notification);
+                    // _hubContext.Clients.All.SendAsync("ReceiveMessage", $"Notification send: {DateTime.Now}, Message: {notification}");
 
-                return RedirectToAction(nameof(MyNotifications));
+                    return RedirectToAction(nameof(MyNotifications));
+                }
             }
             return View(notification);
         }
