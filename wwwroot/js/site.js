@@ -190,14 +190,14 @@ $(document).ready(function () {
     var connection = new signalR.HubConnectionBuilder().withUrl("/NotificationsHub").build();
 
     connection.on("ReceiveMessage", function (message) {
-        console.log("\n\n\nRed - Scenario 2");
-        console.log("hit 'ReceiveMessage' from '/NotificationsHub' in site.js file... , make it red!\n\n\n");
-        console.log("message is " + message);
+        console.log("Red - Scenario 2");
+        console.log("hit 'ReceiveMessage' from '/NotificationsHub' in site.js file... , make it red!");
+        // console.log("message is " + message);
         $("#unreadNotificationIcon").attr('style','font-size: 1rem; color: red;');
     });
 
     connection.on("ClearNotificationIcon", function (message) {
-        console.log("\n\n\nhit 'ClearNotificationIcon' from '/NotificationsHub' in site.js file..., make it White!\n\n\n");
+        console.log("hit 'ClearNotificationIcon' from '/NotificationsHub' in site.js file..., make it White!");
         $("#unreadNotificationIcon").attr('style','font-size: 1rem; color: white;');
 
     });
@@ -238,7 +238,7 @@ function GetCountUnreadNotifications() {
             console.log(response + " unread notifications.");
 
             if (response === 0) {
-                console.log("\n\n\nhit 'GetCountUnreadNotifications()' in site.js file...,repsone === 0, make it White!\n\n\n");
+                console.log("hit 'GetCountUnreadNotifications()' in site.js file...,repsone === 0, make it White!");
                 $("#unreadNotificationIcon").attr('style','font-size: 1rem; color: white;');
                 
                 var clearNotificationUrl = baseUrl + '/Notification/ClearNotificationIcon';
@@ -266,9 +266,9 @@ function GetCountUnreadNotifications() {
                     }
                 });
             } else {
-                console.log("\n\n\nRed - Scenario 3");
+                console.log("Red - Scenario 3");
                 console.log("site.js - Inside GetCountUnreadNotifications - hit else, make it red!");
-                console.log("response is " + response);
+                // console.log("response is " + response);
                 $("#unreadNotificationIcon").attr('style','font-size: 1rem; color: red;');
             }
 

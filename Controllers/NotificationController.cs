@@ -45,7 +45,7 @@ namespace GoalTracker.Controllers
         {
             return _context.Notification != null ?
                         // View(await _context.Notification.Where(n => !n.Read).ToListAsync()) :
-                        View(await _context.Notification.Where(n => !n.Read).OrderByDescending(n => n.SentTimestamp).ToListAsync()) :
+                        View(await _context.Notification.Where(n => !n.Read).Include(n => n.Sender).OrderByDescending(n => n.SentTimestamp).ToListAsync()) :
                         Problem("Entity set 'GoalTrackerContext.Notification'  is nul.");
         }
 

@@ -31,7 +31,7 @@
                             data-date="@notification.SentTimestamp">@notification.SentTimestamp</small>
                     </div>
                     <p class="mb-1">@notification.MessageBody</p>
-                    <small class="text-muted">From: @notification.Sender</small>
+                    <small class="text-muted">From: @notification.Sender?.Email</small>
                 </a>
             }
         </div>

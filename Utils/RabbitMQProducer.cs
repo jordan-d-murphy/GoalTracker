@@ -19,7 +19,7 @@ public class RabbitMQProducer : IMessageProducer
                     ConsumerDispatchConcurrency = 1,
                 };
 
-        var connection = factory.CreateConnection();
+        using var connection = factory.CreateConnection();
         using var channel = connection.CreateModel();
 
         channel.QueueDeclare("ApplicationNotifications",
