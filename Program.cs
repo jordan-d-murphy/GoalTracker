@@ -132,8 +132,23 @@ app.MapHub<NotificationHub>("/NotificationsHub");
 
 app.Use(async (context, next) =>
 {
-    var msg = " \n\n\nThis is from the middleware... howdy!\n\n\n ";
-    System.Diagnostics.Debug.WriteLine(msg);
+    var userManager = context.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
+    var user = userManager.GetUserAsync(context.User).Result;
+
+    if (user is not null)
+    {
+        var msgLoggedIn = $" \n\nThis is from the middleware... howdy, {user.Email}!\n\n ";
+        System.Diagnostics.Debug.WriteLine(msgLoggedIn);
+    }
+    else
+    {
+        var msgGuest = $" \n\nThis is from the middleware... howdy, Guest User!\n\n ";
+        System.Diagnostics.Debug.WriteLine(msgGuest);
+    }
+
+
+
+
 
 
     var _hubContext = context.RequestServices.GetRequiredService<IHubContext<NotificationHub>>();

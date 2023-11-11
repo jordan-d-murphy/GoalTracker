@@ -28,6 +28,9 @@ $(document).ready(function () {
         document.getElementById("notificationsList").prepend(li);
         UpdateDisplayTimes();
 
+        console.log("\n\n\nRed - Scenario 1");
+        console.log("notifications.js - hit 'ReceiveMessage', make it red!");
+        console.log("message is " + message);
 
         $("#unreadNotificationIcon").attr('style','font-size: 1rem; color: red;');
 

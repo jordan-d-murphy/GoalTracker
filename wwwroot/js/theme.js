@@ -17,30 +17,30 @@
     const lightThemeSwitcherButton = document.querySelector('#light-theme-toggle-button')
     const darkThemeSwitcherButton = document.querySelector('#dark-theme-toggle-button')
 
-    console.log("Running showHideThemeToggles()...")
-    console.log("getStoredTheme() is " + getStoredTheme())
-    console.log("lightThemeSwitcherButton.getAttribute('data-bs-theme-value') is " + lightThemeSwitcherButton.getAttribute('data-bs-theme-value'))
-    console.log("darkThemeSwitcherButton.getAttribute('data-bs-theme-value') is " + darkThemeSwitcherButton.getAttribute('data-bs-theme-value'))
+    // console.log("Running showHideThemeToggles()...")
+    // console.log("getStoredTheme() is " + getStoredTheme())
+    // console.log("lightThemeSwitcherButton.getAttribute('data-bs-theme-value') is " + lightThemeSwitcherButton.getAttribute('data-bs-theme-value'))
+    // console.log("darkThemeSwitcherButton.getAttribute('data-bs-theme-value') is " + darkThemeSwitcherButton.getAttribute('data-bs-theme-value'))
 
 
 
     if (lightThemeSwitcherButton.getAttribute('data-bs-theme-value') === getStoredTheme()) {
 
-      console.log("hiding lightThemeSwitcherButton")
+      // console.log("hiding lightThemeSwitcherButton")
       lightThemeSwitcherButton.style.display = 'none'
     } else {
 
-      console.log("showing lightThemeSwitcherButton")
+      // console.log("showing lightThemeSwitcherButton")
       lightThemeSwitcherButton.style.display = ''
     }
 
     if (darkThemeSwitcherButton.getAttribute('data-bs-theme-value') === getStoredTheme()) {
 
-      console.log("hiding darkThemeSwitcherButton")
+      // console.log("hiding darkThemeSwitcherButton")
       darkThemeSwitcherButton.style.display = 'none'
     } else {
 
-      console.log("showing darkThemeSwitcherButton")
+      // console.log("showing darkThemeSwitcherButton")
       darkThemeSwitcherButton.style.display = ''
     }
 
