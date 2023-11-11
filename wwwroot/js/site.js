@@ -223,13 +223,13 @@ function GetCountUnreadNotifications() {
     const baseUrl = window.location.origin;
     console.log("baseUrl: " + baseUrl);
     
-    var url = baseUrl + '/Notification/GetCountUnreadNotifications';
+    var getCountUrl = baseUrl + '/Notification/GetCountUnreadNotifications';
 
-    console.log("GetCountUnreadNotifications() url: " + url);
+    console.log("GetCountUnreadNotifications() url: " + getCountUrl);
 
     $.ajax({
         type: "GET",
-        url: url,
+        url: getCountUrl,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
@@ -237,10 +237,14 @@ function GetCountUnreadNotifications() {
 
             if (response === 0) {
                 $("#unreadNotificationIcon").attr('style','font-size: 1rem; color: white;');
+                
+                var clearNotificationUrl = baseUrl + '/Notification/ClearNotificationIcon';
+            
+                console.log("ClearNotificationIcon url: " + clearNotificationUrl);
 
                 $.ajax({
                     type: "GET",
-                    url: 'ClearNotificationIcon',
+                    url: clearNotificationUrl,
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (response) {

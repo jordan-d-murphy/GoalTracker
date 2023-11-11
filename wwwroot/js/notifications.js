@@ -63,9 +63,17 @@ function MarkAsRead(id) {
 
     console.log("onclick for mark as read, id: " + id);
 
+
+    const baseUrl = window.location.origin;
+    console.log("baseUrl: " + baseUrl);
+    
+    var url = baseUrl + '/Notification/MarkAsRead/' + id;
+
+    console.log("MarkAsRead(<id>) url: " + url);
+
     $.ajax({
         type: "POST",
-        url: 'MarkAsRead/' + id,
+        url: url,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {

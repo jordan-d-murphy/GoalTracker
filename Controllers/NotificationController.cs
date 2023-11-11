@@ -49,13 +49,13 @@ namespace GoalTracker.Controllers
                         Problem("Entity set 'GoalTrackerContext.Notification'  is nul.");
         }
 
-        public async Task<IActionResult> MyNotifications()
-        {           
-            return _context.Notification != null ?
-                        // View(await _context.Notification.Where(n => !n.Read).ToListAsync()) :
-                        View(await _context.Notification.Where(n => !n.Read).Include(n => n.Sender).OrderByDescending(n => n.SentTimestamp).ToListAsync()) :
-                        Problem("Entity set 'GoalTrackerContext.Notification'  is nul.");
-        }
+        // public async Task<IActionResult> MyNotifications()
+        // {           
+        //     return _context.Notification != null ?
+        //                 // View(await _context.Notification.Where(n => !n.Read).ToListAsync()) :
+        //                 View(await _context.Notification.Where(n => !n.Read).Include(n => n.Sender).OrderByDescending(n => n.SentTimestamp).ToListAsync()) :
+        //                 Problem("Entity set 'GoalTrackerContext.Notification'  is nul.");
+        // }
 
         // GET: Notification/Details/5
         public async Task<IActionResult> Details(Guid? id)
@@ -103,7 +103,7 @@ namespace GoalTracker.Controllers
                     _messagePublisher.SendMessage(notification);
                     // _hubContext.Clients.All.SendAsync("ReceiveMessage", $"Notification send: {DateTime.Now}, Message: {notification}");
 
-                    return RedirectToAction(nameof(MyNotifications));
+                    return RedirectToAction(nameof(Index));
                 }
             }
             return View(notification);
