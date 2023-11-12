@@ -28,6 +28,36 @@
 
                 <div class="card mb-3">
                     <h5 class="card-header">User: @uvm?.User?.Email</h5>
+                    <h6> 
+                        @{
+                            var utcOPI = @uvm?.User?.OnlinePresenceIndicator?.ToUniversalTime();
+                        }
+
+                        @if(DateTime.UtcNow < utcOPI?.AddMinutes(1)) 
+                        {
+                            <span>
+                                <i class="bi-record2-fill" style="font-size: 1rem; color: #39FF14;"></i>Online within the last minute
+                            </span>
+                        } 
+                        else if (DateTime.UtcNow < utcOPI?.AddMinutes(2))  
+                        {
+                            <span>   
+                                <i class="bi-record2-fill" style="font-size: 1rem; color: #6cdd58;"></i>Online within the last 2 minutes
+                            </span>
+                        } 
+                        else if (DateTime.UtcNow < utcOPI?.AddMinutes(3)) 
+                        {
+                            <span>
+                                <i class="bi-record2-fill" style="font-size: 1rem; color: #588d4e;"></i>Online within the last 3 minutes
+                            </span>
+                        } 
+                        else 
+                        {
+                            <span>
+                                <i class="bi-record2-fill" style="font-size: 1rem; color: #d22604;"></i>Not online within the last 3 minutes
+                            </span>
+                        }
+                    </h6>
                     <div class="card-body">
                         <h5 class="card-title">Roles:</h5>
                         <ul class="list-group">

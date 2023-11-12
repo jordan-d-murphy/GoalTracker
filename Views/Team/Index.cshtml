@@ -107,17 +107,47 @@
                                                 {
                                                     <li class="list-group-item">
                                                         <div class="row">
-                                                            <div class="col-8">
-                                                                @member.Email
+                                                            <div class="col-6">
+                                                                @member.Email 
+                                                            </div>
+                                                            <div class="col-2">
+                                                                @{
+                                                                    var utcOPI = member.OnlinePresenceIndicator?.ToUniversalTime();
+                                                                }
+
+                                                                @if(DateTime.UtcNow < utcOPI?.AddMinutes(1)) 
+                                                                {
+                                                                    <span>
+                                                                        <i class="bi-record2-fill" style="font-size: 1rem; color: #39FF14;"></i>Online within the last minute
+                                                                    </span>
+                                                                } 
+                                                                else if (DateTime.UtcNow < utcOPI?.AddMinutes(2))  
+                                                                {
+                                                                    <span>   
+                                                                        <i class="bi-record2-fill" style="font-size: 1rem; color: #6cdd58;"></i>Online within the last 2 minutes
+                                                                    </span>
+                                                                } 
+                                                                else if (DateTime.UtcNow < utcOPI?.AddMinutes(3)) 
+                                                                {
+                                                                    <span>
+                                                                        <i class="bi-record2-fill" style="font-size: 1rem; color: #588d4e;"></i>Online within the last 3 minutes
+                                                                    </span>
+                                                                } 
+                                                                else 
+                                                                {
+                                                                    <span>
+                                                                        <i class="bi-record2-fill" style="font-size: 1rem; color: #d22604;"></i>Not online within the last 3 minutes
+                                                                    </span>
+                                                                }
                                                             </div>
                                                             <div class="col-4 text-end">
                                                                 @await Html.PartialAsync("~/Views/Team/OffCanvas/_RemoveMember.cshtml",
                                                                          new TeamViewModel()
-                                                {
-                                                    AllUsers = Model.AllUsers,
-                                                    RemoveTeam = team,
-                                                    RemoveUser = member
-                                                })
+                                                                            {
+                                                                                AllUsers = Model.AllUsers,
+                                                                                RemoveTeam = team,
+                                                                                RemoveUser = member
+                                                                            })
                                                             </div>
                                                         </div>
                                                     </li>
