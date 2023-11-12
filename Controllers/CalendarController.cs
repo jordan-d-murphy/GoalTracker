@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using GoalTracker.Models;
 using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
+
 
 namespace GoalTracker.Controllers
 {
@@ -47,15 +49,63 @@ namespace GoalTracker.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<JsonResult> ProjectEvents()
+        public async Task<string> ProjectEvents()
         {
             if (_context.Project == null)
             {
-                return Json(0);
+                return JsonConvert.SerializeObject(new Project() {});
             }
 
             var projects = await _context.Project.ToListAsync(); 
-            return Json(projects);
+            return JsonConvert.SerializeObject(projects);
+        }
+
+         [AllowAnonymous]
+        public async Task<string> RoadmapEvents()
+        {
+            if (_context.Roadmap == null)
+            {
+                return JsonConvert.SerializeObject(new Roadmap() {});
+            }
+
+            var roadmaps = await _context.Roadmap.ToListAsync(); 
+            return JsonConvert.SerializeObject(roadmaps);
+        }
+
+         [AllowAnonymous]
+        public async Task<string> GoalEvents()
+        {
+            if (_context.Goal == null)
+            {
+                return JsonConvert.SerializeObject(new Goal() {});
+            }
+
+            var goals = await _context.Goal.ToListAsync(); 
+            return JsonConvert.SerializeObject(goals);
+        }
+
+         [AllowAnonymous]
+        public async Task<string> MilestoneEvents()
+        {
+            if (_context.Milestone == null)
+            {
+                return JsonConvert.SerializeObject(new Milestone() {});
+            }
+
+            var milestones = await _context.Milestone.ToListAsync(); 
+            return JsonConvert.SerializeObject(milestones);
+        }
+
+         [AllowAnonymous]
+        public async Task<string> ActivityEvents()
+        {
+            if (_context.ActivityEntry == null)
+            {
+                return JsonConvert.SerializeObject(new ActivityEntry() {});
+            }
+
+            var activities = await _context.ActivityEntry.ToListAsync(); 
+            return JsonConvert.SerializeObject(activities);
         }
 
         // GET: Calendar/Details/5

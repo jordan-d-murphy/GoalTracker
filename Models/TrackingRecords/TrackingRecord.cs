@@ -5,6 +5,8 @@ using System.Drawing;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using GoalTracker.Areas.Identity.Data;
+using Newtonsoft.Json;
+
 
 namespace GoalTracker.Models;
 
@@ -16,11 +18,13 @@ public abstract class TrackingRecord
 
     public TrackingRecord? Parent { get; set; }
 
+    [JsonProperty(PropertyName = "title")]
     public string? Title { get; set; }
 
     public string? Description { get; set; }
 
     [Display(Name = "Created")]
+    [JsonProperty(PropertyName = "start")]
     public DateTime? CreatedDate { get; set; }
 
     [Display(Name = "Started")]
