@@ -1,4 +1,4 @@
-@model IEnumerable<GoalTracker.Models.Calendar>
+@model GoalTracker.Models.CalendarViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -7,7 +7,7 @@
 <h1>Calendar Index</h1>
 
 <ul class="nav">
-    
+
     <a class="nav-link" data-bs-toggle="offcanvas" href="#offCanvas_CalendarCreate">
         <i class="bi-plus-circle" style="font-size: 1rem; color: #0077cc;"></i>Create New Calendar
     </a>
@@ -23,9 +23,44 @@
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
-            selectable: true
+            selectable: true,
+            eventSources: [
+                
+                {
+                url: '/Calendar/ProjectEvents', // use the `url` property
+                color: 'red',    // an option!
+                textColor: 'black'  // an option!
+                },
+                {
+                url: '/RoadmapEvents', // use the `url` property
+                color: 'blue',    // an option!
+                textColor: 'black'  // an option!
+                },
+                {
+                url: '/GoalEvents', // use the `url` property
+                color: 'yellow',    // an option!
+                textColor: 'black'  // an option!
+                },
+                {
+                url: '/MilestoneEvents', // use the `url` property
+                color: 'green',    // an option!
+                textColor: 'black'  // an option!
+                },
+                {
+                url: '/ActivityEvents', // use the `url` property
+                color: 'brown',    // an option!
+                textColor: 'black'  // an option!
+                }                
 
+              ] 
         });
+
+
+
+
+
+
+
         calendar.render();
 
         calendar.on('dateClick', function (info) {
@@ -66,6 +101,3 @@
         </div>
     </div>
 </div>
-
-
- 

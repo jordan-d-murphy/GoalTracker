@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GoalTracker.Data;
 using GoalTracker.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GoalTracker.Controllers
 {
@@ -22,9 +23,39 @@ namespace GoalTracker.Controllers
         // GET: Calendar
         public async Task<IActionResult> Index()
         {
-              return _context.Calendar != null ? 
-                          View(await _context.Calendar.ToListAsync()) :
-                          Problem("Entity set 'GoalTrackerContext.Calendar'  is null.");
+            var projects = await _context.Project.ToListAsync();
+            var roadmaps = await _context.Roadmap.ToListAsync();
+            var goals = await _context.Goal.ToListAsync();
+            var milestones = await _context.Milestone.ToListAsync();
+            var activities = await _context.ActivityEntry.ToListAsync();
+
+
+            var calendar = new CalendarViewModel
+            {
+                Projects = projects,
+                RoadMaps = roadmaps,
+                Goals = goals,
+                Milestones = milestones,
+                Activities = activities              
+            };
+
+            return View(calendar);
+
+            // return _context.Calendar != null ?
+            //             View(await _context.Calendar.ToListAsync()) :
+            //             Problem("Entity set 'GoalTrackerContext.Calendar'  is null.");
+        }
+
+        [AllowAnonymous]
+        public async Task<JsonResult> ProjectEvents()
+        {
+            if (_context.Project == null)
+            {
+                return Json(0);
+            }
+
+            var projects = await _context.Project.ToListAsync(); 
+            return Json(projects);
         }
 
         // GET: Calendar/Details/5
@@ -151,14 +182,14 @@ namespace GoalTracker.Controllers
             {
                 _context.Calendar.Remove(calendar);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CalendarExists(Guid id)
         {
-          return (_context.Calendar?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Calendar?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }
