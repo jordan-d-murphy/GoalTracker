@@ -27,5 +27,6 @@ public class ApplicationUser : IdentityUser<Guid>
     [PersonalData]
     public DateTime DOB { get; set; }
 
+    public DateTime? OnlinePresenceIndicator { get; set; }
 
 }

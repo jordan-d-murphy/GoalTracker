@@ -139,6 +139,12 @@ app.Use(async (context, next) =>
     {
         var msgLoggedIn = $" \n\nThis is from the middleware... howdy, {user.Email}!\n\n ";
         System.Diagnostics.Debug.WriteLine(msgLoggedIn);
+
+        user.OnlinePresenceIndicator = DateTime.Now;
+        await userManager.UpdateAsync(user);
+
+
+
     }
     else
     {
@@ -195,9 +201,42 @@ app.Use(async (context, next) =>
     await next(context);
 });
 
-// app.Run(async (context) =>
-// {   
-// });
+
+
+app.Use(async (context, next) =>
+{
+    var userManager = context.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
+    var user = userManager.GetUserAsync(context.User).Result;
+    if (user is not null)
+    {
+        var msgLoggedIn = $" \n\nsecond middleware, {user.Email}, your OnlinePresenceIndicator says you were last active at {user.OnlinePresenceIndicator}!\n\n ";
+        System.Diagnostics.Debug.WriteLine(msgLoggedIn);
+
+        var utcOPI = user.OnlinePresenceIndicator?.ToUniversalTime();
+
+        if (DateTime.UtcNow < utcOPI?.AddMinutes(1))
+        {
+            var msg1Min = "OnlinePresenceIndicator says you were active within the last min";
+            System.Diagnostics.Debug.WriteLine(msg1Min);
+        }
+
+        if (DateTime.UtcNow < utcOPI?.AddMinutes(1))
+        {
+            var msg2Min = "OnlinePresenceIndicator says you were active within the last 2 mins";
+            System.Diagnostics.Debug.WriteLine(msg2Min);
+        }
+
+        if (DateTime.UtcNow < utcOPI?.AddMinutes(1))
+        {
+            var msg3Min = "OnlinePresenceIndicator says you were active within the last 3 min";
+            System.Diagnostics.Debug.WriteLine(msg3Min);
+        }
+
+
+    }
+    await next(context);
+
+});
 
 
 
