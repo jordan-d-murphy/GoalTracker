@@ -10,23 +10,43 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using GoalTracker.Areas.Identity.Data;
+using GoalTracker.RabbitMQ;
+using Newtonsoft.Json;
+using GoalTracker.Models;
+using GoalTracker.Enums;
 
 namespace GoalTracker.Areas.Identity.Pages.Account
 {
     public class LogoutModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
+
+        private readonly UserManager<ApplicationUser> _userManager;
+
         private readonly ILogger<LogoutModel> _logger;
 
-        public LogoutModel(SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger)
+        private readonly IMessageProducer _messagePublisher;
+
+        public LogoutModel(SignInManager<ApplicationUser> signInManager, ILogger<LogoutModel> logger, IMessageProducer messagePublisher, UserManager<ApplicationUser> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _messagePublisher = messagePublisher;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
             await _signInManager.SignOutAsync();
+            
+            var user = _userManager.GetUserAsync(User).Result;
+
+            if (user is not null)
+            {
+                // send online status indication
+                _messagePublisher.SendOnlinePresence(new OnlinePresence(user.Id.ToString(), OnlinePresenceStatus.OFFLINE.ToString()));
+            }
+
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)
             {

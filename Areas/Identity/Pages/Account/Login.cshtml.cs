@@ -15,18 +15,29 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using GoalTracker.Areas.Identity.Data;
+using GoalTracker.RabbitMQ;
+using Newtonsoft.Json;
+using GoalTracker.Models;
+using GoalTracker.Enums;
 
 namespace GoalTracker.Areas.Identity.Pages.Account
 {
     public class LoginModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
+
+        private readonly UserManager<ApplicationUser> _userManager;
+
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        private readonly IMessageProducer _messagePublisher;
+
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, IMessageProducer messagePublisher, UserManager<ApplicationUser> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _messagePublisher = messagePublisher;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -116,6 +127,16 @@ namespace GoalTracker.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+
+                    if (user is not null)
+                    {
+                        // send online status indication
+                        _messagePublisher.SendOnlinePresence(new OnlinePresence(user.Id.ToString(), OnlinePresenceStatus.ONLINE.ToString()));
+
+                    }
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

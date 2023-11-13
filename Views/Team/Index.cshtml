@@ -118,25 +118,13 @@
                                                                 @if(DateTime.UtcNow < utcOPI?.AddMinutes(1)) 
                                                                 {
                                                                     <span>
-                                                                        <i class="bi-record2-fill" style="font-size: 1rem; color: #39FF14;"></i>Online within the last minute
+                                                                        <i class="bi-record2-fill" id="opi_@member.Id" style="font-size: 1rem; color: #39FF14;"></i>
                                                                     </span>
-                                                                } 
-                                                                else if (DateTime.UtcNow < utcOPI?.AddMinutes(2))  
-                                                                {
-                                                                    <span>   
-                                                                        <i class="bi-record2-fill" style="font-size: 1rem; color: #6cdd58;"></i>Online within the last 2 minutes
-                                                                    </span>
-                                                                } 
-                                                                else if (DateTime.UtcNow < utcOPI?.AddMinutes(3)) 
-                                                                {
-                                                                    <span>
-                                                                        <i class="bi-record2-fill" style="font-size: 1rem; color: #588d4e;"></i>Online within the last 3 minutes
-                                                                    </span>
-                                                                } 
+                                                                }                                                                
                                                                 else 
                                                                 {
                                                                     <span>
-                                                                        <i class="bi-record2-fill" style="font-size: 1rem; color: #d22604;"></i>Not online within the last 3 minutes
+                                                                        <i class="bi-record2-fill" id="opi_@member.Id" style="font-size: 1rem; color: #d22604;"></i>
                                                                     </span>
                                                                 }
                                                             </div>

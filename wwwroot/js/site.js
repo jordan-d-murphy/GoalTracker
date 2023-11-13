@@ -187,22 +187,61 @@ $(document).ready(function () {
 
 
 
-    var connection = new signalR.HubConnectionBuilder().withUrl("/NotificationsHub").build();
 
-    connection.on("ReceiveMessage", function (message) {
+
+
+
+    var notificationsHubConnection = new signalR.HubConnectionBuilder().withUrl("/NotificationsHub").build();
+
+    notificationsHubConnection.on("ReceiveMessage", function (message) {
         console.log("Red - Scenario 2");
         console.log("hit 'ReceiveMessage' from '/NotificationsHub' in site.js file... , make it red!");
         // console.log("message is " + message);
         $("#unreadNotificationIcon").attr('style','font-size: 1rem; color: red;');
     });
 
-    connection.on("ClearNotificationIcon", function (message) {
+    notificationsHubConnection.on("ClearNotificationIcon", function (message) {
         console.log("hit 'ClearNotificationIcon' from '/NotificationsHub' in site.js file..., make it White!");
         $("#unreadNotificationIcon").attr('style','font-size: 1rem; color: white;');
 
     });
 
-    connection.start();
+    notificationsHubConnection.start();
+
+
+    
+
+
+
+
+
+    var onlinePresenceIndicationsConnection = new signalR.HubConnectionBuilder().withUrl("/OnlinePresenceIndications").build();
+
+    onlinePresenceIndicationsConnection.on("SendOnlinePresence", function (message) {
+        console.log("hit 'SendOnlinePresence' from '/OnlinePresenceIndications' in site.js file...");
+        let data = JSON.parse(message);
+
+    
+        console.log("data.UserId is " + data.UserId);
+        console.log("data.Status is " + data.Status);
+        console.log("data.Timestamp is " + data.Timestamp);
+
+        if (data.Status === "ONLINE")
+        {
+            $("#opi_" + data.UserId).attr('style','font-size: 1rem; color: #39FF14;'); // online
+        } 
+        else if (data.Status === "OFFLINE")
+        {
+            $("#opi_" + data.UserId).attr('style','font-size: 1rem; color: #d22604;'); // offline
+        }
+
+        
+
+        
+    });
+
+
+    onlinePresenceIndicationsConnection.start();
 
 
 

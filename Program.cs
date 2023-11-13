@@ -98,13 +98,9 @@ using (var scope = app.Services.CreateScope())
         var success = await Utils.CreateUser(testUserUserName, testUserEmail, testUserPassword, new string[] { "ConfirmedAccount" }, userManager);
     }
 
-
-
-
-
-
-
 }
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -126,7 +122,9 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
+
 app.MapHub<NotificationHub>("/NotificationsHub");
+app.MapHub<OnlinePresenceIndicatorHub>("/OnlinePresenceIndications");
 
 
 
@@ -139,12 +137,8 @@ app.Use(async (context, next) =>
     {
         var msgLoggedIn = $" \n\nThis is from the middleware... howdy, {user.Email}!\n\n ";
         System.Diagnostics.Debug.WriteLine(msgLoggedIn);
-
         user.OnlinePresenceIndicator = DateTime.Now;
         await userManager.UpdateAsync(user);
-
-
-
     }
     else
     {
@@ -152,14 +146,7 @@ app.Use(async (context, next) =>
         System.Diagnostics.Debug.WriteLine(msgGuest);
     }
 
-
-
-
-
-
     var _hubContext = context.RequestServices.GetRequiredService<IHubContext<NotificationHub>>();
-
-    // var factory = new ConnectionFactory { HostName = "localhost" };
 
     var factory = new ConnectionFactory
     {
@@ -169,7 +156,6 @@ app.Use(async (context, next) =>
     };
     using var connection = factory.CreateConnection();
     using var channel = connection.CreateModel();
-    // var channel = connection.CreateModel();
 
     channel.QueueDeclare("ApplicationNotifications",
             durable: false,
@@ -177,27 +163,16 @@ app.Use(async (context, next) =>
             autoDelete: true,
             arguments: null);
 
-
-
-
     var consumer = new EventingBasicConsumer(channel);
     consumer.Received += async (model, eventArgs) =>
     {
-
-        System.Diagnostics.Debug.WriteLine(" \n\n\nconsumer.Received += async (model, eventArgs) =>\n\n\n ");
-
+        System.Diagnostics.Debug.WriteLine(" \n\n\nApplicationNotifications - consumer.Received += async (model, eventArgs) =>\n\n\n ");
         var body = eventArgs.Body.ToArray();
         var message = Encoding.UTF8.GetString(body);
         channel.BasicAck(eventArgs.DeliveryTag, false);
-        // var user = _userManager.FindByEmailAsync("");
-        // await _hubContext.Clients.All.SendAsync("SendMessage", $"Notification send: {DateTime.Now}, Message: {message}");
         await _hubContext!.Clients.All.SendAsync("ReceiveMessage", message);
-
-
     };
-
     channel.BasicConsume(queue: "ApplicationNotifications", autoAck: false, consumer: consumer);
-
     await next(context);
 });
 
@@ -207,6 +182,35 @@ app.Use(async (context, next) =>
 {
     var userManager = context.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
     var user = userManager.GetUserAsync(context.User).Result;
+
+    var _hubContext = context.RequestServices.GetRequiredService<IHubContext<OnlinePresenceIndicatorHub>>();
+
+    var factory = new ConnectionFactory
+    {
+        HostName = "localhost",
+        DispatchConsumersAsync = false,
+        ConsumerDispatchConcurrency = 1,
+    };
+    using var connection = factory.CreateConnection();
+    using var channel = connection.CreateModel();
+
+    channel.QueueDeclare("OnlinePresenceIndications",
+            durable: false,
+            exclusive: false,
+            autoDelete: true,
+            arguments: null);
+
+    var consumer = new EventingBasicConsumer(channel);
+    consumer.Received += async (model, eventArgs) =>
+    {
+        System.Diagnostics.Debug.WriteLine(" \n\n\nOnlinePresenceIndications consumer.Received += async (model, eventArgs) =>\n\n\n ");
+        var body = eventArgs.Body.ToArray();
+        var message = Encoding.UTF8.GetString(body);
+        channel.BasicAck(eventArgs.DeliveryTag, false);
+        await _hubContext!.Clients.All.SendAsync("SendOnlinePresence", message);
+    };
+    channel.BasicConsume(queue: "OnlinePresenceIndications", autoAck: false, consumer: consumer);
+
     if (user is not null)
     {
         var msgLoggedIn = $" \n\nsecond middleware, {user.Email}, your OnlinePresenceIndicator says you were last active at {user.OnlinePresenceIndicator}!\n\n ";
@@ -220,19 +224,7 @@ app.Use(async (context, next) =>
             System.Diagnostics.Debug.WriteLine(msg1Min);
         }
 
-        if (DateTime.UtcNow < utcOPI?.AddMinutes(1))
-        {
-            var msg2Min = "OnlinePresenceIndicator says you were active within the last 2 mins";
-            System.Diagnostics.Debug.WriteLine(msg2Min);
-        }
-
-        if (DateTime.UtcNow < utcOPI?.AddMinutes(1))
-        {
-            var msg3Min = "OnlinePresenceIndicator says you were active within the last 3 min";
-            System.Diagnostics.Debug.WriteLine(msg3Min);
-        }
-
-
+      
     }
     await next(context);
 
