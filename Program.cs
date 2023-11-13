@@ -15,6 +15,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using GoalTracker.Hubs;
 using Microsoft.AspNetCore.SignalR;
+using GoalTracker.Enums;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -184,6 +185,7 @@ app.Use(async (context, next) =>
     var user = userManager.GetUserAsync(context.User).Result;
 
     var _hubContext = context.RequestServices.GetRequiredService<IHubContext<OnlinePresenceIndicatorHub>>();
+    var _messagePublisher = context.RequestServices.GetRequiredService<IMessageProducer>();
 
     var factory = new ConnectionFactory
     {
@@ -222,6 +224,8 @@ app.Use(async (context, next) =>
         {
             var msg1Min = "OnlinePresenceIndicator says you were active within the last min";
             System.Diagnostics.Debug.WriteLine(msg1Min);
+            _messagePublisher.SendOnlinePresence(new OnlinePresence(user.Id.ToString(), OnlinePresenceStatus.ONLINE.ToString()));
+
         }
 
       
