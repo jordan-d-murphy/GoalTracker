@@ -34,14 +34,26 @@
 
                         @if(DateTime.UtcNow < utcOPI?.AddMinutes(1)) 
                         {
-                            <span>
-                                <i class="bi-record2-fill" id="opi_@uvm?.User?.Id" style="font-size: 1rem; color: #39FF14;"></i>
+                            <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" 
+                                data-bs-placement="right" data-bs-content="Online" id="opi_popover_online_@uvm?.User?.Id">
+                                <i class="bi-record2-fill" id="opi_online_@uvm?.User?.Id" style="font-size: 1rem; color: #39FF14;"></i>
+                            </span>
+                            <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" 
+                                data-bs-placement="right" data-bs-content="Offline" 
+                                id="opi_popover_offline_@uvm?.User?.Id" style="display: none;">
+                                <i class="bi-record2-fill" id="opi_offline_@uvm?.User?.Id" style="font-size: 1rem; color: #d22604; display: none;"></i>
                             </span>
                         }                                                                
                         else 
                         {
-                            <span>
-                                <i class="bi-record2-fill" id="opi_@uvm?.User?.Id" style="font-size: 1rem; color: #d22604;"></i>
+                            <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" 
+                                data-bs-placement="right" data-bs-content="Online" 
+                                id="opi_popover_online_@uvm?.User?.Id" style="display: none;">
+                                <i class="bi-record2-fill" id="opi_online_@uvm?.User?.Id" style="font-size: 1rem; color: #39FF14; display: none;"></i>
+                            </span>
+                            <span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" 
+                                data-bs-placement="right" data-bs-content="Offline" id="opi_popover_offline_@uvm?.User?.Id">
+                                <i class="bi-record2-fill" id="opi_offline_@uvm?.User?.Id" style="font-size: 1rem; color: #d22604;"></i>
                             </span>
                         }
                     </h5>

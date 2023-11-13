@@ -228,11 +228,19 @@ $(document).ready(function () {
 
         if (data.Status === "ONLINE")
         {
-            $("#opi_" + data.UserId).attr('style','font-size: 1rem; color: #39FF14;'); // online    
+            $("#opi_popover_online_" + data.UserId).show();     
+            $("#opi_online_" + data.UserId).show();      
+
+            $("#opi_popover_offline_" + data.UserId).hide();     
+            $("#opi_offline_" + data.UserId).hide();       
         } 
         else if (data.Status === "OFFLINE")
         {
-            $("#opi_" + data.UserId).attr('style','font-size: 1rem; color: #d22604;'); // offline            
+            $("#opi_popover_online_" + data.UserId).hide();     
+            $("#opi_online_" + data.UserId).hide();   
+
+            $("#opi_popover_offline_" + data.UserId).show();     
+            $("#opi_offline_" + data.UserId).show();                   
         }
 
         
@@ -244,6 +252,9 @@ $(document).ready(function () {
     onlinePresenceIndicationsConnection.start();
 
 
+
+    const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+    const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 
 
 
