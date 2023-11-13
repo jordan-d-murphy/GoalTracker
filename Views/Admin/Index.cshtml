@@ -27,8 +27,7 @@
             {
 
                 <div class="card mb-3">
-                    <h5 class="card-header">User: @uvm?.User?.Email</h5>
-                    <h6> 
+                    <h5 class="card-header">User: @uvm?.User?.Email                
                         @{
                             var utcOPI = @uvm?.User?.OnlinePresenceIndicator?.ToUniversalTime();
                         }
@@ -45,7 +44,7 @@
                                 <i class="bi-record2-fill" id="opi_@uvm?.User?.Id" style="font-size: 1rem; color: #d22604;"></i>
                             </span>
                         }
-                    </h6>
+                    </h5>
                     <div class="card-body">
                         <h5 class="card-title">Roles:</h5>
                         <ul class="list-group">

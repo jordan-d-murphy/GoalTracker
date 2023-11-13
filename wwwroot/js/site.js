@@ -228,11 +228,11 @@ $(document).ready(function () {
 
         if (data.Status === "ONLINE")
         {
-            $("#opi_" + data.UserId).attr('style','font-size: 1rem; color: #39FF14;'); // online
+            $("#opi_" + data.UserId).attr('style','font-size: 1rem; color: #39FF14;'); // online    
         } 
         else if (data.Status === "OFFLINE")
         {
-            $("#opi_" + data.UserId).attr('style','font-size: 1rem; color: #d22604;'); // offline
+            $("#opi_" + data.UserId).attr('style','font-size: 1rem; color: #d22604;'); // offline            
         }
 
         
@@ -242,9 +242,6 @@ $(document).ready(function () {
 
 
     onlinePresenceIndicationsConnection.start();
-
-
-
 
 
 
