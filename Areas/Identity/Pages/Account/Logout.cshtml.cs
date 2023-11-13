@@ -45,6 +45,8 @@ namespace GoalTracker.Areas.Identity.Pages.Account
             {
                 // send online status indication
                 _messagePublisher.SendOnlinePresence(new OnlinePresence(user.Id.ToString(), OnlinePresenceStatus.OFFLINE.ToString()));
+                user.OnlinePresenceIndicator = null;
+                await _userManager.UpdateAsync(user);
             }
 
             _logger.LogInformation("User logged out.");
