@@ -2,17 +2,16 @@
 
 $(document).ready(function () {
 
-    console.log("loaded notifications js file...");
-    dayjs.extend(window.dayjs_plugin_relativeTime)
-    dayjs.extend(window.dayjs_plugin_localizedFormat)
-    dayjs.extend(window.dayjs_plugin_customParseFormat)
+    console.log("loaded myNotifications.js file...");
+    dayjs.extend(window.dayjs_plugin_relativeTime);
+    dayjs.extend(window.dayjs_plugin_localizedFormat);
+    dayjs.extend(window.dayjs_plugin_customParseFormat);
 
     var connection = new signalR.HubConnectionBuilder().withUrl("/NotificationsHub").build();
 
     connection.on("ReceiveMessage", function (message) {
 
-        console.log("\n\n\nhit 'ReceiveMessage' in notifications js file...\n\n\n");
-
+        console.log("hit 'ReceiveMessage' in myNotifications.js file");
 
         let data = JSON.parse(message);
         let li = document.createElement('a');
@@ -28,47 +27,31 @@ $(document).ready(function () {
         document.getElementById("notificationsList").prepend(li);
         UpdateDisplayTimes();
 
-        console.log("Red - Scenario 1");
-        console.log("notifications.js - hit 'ReceiveMessage', make it red!");
-        // console.log("message is " + message);
-
         $("#unreadNotificationIcon").attr('style','font-size: 1rem; color: red;');
 
     });
 
     connection.start();
 
-   
-    
-
-
     function UpdateDisplayTimes() {
         $('.sent-timestamp').each(function () {
             var dateString = $(this).attr('data-date');
             var thisId = $(this).attr('id');
-            dateString = dayjs(dateString, 'MM/D/YYYY HH:mm:ssA')
+            dateString = dayjs(dateString, 'MM/D/YYYY HH:mm:ssA');
             dateString = dayjs(dateString).format('LLL');
             var replaceDate = dayjs(dateString).fromNow();
             $("#" + thisId).text(replaceDate);
         });
     }
 
-
     UpdateDisplayTimes();
-
 
 })
 
 
-
-
 function MarkAsRead(id) {
 
-    console.log("onclick for mark as read, id: " + id);
-
-
     const baseUrl = window.location.origin;
-    console.log("baseUrl: " + baseUrl);
     
     var url = baseUrl + '/Notification/MarkAsRead/' + id;
 
@@ -85,11 +68,8 @@ function MarkAsRead(id) {
                 div.remove();
             }
 
-            // UpdateDisplayTimes();
-
             GetCountUnreadNotifications();
             
-           
         },
         complete: function () {
 
@@ -98,7 +78,6 @@ function MarkAsRead(id) {
             alert("HTTP Status: " + jqXHR.status + "; Error Text: " + jqXHR.responseText); // Display error message  
         }
     });
-
 }
 
 
