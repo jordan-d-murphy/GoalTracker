@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace GoalTracker.Controllers
 {
+    [Authorize(Roles = "ConfirmedAccount")]
     public class NotificationController : Controller
     {
         private readonly GoalTrackerContext _context;

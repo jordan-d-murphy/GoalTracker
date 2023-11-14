@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 
 namespace GoalTracker.Controllers
 {
+    [Authorize(Roles = "ConfirmedAccount")]
     public class CalendarController : Controller
     {
         private readonly GoalTrackerContext _context;

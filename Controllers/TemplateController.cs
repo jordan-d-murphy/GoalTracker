@@ -9,9 +9,11 @@ using GoalTracker.Data;
 using GoalTracker.Models;
 using Microsoft.AspNetCore.Identity;
 using GoalTracker.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GoalTracker.Controllers
 {
+    [Authorize(Roles = "ConfirmedAccount")]
     public class TemplateController : Controller
     {
         private readonly GoalTrackerContext _context;
