@@ -133,8 +133,7 @@ namespace GoalTracker.Areas.Identity.Pages.Account
                     if (user is not null)
                     {
                         // send online status indication
-                        _messagePublisher.SendOnlinePresence(new OnlinePresence(user.Id.ToString(), OnlinePresenceStatus.ONLINE.ToString()));
-
+                        _messagePublisher.SendOnlinePresence(new OnlinePresence(user, OnlinePresenceStatus.ONLINE));
                     }
 
                     return LocalRedirect(returnUrl);

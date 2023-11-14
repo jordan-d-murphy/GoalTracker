@@ -218,13 +218,7 @@ $(document).ready(function () {
     var onlinePresenceIndicationsConnection = new signalR.HubConnectionBuilder().withUrl("/OnlinePresenceIndications").build();
 
     onlinePresenceIndicationsConnection.on("SendOnlinePresence", function (message) {
-        console.log("hit 'SendOnlinePresence' from '/OnlinePresenceIndications' in site.js file...");
         let data = JSON.parse(message);
-
-    
-        console.log("data.UserId is " + data.UserId);
-        console.log("data.Status is " + data.Status);
-        console.log("data.Timestamp is " + data.Timestamp);
 
         if (data.Status === "ONLINE")
         {
@@ -243,9 +237,6 @@ $(document).ready(function () {
             $("#opi_offline_" + data.UserId).show();                   
         }
 
-        
-
-        
     });
 
 

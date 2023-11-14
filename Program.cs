@@ -224,7 +224,7 @@ app.Use(async (context, next) =>
         {
             var msg1Min = "OnlinePresenceIndicator says you were active within the last min";
             System.Diagnostics.Debug.WriteLine(msg1Min);
-            _messagePublisher.SendOnlinePresence(new OnlinePresence(user.Id.ToString(), OnlinePresenceStatus.ONLINE.ToString()));
+            _messagePublisher.SendOnlinePresence(new OnlinePresence(user, OnlinePresenceStatus.ONLINE));
 
         }
 

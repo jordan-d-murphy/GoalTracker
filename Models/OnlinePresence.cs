@@ -6,17 +6,20 @@ namespace GoalTracker.Models;
 public class OnlinePresence
 {    
 
-    public OnlinePresence(string userId, string status) 
+    public OnlinePresence(ApplicationUser user, OnlinePresenceStatus status) 
     {
-        UserId = userId;
-        Status = status;
+        UserId = user.Id.ToString();
+        UserEmail = user.Email;
+        Status = status.ToString();
         Timestamp = DateTime.Now;
     }
 
-    public string UserId { get; set; }
+    public string UserId { get; }
 
-    public string Status { get; set; }
+    public string? UserEmail { get; }
 
-    public DateTime Timestamp { get; set; }
+    public string? Status { get; }
+
+    public DateTime Timestamp { get; }
 
 }

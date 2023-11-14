@@ -44,7 +44,7 @@ namespace GoalTracker.Areas.Identity.Pages.Account
             if (user is not null)
             {
                 // send online status indication
-                _messagePublisher.SendOnlinePresence(new OnlinePresence(user.Id.ToString(), OnlinePresenceStatus.OFFLINE.ToString()));
+                _messagePublisher.SendOnlinePresence(new OnlinePresence(user, OnlinePresenceStatus.OFFLINE));
                 user.OnlinePresenceIndicator = null;
                 await _userManager.UpdateAsync(user);
             }

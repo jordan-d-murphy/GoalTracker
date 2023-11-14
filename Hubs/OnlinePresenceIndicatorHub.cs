@@ -4,9 +4,9 @@ namespace GoalTracker.Hubs;
 
 public class OnlinePresenceIndicatorHub : Hub
 {
-    public async Task SendOnlinePresence(string user, string message)
+    public async Task SendOnlinePresence(string user, string status)
     {
-        await Clients.All.SendAsync("SendOnlinePresence", user, message);
+        await Clients.All.SendAsync("SendOnlinePresence", user, status);
     }
 
     
