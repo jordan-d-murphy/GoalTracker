@@ -291,5 +291,6 @@ namespace GoalTracker.Controllers
 
             return RedirectToAction("Index", new { teamVMMessage = $"Unable to unassign role {unassign!.RemoveTeam!.Id} from User {user.Email}.", teamVMMessageType = "warning" });
         }
+        
     }
 }

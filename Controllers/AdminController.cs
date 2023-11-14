@@ -5,6 +5,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using GoalTracker.Areas.Identity.Data;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
+using Microsoft.AspNetCore.SignalR;
+using GoalTracker.Hubs;
+using GoalTracker.Utils;
+using GoalTracker.RabbitMQ;
+using Microsoft.EntityFrameworkCore;
+using GoalTracker.Enums;
 
 namespace GoalTracker.Controllers;
 
@@ -16,14 +22,18 @@ public class AdminController : Controller
     private readonly RoleManager<ApplicationRole> _roleManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
 
+    private readonly IMessageProducer _messagePublisher;
+
 
     public AdminController(ILogger<HomeController> logger, UserManager<ApplicationUser> userManager,
-            RoleManager<ApplicationRole> roleManager, SignInManager<ApplicationUser> signInManager)
+            RoleManager<ApplicationRole> roleManager, SignInManager<ApplicationUser> signInManager,
+            IMessageProducer messagePublisher)
     {
         _logger = logger;
         _userManager = userManager;
         _roleManager = roleManager;
         _signInManager = signInManager;
+        _messagePublisher = messagePublisher;
     }
 
     public IActionResult Index(string? adminVMMessage, string? adminVMMessageType)
@@ -147,6 +157,7 @@ public class AdminController : Controller
 
         return RedirectToAction("Index", new { adminVMMessage = $"Unable to delete role {delete.Role}.", adminVMMessageType = "warning" });
     }
+
 
 
 }

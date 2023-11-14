@@ -131,6 +131,8 @@ app.MapHub<OnlinePresenceIndicatorHub>("/OnlinePresenceIndications");
 
 app.Use(async (context, next) =>
 {
+    // REFACTOR
+
     var userManager = context.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
     var user = userManager.GetUserAsync(context.User).Result;
 
@@ -181,6 +183,8 @@ app.Use(async (context, next) =>
 
 app.Use(async (context, next) =>
 {
+    // REFACTOR
+
     var userManager = context.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
     var user = userManager.GetUserAsync(context.User).Result;
 

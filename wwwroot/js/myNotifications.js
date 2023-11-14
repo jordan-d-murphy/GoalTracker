@@ -52,9 +52,7 @@ $(document).ready(function () {
 function MarkAsRead(id) {
 
     const baseUrl = window.location.origin;
-    
     var url = baseUrl + '/Notification/MarkAsRead/' + id;
-
     console.log("MarkAsRead(<id>) url: " + url);
 
     $.ajax({
