@@ -7,9 +7,6 @@ namespace GoalTracker.Utils;
 
 public static class Utils
 {
-
-
-
     public static async Task SetUpDefaultUser(WebApplicationBuilder builder, UserManager<ApplicationUser> userManager, string userMoniker, string[] roles)
     {
         var user = builder.Configuration.GetSection(userMoniker).Get<TestUser>();
@@ -22,12 +19,11 @@ public static class Utils
         }
         else
         {
-            var success = await CreateUser(user, roles, userManager);
+            var success = await CreateApplicationUser(user, roles, userManager);
         }
     }
 
-
-    public async static Task<bool> CreateUser(TestUser testUser, string[] roles, UserManager<ApplicationUser> userManager)
+    public async static Task<bool> CreateApplicationUser(TestUser testUser, string[] roles, UserManager<ApplicationUser> userManager)
     {
         if (!String.IsNullOrEmpty(testUser.Email) && !String.IsNullOrEmpty(testUser.UserName) && !String.IsNullOrEmpty(testUser.Password))
         {
@@ -62,6 +58,4 @@ public static class Utils
         }
         return false;
     }
-
-
 }

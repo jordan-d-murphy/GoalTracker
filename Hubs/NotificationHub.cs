@@ -8,6 +8,5 @@ public class NotificationHub : Hub
     {
         await Clients.All.SendAsync("RecieveMessage", user, message);
     }
-
     
 }

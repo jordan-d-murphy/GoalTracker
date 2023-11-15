@@ -9,5 +9,4 @@ public class OnlinePresenceIndicatorHub : Hub
         await Clients.All.SendAsync("SendOnlinePresence", user, status);
     }
 
-    
 }

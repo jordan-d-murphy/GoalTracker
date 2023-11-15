@@ -10,8 +10,6 @@ public class RabbitMQProducer : IMessageProducer
 {
     public void SendMessage<T> (T message)
     {
-        // var factory = new ConnectionFactory { HostName = "localhost" };
-
         var factory = new ConnectionFactory
                 {
                     HostName = "localhost",
@@ -36,8 +34,6 @@ public class RabbitMQProducer : IMessageProducer
 
     public void SendOnlinePresence<T> (T message)
     {
-        // var factory = new ConnectionFactory { HostName = "localhost" };
-
         var factory = new ConnectionFactory
                 {
                     HostName = "localhost",
