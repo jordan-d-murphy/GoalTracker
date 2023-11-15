@@ -44,23 +44,21 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IMessageProducer, RabbitMQProducer>();
 builder.Services.AddSignalR();
 
-
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
 
-
-
     SeedData.Initialize(services);
 
     var roleManager = services.GetRequiredService<RoleManager<ApplicationRole>>();
     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
 
-    string[] roles = { "Admin", "ConfirmedAccount" };
+    string[] adminRoles = { "Admin", "ConfirmedAccount" };
+    string[] testUserRoles = { "ConfirmedAccount" };
 
-    foreach (var role in roles)
+    foreach (var role in adminRoles)
     {
         var roleExists = await roleManager.RoleExistsAsync(role);
         if (!roleExists)
@@ -69,36 +67,8 @@ using (var scope = app.Services.CreateScope())
         }
     }
 
-    // Create Admin user if does not exist
-    var adminUserName = builder.Configuration["AdminUserName"];
-    var adminEmail = builder.Configuration["AdminEmail"];
-    var adminPassword = builder.Configuration["AdminPassword"];
-
-    if (String.IsNullOrEmpty(adminUserName) || String.IsNullOrEmpty(adminEmail) || String.IsNullOrEmpty(adminPassword))
-    {
-        // unable to fetch config 
-        throw new ConfigurationErrorsException("Unable to read AppSettings.json");
-    }
-    else
-    {
-        var success = await Utils.CreateUser(adminUserName, adminEmail, adminPassword, roles, userManager);
-    }
-
-    // Create Test user if does not exist
-    var testUserUserName = builder.Configuration["TestUserUserName"];
-    var testUserEmail = builder.Configuration["TestUserEmail"];
-    var testUserPassword = builder.Configuration["TestUserPassword"];
-
-    if (String.IsNullOrEmpty(testUserUserName) || String.IsNullOrEmpty(testUserEmail) || String.IsNullOrEmpty(testUserPassword))
-    {
-        // unable to fetch config 
-        throw new ConfigurationErrorsException("Unable to read AppSettings.json");
-    }
-    else
-    {
-        var success = await Utils.CreateUser(testUserUserName, testUserEmail, testUserPassword, new string[] { "ConfirmedAccount" }, userManager);
-    }
-
+    await Utils.SetUpDefaultUser(builder, userManager, "AdminUser", adminRoles);
+    await Utils.SetUpDefaultUser(builder, userManager, "TestUser", testUserRoles);
 }
 
 
@@ -131,25 +101,15 @@ app.MapHub<OnlinePresenceIndicatorHub>("/OnlinePresenceIndications");
 
 app.Use(async (context, next) =>
 {
-    // REFACTOR
-
     var userManager = context.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
     var user = userManager.GetUserAsync(context.User).Result;
+    var _hubContext = context.RequestServices.GetRequiredService<IHubContext<NotificationHub>>();
 
     if (user is not null)
     {
-        var msgLoggedIn = $" \n\nThis is from the middleware... howdy, {user.Email}!\n\n ";
-        System.Diagnostics.Debug.WriteLine(msgLoggedIn);
         user.OnlinePresenceIndicator = DateTime.Now;
         await userManager.UpdateAsync(user);
     }
-    else
-    {
-        var msgGuest = $" \n\nThis is from the middleware... howdy, Guest User!\n\n ";
-        System.Diagnostics.Debug.WriteLine(msgGuest);
-    }
-
-    var _hubContext = context.RequestServices.GetRequiredService<IHubContext<NotificationHub>>();
 
     var factory = new ConnectionFactory
     {
@@ -169,13 +129,13 @@ app.Use(async (context, next) =>
     var consumer = new EventingBasicConsumer(channel);
     consumer.Received += async (model, eventArgs) =>
     {
-        System.Diagnostics.Debug.WriteLine(" \n\n\nApplicationNotifications - consumer.Received += async (model, eventArgs) =>\n\n\n ");
         var body = eventArgs.Body.ToArray();
         var message = Encoding.UTF8.GetString(body);
         channel.BasicAck(eventArgs.DeliveryTag, false);
         await _hubContext!.Clients.All.SendAsync("ReceiveMessage", message);
     };
     channel.BasicConsume(queue: "ApplicationNotifications", autoAck: false, consumer: consumer);
+
     await next(context);
 });
 
@@ -183,11 +143,8 @@ app.Use(async (context, next) =>
 
 app.Use(async (context, next) =>
 {
-    // REFACTOR
-
     var userManager = context.RequestServices.GetRequiredService<UserManager<ApplicationUser>>();
     var user = userManager.GetUserAsync(context.User).Result;
-
     var _hubContext = context.RequestServices.GetRequiredService<IHubContext<OnlinePresenceIndicatorHub>>();
     var _messagePublisher = context.RequestServices.GetRequiredService<IMessageProducer>();
 
@@ -209,7 +166,6 @@ app.Use(async (context, next) =>
     var consumer = new EventingBasicConsumer(channel);
     consumer.Received += async (model, eventArgs) =>
     {
-        System.Diagnostics.Debug.WriteLine(" \n\n\nOnlinePresenceIndications consumer.Received += async (model, eventArgs) =>\n\n\n ");
         var body = eventArgs.Body.ToArray();
         var message = Encoding.UTF8.GetString(body);
         channel.BasicAck(eventArgs.DeliveryTag, false);
@@ -219,26 +175,14 @@ app.Use(async (context, next) =>
 
     if (user is not null)
     {
-        var msgLoggedIn = $" \n\nsecond middleware, {user.Email}, your OnlinePresenceIndicator says you were last active at {user.OnlinePresenceIndicator}!\n\n ";
-        System.Diagnostics.Debug.WriteLine(msgLoggedIn);
-
         var utcOPI = user.OnlinePresenceIndicator?.ToUniversalTime();
-
         if (DateTime.UtcNow < utcOPI?.AddMinutes(1))
         {
-            var msg1Min = "OnlinePresenceIndicator says you were active within the last min";
-            System.Diagnostics.Debug.WriteLine(msg1Min);
             _messagePublisher.SendOnlinePresence(new OnlinePresence(user, OnlinePresenceStatus.ONLINE));
-
         }
-
-      
     }
     await next(context);
-
 });
-
-
 
 
 

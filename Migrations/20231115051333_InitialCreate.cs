@@ -121,6 +121,7 @@ namespace GoalTracker.Migrations
                     Zip = table.Column<string>(type: "TEXT", nullable: true),
                     DisplayName = table.Column<string>(type: "TEXT", nullable: true),
                     DOB = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    OnlinePresenceIndicator = table.Column<DateTime>(type: "TEXT", nullable: true),
                     TeamId = table.Column<Guid>(type: "TEXT", nullable: true),
                     UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),

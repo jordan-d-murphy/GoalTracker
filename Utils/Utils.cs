@@ -1,41 +1,67 @@
 using System.Configuration;
 using GoalTracker.Areas.Identity.Data;
+using GoalTracker.Models;
 using Microsoft.AspNetCore.Identity;
 
 namespace GoalTracker.Utils;
 
 public static class Utils
 {
-    public async static Task<bool> CreateUser(string username, string email, string password, string[] roles, UserManager<ApplicationUser> userManager)
+
+
+
+    public static async Task SetUpDefaultUser(WebApplicationBuilder builder, UserManager<ApplicationUser> userManager, string userMoniker, string[] roles)
     {
-        var user = new ApplicationUser
+        var user = builder.Configuration.GetSection(userMoniker).Get<TestUser>();
+
+
+        if (user is null || String.IsNullOrEmpty(user.UserName) || String.IsNullOrEmpty(user.Email) || String.IsNullOrEmpty(user.Password))
         {
-            UserName = username,
-            Email = email
-        };
-
-        var _user = await userManager.FindByEmailAsync(email);
-
-        if (_user == null)
+            // unable to fetch config 
+            throw new ConfigurationErrorsException("Unable to read AppSettings.json");
+        }
+        else
         {
-            var createUser = await userManager.CreateAsync(user, password);
+            var success = await CreateUser(user, roles, userManager);
+        }
+    }
 
-            if (createUser.Succeeded)
+
+    public async static Task<bool> CreateUser(TestUser testUser, string[] roles, UserManager<ApplicationUser> userManager)
+    {
+        if (!String.IsNullOrEmpty(testUser.Email) && !String.IsNullOrEmpty(testUser.UserName) && !String.IsNullOrEmpty(testUser.Password))
+        {
+            var user = new ApplicationUser
             {
-                var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
-                var result = await userManager.ConfirmEmailAsync(user, code);
+                UserName = testUser.UserName,
+                Email = testUser.Email
+            };
 
-                if (result.Succeeded)
+            var _user = await userManager.FindByEmailAsync(testUser.Email);
+
+            if (_user == null)
+            {
+                var createUser = await userManager.CreateAsync(user, testUser.Password);
+
+                if (createUser.Succeeded)
                 {
-                    var roleResult = await userManager.AddToRolesAsync(user, roles);
+                    var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var result = await userManager.ConfirmEmailAsync(user, code);
 
-                    if (roleResult.Succeeded)
+                    if (result.Succeeded)
                     {
-                        return true;
+                        var roleResult = await userManager.AddToRolesAsync(user, roles);
+
+                        if (roleResult.Succeeded)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
         }
         return false;
     }
+
+
 }
