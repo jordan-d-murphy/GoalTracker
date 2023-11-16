@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoalTracker.Migrations
 {
     [DbContext(typeof(GoalTrackerContext))]
-    [Migration("20231115051333_InitialCreate")]
+    [Migration("20231116063046_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

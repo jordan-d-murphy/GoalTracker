@@ -6,19 +6,59 @@
 
 <h1>VizType Details</h1>
 
-<div>
-    <h4>VizType</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-    </dl>
+<ul class="nav">
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="VizType" asp-action="Index">
+            <i class="bi-arrow-left-square" style="font-size: 1rem; color: #0077cc;"></i>Back
+        </a>
+    </li>
+</ul>
+
+<div class="row">
+
+
+    <div class="col-md-8">
+        <div class="m-3 p-3 text-center" width="100%" style="min-height: 600px;">
+            <canvas id="chartCanvas"></canvas>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+
+        <dl class="row m-3 p-3">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+        </dl>
+
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+@section Scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    @if (Model is not null)
+    {
+        <script src="~/js/chart_js/@(Model.Name).js" asp-append-version="true"></script>
+    }
+
+    @* <script src="~/js/chart_js/Line.js" asp-append-version="true"></script>
+<script src="~/js/chart_js/Pie.js" asp-append-version="true"></script>
+<script src="~/js/chart_js/Polar.js" asp-append-version="true"></script>
+<script src="~/js/chart_js/Radar.js" asp-append-version="true"></script> *@
+}

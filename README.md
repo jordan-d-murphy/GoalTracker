@@ -5,10 +5,10 @@
 https://learn.microsoft.com/en-us/aspnet/core/?view=aspnetcore-7.0
 
 ### Bootstrap 5 Docs 
-https://getbootstrap.com/docs/5.2/getting-started/introduction/
+https://getbootstrap.com/docs/5.2/getting-started/introduction
 
 ### Bootstrap Icons 
-https://icons.getbootstrap.com/
+https://icons.getbootstrap.com
 
 ### Google Fonts
 https://fonts.google.com/specimen/Tajawal
@@ -20,7 +20,11 @@ https://fullcalendar.io/docs
 https://www.rabbitmq.com/documentation.html
 
 ### SignalR
-https://learn.microsoft.com/en-us/aspnet/signalr/
+https://learn.microsoft.com/en-us/aspnet/signalr
 
 ### Day.js
 https://day.js.org/docs/en/display/from-now
+
+### Chart.js
+https://www.chartjs.org/docs/latest
+

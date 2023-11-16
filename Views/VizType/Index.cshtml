@@ -54,12 +54,17 @@
                     </div>
                     <div class="card-footer">
 
+                        <a class="card-link align-bottom" asp-controller="VizType" asp-action="Details"
+                            asp-route-id="@vizType.Id">
+                            <i class="bi-graph-up" style="font-size: 1rem; color: #0077cc;"></i>View
+                        </a>
 
                         <a class="card-link align-bottom" data-bs-toggle="offcanvas"
                             href="#offCanvas_VizTypeDetails_@vizType.Id">
                             <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Details
                         </a>
                         @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeDetails.cshtml", @vizType)
+
 
 
                         <a class="card-link align-bottom" data-bs-toggle="offcanvas"
@@ -69,7 +74,7 @@
                         @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeEdit.cshtml", @vizType)
 
 
-                        <a class="" data-bs-toggle="offcanvas" href="#offCanvas_VizTypeDelete_@vizType.Id">
+                        <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_VizTypeDelete_@vizType.Id">
                             <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
                         </a>
                         @await Html.PartialAsync("~/Views/VizType/OffCanvas/_VizTypeDelete.cshtml", @vizType)
