@@ -5,7 +5,7 @@
 https://learn.microsoft.com/en-us/aspnet/core/?view=aspnetcore-7.0
 
 ### Bootstrap 5 Docs 
-https://getbootstrap.com/docs/5.2/getting-started/introduction
+https://getbootstrap.com/docs
 
 ### Bootstrap Icons 
 https://icons.getbootstrap.com
