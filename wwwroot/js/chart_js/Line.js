@@ -6,7 +6,7 @@ $(document).ready(function () {
 
     const ctx = document.getElementById('chartCanvas');
 
-    const labels = ['Red', 'Blue', 'Yellow'];
+    const labels = ['Red', 'Blue', 'Yellow', 'Red', 'Blue', 'Yellow', 'Red', 'Blue', 'Yellow', 'Red'];
 
     const data = {
         labels: labels,

@@ -16,7 +16,7 @@ $(document).ready(function () {
         ],
         datasets: [{
             label: 'My First Dataset',
-            data: [11, 16, 7, 3, 14],
+            data: [18, 14, 11, 9, 22],
             backgroundColor: [
                 'rgb(255, 99, 132)',
                 'rgb(75, 192, 192)',

@@ -28,7 +28,7 @@ namespace GoalTracker.Controllers
 
         // GET: DashViz
         public async Task<IActionResult> Index()
-        {          
+        {
             var dashVizs = _context.DashViz.Include(t => t.Parent).Include(t => t.CreatedBy);
             return View(await dashVizs.ToListAsync());
         }
@@ -70,6 +70,27 @@ namespace GoalTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    if (dashViz.ParentId is not null)
+                    {
+                        var dash = await _context.Dash.Include(m => m.Vizualizations)
+                            .FirstOrDefaultAsync(m => m.Id == dashViz.ParentId);
+                        if (dash is not null)
+                        {
+                            if (dash.Vizualizations is null)
+                            {
+                                dash.Vizualizations = new List<DashViz>();
+                            }                            
+                            if (dash is not null)
+                            {
+                                dash.Vizualizations!.Add(dashViz);                                
+                            }
+
+                        }
+
+                    }
+
+
+
                     dashViz.Id = Guid.NewGuid();
                     dashViz.CreatedBy = user;
                     dashViz.CreatedDate = DateTime.Now;

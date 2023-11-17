@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>VizType Details</h1>
+<h1>VizType | @Model.Title</h1>
 
 <ul class="nav">
     <li class="nav-item">
@@ -14,30 +14,8 @@
     </li>
 </ul>
 
-<div class="row">
-
-
-    <div class="col-md-8">
-        <div class="m-3 p-3 text-center" width="100%" style="min-height: 600px;">
-            <canvas id="chartCanvas"></canvas>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-
-        <dl class="row m-3 p-3">
-            <dt>
-                @Html.DisplayNameFor(model => model.Title)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Title)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
+    <div class="row">
+        <dl class="m-3 p-3">            
             <dt>
                 @Html.DisplayNameFor(model => model.Description)
             </dt>
@@ -45,9 +23,17 @@
                 @Html.DisplayFor(model => model.Description)
             </dd>
         </dl>
-
     </div>
-</div>
+
+
+
+     <div class="row justify-content-around">
+
+        <div class="col-md-10 offset-md-1 m-3 p-3" style="min-height: 550px;">
+            <canvas id="chartCanvas"></canvas>
+        </div>
+    </div>
+
 
 @section Scripts
 {
