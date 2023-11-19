@@ -302,7 +302,8 @@ namespace GoalTracker.Migrations
                         name: "FK_TrackingRecord_TrackingRecord_DashId",
                         column: x => x.DashId,
                         principalTable: "TrackingRecord",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TrackingRecord_TrackingRecord_DashViz_TypeId",
                         column: x => x.DashViz_TypeId,

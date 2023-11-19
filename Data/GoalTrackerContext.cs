@@ -57,6 +57,13 @@ namespace GoalTracker.Data
                     .HasForeignKey(rc => rc.RoleId)
                     .IsRequired();
             });
+
+
+
+            builder.Entity<Dash>()
+                .HasMany(dm => dm.Vizualizations)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         public DbSet<GoalTracker.Models.Goal> Goal { get; set; } = default!;

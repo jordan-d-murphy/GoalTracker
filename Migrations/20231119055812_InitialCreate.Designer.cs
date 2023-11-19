@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoalTracker.Migrations
 {
     [DbContext(typeof(GoalTrackerContext))]
-    [Migration("20231117082331_InitialCreate")]
+    [Migration("20231119055812_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -1065,7 +1065,8 @@ namespace GoalTracker.Migrations
                 {
                     b.HasOne("GoalTracker.Models.Dash", null)
                         .WithMany("Vizualizations")
-                        .HasForeignKey("DashId");
+                        .HasForeignKey("DashId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GoalTracker.Models.VizType", "Type")
                         .WithMany()

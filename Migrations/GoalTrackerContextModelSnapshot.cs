@@ -1062,7 +1062,8 @@ namespace GoalTracker.Migrations
                 {
                     b.HasOne("GoalTracker.Models.Dash", null)
                         .WithMany("Vizualizations")
-                        .HasForeignKey("DashId");
+                        .HasForeignKey("DashId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("GoalTracker.Models.VizType", "Type")
                         .WithMany()
