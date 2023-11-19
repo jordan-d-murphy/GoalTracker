@@ -63,7 +63,7 @@ namespace GoalTracker.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name,JSONData,Id,ParentId,Title,Description,CreatedDate,StartedDate,TargetDate,CompletedDate,Completed,Favorited,Category,Icon,Color")] DashViz dashViz)
-        {
+        {            
             var user = _userManager.GetUserAsync(User).Result;
 
             if (user is not null)
@@ -84,19 +84,15 @@ namespace GoalTracker.Controllers
                             {
                                 dash.Vizualizations!.Add(dashViz);                                
                             }
-
                         }
-
                     }
-
-
 
                     dashViz.Id = Guid.NewGuid();
                     dashViz.CreatedBy = user;
                     dashViz.CreatedDate = DateTime.Now;
                     _context.Add(dashViz);
                     await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Details), "Dash", new { id = dashViz.ParentId } );
                 }
             }
             return View(dashViz);
