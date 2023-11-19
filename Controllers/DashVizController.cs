@@ -144,7 +144,7 @@ namespace GoalTracker.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), "Dash", new { id = dashViz.ParentId } );
             }
             return View(dashViz);
         }
@@ -177,13 +177,16 @@ namespace GoalTracker.Controllers
                 return Problem("Entity set 'GoalTrackerContext.DashViz'  is null.");
             }
             var dashViz = await _context.DashViz.FindAsync(id);
+            Guid? parentId = null;
             if (dashViz != null)
             {
+                parentId = dashViz.ParentId;
                 _context.DashViz.Remove(dashViz);
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Details), "Dash", new { id = parentId } );
+
         }
 
         private bool DashVizExists(Guid id)

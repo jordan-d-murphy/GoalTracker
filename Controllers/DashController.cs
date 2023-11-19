@@ -41,8 +41,9 @@ namespace GoalTracker.Controllers
                 return NotFound();
             }
 
-            var dash = await _context.Dash.Include(m => m.Vizualizations)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var dash = await _context.Dash.Where(m => m.Id == id)
+                .Include(m => m.Vizualizations)
+                .FirstOrDefaultAsync();
             if (dash == null)
             {
                 return NotFound();

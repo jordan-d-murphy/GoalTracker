@@ -223,8 +223,10 @@
 
 
         <div class="form-group mb-3 float-end">
-            <form asp-action="Delete">
-                <input type="hidden" asp-for="Id" />
+            <form asp-controller="DashViz" asp-action="Delete">
+                @* <input type="hidden" asp-for="Id" /> *@
+                    <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+
                 <input type="submit" value="Delete" class="btn btn-outline-danger" />
             </form>
         </div>

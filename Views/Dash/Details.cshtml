@@ -26,10 +26,26 @@
         {
             @foreach (var viz in Model!.Vizualizations)
             {
-                <div class="card col-md-6">
-                    @viz.Title
-                    @viz.Name
-                    @viz.Type
+                <div class="card col-md-6 p-3">
+                    <p>@viz.Title</p>
+                    <p>@viz.Id</p>
+
+                     <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_DashVizDetails_@viz.Id">
+                        <i class="bi-card-text" style="font-size: 1rem; color: #0077cc;"></i>Details
+                    </a>
+                    @await Html.PartialAsync("~/Views/DashViz/OffCanvas/_DashVizDetails.cshtml", viz)
+
+
+                    <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_DashVizEdit_@viz.Id">
+                        <i class="bi-pen" style="font-size: 1rem; color: #0077cc;"></i>Edit
+                    </a>
+                    @await Html.PartialAsync("~/Views/DashViz/OffCanvas/_DashVizEdit.cshtml", viz)
+
+
+                    <a class="card-link align-bottom" data-bs-toggle="offcanvas" href="#offCanvas_DashVizDelete_@viz.Id">
+                        <i class="bi-trash3" style="font-size: 1rem; color: #0077cc;"></i> Delete
+                    </a>
+                    @await Html.PartialAsync("~/Views/DashViz/OffCanvas/_DashVizDelete.cshtml", viz)
                 </div>
             }
         }
